@@ -1,0 +1,15 @@
+Package: tgutil
+Title: Simple utility functions for Tanay lab code
+Version: 0.0.1
+Authors@R: person("Elad", "Chomsky", email = "elad@chomsky.me", role = c("aut", "cre"))
+Description: Simple utility functions that are shared across several packages maintained by the Tanay lab.
+Depends: R (>= 3.2.0)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports:
+    broom,
+    data.table,
+    tibble,
+    dplyr
+RoxygenNote: 6.0.1
