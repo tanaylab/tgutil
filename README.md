@@ -1,8 +1,41 @@
 # tgutils package - Tanay's group collection of simple utility functions#
 
+## Read legacy csv's
+
+### fread_rownames ###
+
+``` R
+fread_rownames(..., row.var='rowname')
+```
+
+Use `fread()` to read a csv/tsv with row names (e.g. one created with `read.table()`). The name of the column that will hold the row names is given in `row.var`.
+
+All arguments are passed to the underlying `fread()` call. Note that the following arguments can't be used (and wil be silently ignored): `header`, `skip`, `col.names`.
+
+
 ## Sparse Matrix I/O ##
 
-#### h5_write_sparse() ####
+### fwrite_sparse ###
+
+``` R
+fwrite_sparse(x, fname)
+```
+
+Write the contents of the sparse matrix `x` into a set of text files. Assuming that `fname` is `xxx.tab`, the following files will be created:
+* `xxx.tab` - A tab separated file holding the matrix's data, in a three column syntax.
+* `xxx.dims.tab` - The dimensions of `x`
+* `xxx.colnames.tab`, `xxx.rownames.tab` - The matrix's colnames and rownames. These files will be omitted if the matrix does not include column or row names.
+
+### fread_sparse ###
+
+``` R
+fwrite_sparse(fname)
+```
+
+Reads a sparse matrix from a set of text file created by `fwrite_sparse()`.
+
+
+#### h5_write_sparse ####
 
 ``` R
 h5_write_sparse(x, fname)
@@ -11,13 +44,12 @@ h5_write_sparse(x, fname)
 Write the contents of the sparse matrix `x` into the file `fname` using an HDF5 based format. If the file already exists it is overwritten.
 
 The resulting file includes the following datasets:
-
 * `i`, `j`, `x` - The matrix's data, as represented by a three column syntax
 * `dims` - The original dimensions of the matrix
 * `colnames`, `rownames` - The matrix's colnames and rownames. These datasets will be omitted if the matrix does not include column or row names.
 
 
-#### h5_read_sparse() ####
+#### h5_read_sparse ####
 
 ``` R
 h5_read_sparse(fname)
@@ -28,7 +60,7 @@ Read a sparse matrix from a file created by `h5_write_sparse()`.
 
 ## HDF5 I/O ##
 
-#### ```write_flat_hdf5()``` ###
+#### write_flat_hdf5 ###
 
 ``` R
 h5_write_flat(list, fname)
@@ -44,7 +76,7 @@ write_flat_hdf5(argpack(x, y, z), 'sample.h5')
 ```
 Will store the contents of the variables `x`, `y`, and `z` into the HDF5 file `sample.h5`. The datasets within the file will be names `'x'`, `'y'`, and `'z'`.
 
-#### ```read_flat_hdf5()``` ###
+#### read_flat_hdf5 ###
 
 ``` R
 h5_read_flat(fname, datasets=NULL)

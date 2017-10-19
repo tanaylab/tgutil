@@ -31,64 +31,56 @@ fread_rownames <- function(..., row.var='rowname')
 ########################################################################
 fwrite_sparse <- function(x, fname)
 {
+	ext <- tools::file_ext(fname)
+	fname <- tools::file_path_sans_ext(fname)
+
     if (!is.null(rownames(x))) {
         rows <- tibble(rowname=rownames(x))
-        data.table::fwrite(rows, paste0(fname, ".rownames"), row.names=FALSE, col.names=TRUE)
+        data.table::fwrite(rows, paste0(fname, '.rownames.', ext), row.names=FALSE, col.names=TRUE)
         rownames(x) <- NULL
     }
 
     if (!is.null(colnames(x))) {
         cols <- tibble(colname=colnames(x))
-        data.table::fwrite(cols, paste0(fname, ".colnames"), row.names=FALSE, col.names=TRUE)
+        data.table::fwrite(cols, paste0(fname, '.colnames.', ext), row.names=FALSE, col.names=TRUE)
         colnames(x) <- NULL
     }
+
+	dims <- tibble(dims=dim(x))
+	data.table::fwrite(dims, paste0(fname, '.dims.', ext), row.names=FALSE, col.names=TRUE)
 
     x <- broom::tidy(x)
     if (any(colnames(x) != c('row', 'column', 'value'))) {
         stop("Failed to convert argumant 'x' into a row-column-value format")
     }
 
-    data.table::fwrite(x, fname, sep='\t', row.names=FALSE, col.names=TRUE)
+    data.table::fwrite(x, paste0(fname, '.', ext), sep='\t', row.names=FALSE, col.names=TRUE)
 }
 
 
 ########################################################################
 fread_sparse <- function(fname)
 {
-    x <- data.table::fread(fname, sep='\t', header=TRUE, data.table=FALSE)
+	ext <- tools::file_ext(fname)
+	fname <- tools::file_path_sans_ext(fname)
+
+    x <- data.table::fread(paste0(fname, '.', ext), sep='\t', header=TRUE, data.table=FALSE)
+	dims <- data.table::fread(paste0(fname, '.dims.', ext), sep='\t', header=TRUE, data.table=FALSE)
+
     if (any(colnames(x) != c('row', 'column', 'value'))) {
         stop("File '", fname, "' does not match sparse matrix format")
     }
-    x <- Matrix::sparseMatrix(i=x$row, j=x$column, x=x$value)
+    x <- Matrix::sparseMatrix(i=x$row, j=x$column, x=x$value, dims=dims$dims)
 
-    rows_fname <- paste0(fname, '.rownames')
+    rows_fname <- paste0(fname, '.rownames.', ext)
     if (file.exists(rows_fname)) {
         rows <- data.table::fread(rows_fname, sep='\t', header=TRUE, data.table=FALSE)
-        if (ncol(rows) != 1) {
-            stop("Row names in '", rows_fname, "' have an invalid format")
-        }
-        if (colnames(rows) != 'rowname') {
-            stop("Row names in '", rows_fname, "' have an invalid format")
-        }
-        if (nrow(rows) != nrow(x)) {
-            stop("Number of row names in '", rows_fname, "' does not match matrix")
-        }
         rownames(x) <- rows$rowname
     }
-    rm(rows)
 
-    cols_fname <- paste0(fname, '.colnames')
+    cols_fname <- paste0(fname, '.colnames.', ext)
     if (file.exists(cols_fname)) {
         cols <- data.table::fread(cols_fname, sep='\t', header=TRUE, data.table=FALSE)
-        if (ncol(cols) != 1) {
-            stop("Column names in '", cols_fname, "' have an invalid format")
-        }
-        if (colnames(cols) != 'colname') {
-            stop("Column names in '", cols_fname, "' have an invalid format")
-        }
-        if (nrow(cols) != ncol(x)) {
-            stop("Number of Column names in '", cols_fname, "' does not match matrix")
-        }
         colnames(x) <- cols$colname
     }
 
