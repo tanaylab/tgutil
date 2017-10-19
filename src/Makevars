@@ -1,0 +1,1 @@
+PKG_LIBS =  -lhdf5_cpp $(BLAS_LIBS)

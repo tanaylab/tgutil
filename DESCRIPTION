@@ -11,5 +11,6 @@ Imports:
     broom,
     data.table,
     tibble,
-    dplyr
+    Rcpp
 RoxygenNote: 6.0.1
+LinkingTo: Rcpp
