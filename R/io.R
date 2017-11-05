@@ -31,9 +31,6 @@ fread_rownames <- function(..., row.var='rowname')
 ########################################################################
 fwrite_mm <- function(x, fname, sep=' ', row.names=TRUE, col.names=TRUE)
 {
-	ext <- tools::file_ext(fname)
-	base <- tools::file_path_sans_ext(fname)
-
 	rows <- NULL
 	cols <- NULL
 
@@ -44,7 +41,7 @@ fwrite_mm <- function(x, fname, sep=' ', row.names=TRUE, col.names=TRUE)
 
 	if (!is.null(rownames(x)) && ((row.names==TRUE) || is.character(row.names))) {
 		if (row.names==TRUE) {
-			row.names <- paste0(base, '.rownames.', ext)
+			row.names <- paste0(fname, '.rownames')
 		}
         rows <- tibble(rowname=rownames(x))
         rownames(x) <- NULL
@@ -52,7 +49,7 @@ fwrite_mm <- function(x, fname, sep=' ', row.names=TRUE, col.names=TRUE)
 
     if (!is.null(colnames(x)) && ((col.names==TRUE) || is.character(col.names))) {
 		if (col.names == TRUE) {
-			col.names <- paste0(base, '.colnames.', ext)
+			col.names <- paste0(fname, '.colnames')
 		}
         cols <- tibble(colname=colnames(x))
         # data.table::fwrite(cols, col.names, row.names=FALSE, col.names=FALSE)
@@ -89,14 +86,11 @@ fwrite_mm <- function(x, fname, sep=' ', row.names=TRUE, col.names=TRUE)
 ########################################################################
 fread_mm <- function(fname, sep=' ', row.names=TRUE, col.names=TRUE)
 {
-	ext <- tools::file_ext(fname)
-	base <- tools::file_path_sans_ext(fname)
-
 	if (row.names==TRUE) {
-		row.names <- paste0(base, '.rownames.', ext)
+		row.names <- paste0(fname, '.rownames')
 	}
 	if (col.names == TRUE) {
-		col.names <- paste0(base, '.colnames.', ext)
+		col.names <- paste0(fname, '.colnames')
 	}
 
 	input <- file(fname, open='r')
