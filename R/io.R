@@ -1,4 +1,5 @@
 ########################################################################
+#' @export
 argpack <- function(...)
 {
 
@@ -15,6 +16,7 @@ argpack <- function(...)
 
 
 ########################################################################
+#' @export
 fread_rownames <- function(..., row.var='rowname')
 {
 	params <- list(...)
@@ -29,6 +31,7 @@ fread_rownames <- function(..., row.var='rowname')
 
 
 ########################################################################
+#' @export
 fwrite_mm <- function(x, fname, sep=' ', row.names=TRUE, col.names=TRUE)
 {
 	rows <- NULL
@@ -84,6 +87,7 @@ fwrite_mm <- function(x, fname, sep=' ', row.names=TRUE, col.names=TRUE)
 
 
 ########################################################################
+#' @export
 fread_mm <- function(fname, sep=' ', row.names=TRUE, col.names=TRUE)
 {
 	if (row.names==TRUE) {
@@ -166,6 +170,7 @@ fread_mm <- function(fname, sep=' ', row.names=TRUE, col.names=TRUE)
 
 
 ########################################################################
+#' @export
 h5_write_sparse <- function(x, fname)
 {
 	data <- list()
@@ -195,6 +200,7 @@ h5_write_sparse <- function(x, fname)
 
 
 ########################################################################
+#' @export
 h5_read_sparse <- function(fname)
 {
 	data <- h5_read_flat(fname, c('dims', 'i', 'j', 'x', 'rownames', 'colnames'))
