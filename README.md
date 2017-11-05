@@ -15,24 +15,27 @@ All arguments are passed to the underlying `fread()` call. Note that the followi
 
 ## Sparse Matrix I/O ##
 
-### fwrite_sparse ###
+### fwrite_mm ###
 
 ``` R
-fwrite_sparse(x, fname)
+fwrite_mm(x, fname, sep=' ', row.names=TRUE, col.names=TRUE)
 ```
 
-Write the contents of the sparse matrix `x` into a set of text files. Assuming that `fname` is `xxx.tab`, the following files will be created:
-* `xxx.tab` - A tab separated file holding the matrix's data, in a three column syntax.
-* `xxx.dims.tab` - The dimensions of `x`
-* `xxx.colnames.tab`, `xxx.rownames.tab` - The matrix's colnames and rownames. These files will be omitted if the matrix does not include column or row names.
+Write the contents of the sparse matrix `x` into the text file `fname` in the MatrixMarket format (see http://math.nist.gov/MatrixMarket/formats.html).
 
-### fread_sparse ###
+The MatrixMarket format does not save row and column names. `fwrite_mm()` allows saving them into separate files using the `row.names` and `col.names` arguments. These arguments may contain file names into which the column and row names will be written. Alternately setting these arguments to `TRUE` will cause the row and column names to be written to `<fname>.rownames` and `<fname>.colnames` respectively.
+
+The argument `sep` indicates the field separator that will be used. Note that using any field separator other than space will result in an output that is not compliant with the MatrixMarket format.
+
+### fread_mm ###
 
 ``` R
-fwrite_sparse(fname)
+fread_mm(fname, sep=' ', row.names=TRUE, col.names=TRUE)
 ```
 
-Reads a sparse matrix from a set of text file created by `fwrite_sparse()`.
+Reads a sparse matrix in the MatrixMarket format from the file `fname`.
+
+The MatrixMarket format does not save row and column names. `fread_mm()` allows reading them from separate files using the `row.names` and `col.names` arguments. These arguments may contain file names from which the column and row names will be read. Alternately setting these arguments to `TRUE` will cause the row and column names to be read from `<fname>.rownames` and `<fname>.colnames` respectively.
 
 
 #### h5_write_sparse ####
