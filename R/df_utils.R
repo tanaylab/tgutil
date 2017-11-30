@@ -77,6 +77,8 @@ clip_vals.numeric <- function(x, min_val=NULL, max_val=NULL)
 clip_vals.data.frame <- function(x, min_val=NULL, max_val=NULL)
 {
     cols <- sapply(as.list(x), is.numeric)
-    x[cols] <- clip_vals.numeric(x[cols], min_val, max_val)
+    if (length(cols) > 0) {
+        x[cols] <- clip_vals.numeric(x[cols], min_val, max_val)
+    }
     return(x)
 }
