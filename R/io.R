@@ -29,6 +29,12 @@ fread_rownames <- function(..., row.var='rowname')
 	return(do.call(data.table::fread, params))
 }
 
+########################################################################
+#' @export
+fread <- function(...){
+	as_tibble(data.table::fread(..., data.table=FALSE))
+}
+
 
 ########################################################################
 #' @export
