@@ -16,6 +16,16 @@ argpack <- function(...)
 
 
 ########################################################################
+#' Wrapper for data.table::fread
+#' @export
+#' @inheritParams data.table::fread
+#' @inheritDotParams data.table::fread
+fread <- function(input, ...) {
+	as_tibble(data.table::fread(input, ..., data.table=FALSE))
+}
+
+
+########################################################################
 #' @export
 fread_rownames <- function(..., row.var='rowname')
 {
@@ -29,10 +39,14 @@ fread_rownames <- function(..., row.var='rowname')
 	return(do.call(data.table::fread, params))
 }
 
+
 ########################################################################
+#' Wrapper for data.table::fwrite
 #' @export
-fread <- function(...){
-	as_tibble(data.table::fread(..., data.table=FALSE))
+#' @inheritParams data.table::fwrite
+#' @inheritDotParams data.table::fwrite
+fwrite <- function(x, ...) {
+	data.table::fwrite(x, ...)
 }
 
 
