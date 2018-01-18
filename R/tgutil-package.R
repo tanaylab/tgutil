@@ -5,6 +5,7 @@
 #' @useDynLib tgutil
 #' @import tibble
 #' @importFrom Rcpp sourceCpp
+#' @importFrom magrittr %>%
 
 ########################################################################
 .onUnload <- function (libpath) {
