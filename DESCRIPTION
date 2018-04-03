@@ -14,7 +14,5 @@ Imports:
     magrittr,
     matrixStats,
     rlang,
-    tibble,
-    Rcpp
+    tibble
 RoxygenNote: 6.0.1
-LinkingTo: Rcpp
