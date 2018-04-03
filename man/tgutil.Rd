@@ -3,12 +3,8 @@
 \docType{package}
 \name{tgutil}
 \alias{tgutil}
-\alias{.onUnload}
 \alias{tgutil-package}
 \title{tgutil.}
-\usage{
-.onUnload(libpath)
-}
 \description{
 tgutil.
 }
