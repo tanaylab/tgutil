@@ -16,19 +16,28 @@ argpack <- function(...)
 
 
 ########################################################################
-#' Wrapper for data.table::fread
+#' Wrapper for data.table::fread. Returns a data.frame instead of a data.table
 #' @export
-#' @inheritParams data.table::fread
-#' @inheritDotParams data.table::fread
-fread <- function(input, ...) {
-	as_tibble(data.table::fread(input, ..., data.table=FALSE))
+#' @inheritDotParams data.table::fread -data.table -key
+fread <- function(...) {
+	return(data.table::fread(..., data.table=FALSE))
 }
 
 
 ########################################################################
+#' Use `fread()` to read a csv/tsv with row names (e.g. one created with `read.table()`)
 #' @export
+#' @param row.var Name of column that will hold row names.
+#'                Setting this parameter to NULL will maintain row names as row names.
+#' @inheritDotParams data.table::fread -data.table -key -header -skip -col.names
 fread_rownames <- function(..., row.var='rowname')
 {
+	use_rownames = FALSE
+	if (is.null(row.var)) {
+		use_rownames = TRUE
+		row.var = '__rowname__'
+	}
+
 	params <- list(...)
 	header <- strsplit(readLines(params[[1]], n=1, warn=FALSE), '\t', fixed=TRUE)[[1]]
 
@@ -36,7 +45,12 @@ fread_rownames <- function(..., row.var='rowname')
     params$skip = 1;
     params$col.names = c(row.var, header)
 
-	return(do.call(data.table::fread, params))
+	data <- do.call(fread, params)
+	if (use_rownames) {
+		data <- tibble::column_to_rownames(data, '__rowname__')
+	}
+
+	return(data)
 }
 
 
