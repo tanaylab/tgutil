@@ -1,6 +1,6 @@
 Package: tgutil
 Title: Simple utility functions for Tanay lab code
-Version: 0.0.2
+Version: 0.0.3
 Authors@R: person("Elad", "Chomsky", email = "elad@chomsky.me", role = c("aut", "cre"))
 Description: Simple utility functions that are shared across several packages maintained by the Tanay lab.
 Depends: R (>= 3.2.0)
