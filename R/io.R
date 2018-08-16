@@ -65,6 +65,7 @@ fwrite <- function(x, ...) {
 
 
 ########################################################################
+#' Efficiently write Matrix Market format
 #' @export
 fwrite_mm <- function(x, fname, sep=' ', row.names=TRUE, col.names=TRUE)
 {
@@ -121,6 +122,7 @@ fwrite_mm <- function(x, fname, sep=' ', row.names=TRUE, col.names=TRUE)
 
 
 ########################################################################
+#' Efficiently read Matrix Market format
 #' @export
 fread_mm <- function(fname, sep=' ', row.names=TRUE, col.names=TRUE)
 {

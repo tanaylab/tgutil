@@ -6,7 +6,13 @@ output:
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
 
 # tgutils package - Tanay's group collection of simple utility functions #
 
@@ -15,8 +21,7 @@ output:
 
 ### fread_rownames ###
 
-
-```r
+```{r, eval=FALSE}
 fread_rownames(..., row.var='rowname')
 ```
 
@@ -29,8 +34,7 @@ All arguments are passed to the underlying `fread()` call. Note that the followi
 
 ### fwrite_mm ###
 
-
-```r
+```{r, eval=FALSE}
 fwrite_mm(x, fname, sep=' ', row.names=TRUE, col.names=TRUE)
 ```
 
@@ -42,8 +46,7 @@ The argument `sep` indicates the field separator that will be used. Note that us
 
 ### fread_mm ###
 
-
-```r
+```{r, eval=FALSE}
 fread_mm(fname, sep=' ', row.names=TRUE, col.names=TRUE)
 ```
 

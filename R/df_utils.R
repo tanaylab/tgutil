@@ -1,6 +1,5 @@
-########################################################################
-# A wrapper for matrixStats::rowMaxs()
-# Returns the maximal numeric value per row in a matrix or a dataframe
+#' A wrapper for matrixStats::rowMaxs()
+#' Returns the maximal numeric value per row in a matrix or a dataframe
 #' @export
 rowMaxs <- function (x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x), ...)
 {
@@ -26,8 +25,8 @@ rowMaxs.data.frame <- function(x, ...)
 
 
 ########################################################################
-# A wrapper for matrixStats::rowMins()
-# Returns the minimal numeric value per row in a matrix or a dataframe
+#' A wrapper for matrixStats::rowMins()
+#' Returns the minimal numeric value per row in a matrix or a dataframe
 #' @export
 rowMins <- function (x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x), ...)
 {
@@ -53,8 +52,8 @@ rowMins.data.frame <- function(x, ...)
 
 
 ########################################################################
-# Clips numeric values so that they lie in the range [min_val, max_val]
-# Works on both numeric arrays and dataframes
+#' Clips numeric values so that they lie in the range [min_val, max_val]
+#' Works on both numeric arrays and dataframes
 #' @export
 clip_vals <- function(x, min_val=NULL, max_val=NULL)
 {
@@ -91,8 +90,8 @@ clip_vals.data.frame <- function(x, min_val=NULL, max_val=NULL)
 
 
 ########################################################################
-# Segment a datafrane according to consecutive identical values of a
-# column expression.
+#' Segment a datafrane according to consecutive identical values of a
+#' column expression.
 #' @export
 segment_by <- function(df, column, var='segment')
 {
