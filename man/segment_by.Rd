@@ -2,12 +2,12 @@
 % Please edit documentation in R/df_utils.R
 \name{segment_by}
 \alias{segment_by}
-\title{Segment a datafrane according to consecutive identical values of a
+\title{Segment a dataframe according to consecutive identical values of a
 column expression.}
 \usage{
 segment_by(df, column, var = "segment")
 }
 \description{
-Segment a datafrane according to consecutive identical values of a
+Segment a dataframe according to consecutive identical values of a
 column expression.
 }
