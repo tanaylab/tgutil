@@ -90,7 +90,7 @@ clip_vals.data.frame <- function(x, min_val=NULL, max_val=NULL)
 
 
 ########################################################################
-#' Segment a datafrane according to consecutive identical values of a
+#' Segment a dataframe according to consecutive identical values of a
 #' column expression.
 #' @export
 segment_by <- function(df, column, var='segment')
@@ -102,8 +102,8 @@ segment_by <- function(df, column, var='segment')
     }
 
     column <- rlang::enquo(column)
-    
-    temp_df <- tibble(group=dplyr::group_indices(df), 
+
+    temp_df <- tibble(group=dplyr::group_indices(df),
                       col=df %>% dplyr::mutate(.temp_col_=!!column) %>% dplyr::pull(.temp_col_))
     temp_df <- temp_df %>%
                dplyr::mutate(segment=dplyr::if_else(!is.na(col), rle_rep(col), 0L)) %>%
@@ -112,4 +112,39 @@ segment_by <- function(df, column, var='segment')
     df[,var] <- dplyr::dense_rank( dplyr::if_else(!is.na(temp_df$col), dplyr::group_indices(temp_df), 0L) ) - 1
 
     return(df)
+}
+
+
+########################################################################
+# Convert a matrix into the tidy format of x, y, val
+#' @export
+gather_matrix <- function(mtrx)
+{
+    has_colnames <- !is.null(colnames(mtrx))
+    has_rownames <- !is.null(rownames(mtrx))
+    mtrx <- as.data.frame(mtrx)
+
+    if (has_colnames) {
+        colnames(mtrx) <- paste0('_', colnames(mtrx))
+    }
+    else {
+        colnames(mtrx) <- 1:ncol(mtrx)
+    }
+
+    if (has_rownames) {
+        mtrx$y <- rownames(mtrx)
+    }
+    else {
+        mtrx$y <- 1:nrow(mtrx)
+    }
+
+	mtrx <- tidyr::gather(mtrx, x, val, -y)
+    if (has_colnames) {
+        mtrx$x <- substring(mtrx$x, 2)
+    }
+    else {
+        mtrx$x <- as.integer(mtrx$x)
+    }
+
+    return(mtrx %>% dplyr::select(x, y, val))
 }
