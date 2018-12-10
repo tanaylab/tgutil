@@ -60,7 +60,7 @@ fread_rownames <- function(..., row.var='rowname')
 #' @inheritParams data.table::fwrite
 #' @inheritDotParams data.table::fwrite
 fwrite <- function(x, ...) {
-	data.table::fwrite(x, ...)
+	data.table::fwrite(x, na='NA', ...)
 }
 
 
