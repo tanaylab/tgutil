@@ -18,3 +18,11 @@ annotate_members <- function(x, ...)
     }
     return(substring(annotations, 2))
 }
+
+
+#' Install packages from the Tanay Group repository
+#' 
+#' @inheritDotParams install.packages
+#' @export
+tg_install <- function(...) install.packages(..., repos=c(getOption('repos'), 'https://tanaylab.bitbucket.io/repo'))
+
