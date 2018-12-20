@@ -12,9 +12,11 @@ Imports:
     broom,
     data.table,
     dplyr,
+    ggplot2,
     magrittr,
     matrixStats,
     rlang,
+    scales,
     tibble
 RoxygenNote: 6.0.1
 Suggests: testthat
