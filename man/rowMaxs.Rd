@@ -5,7 +5,24 @@
 \title{A wrapper for matrixStats::rowMaxs()
 Returns the maximal numeric value per row in a matrix or a dataframe}
 \usage{
-rowMaxs(x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x), ...)
+rowMaxs(x, ...)
+}
+\arguments{
+\item{...}{Arguments passed on to \code{matrixStats::rowMaxs}
+\describe{
+  \item{x}{A \code{\link[base]{numeric}} NxK \code{\link[base]{matrix}}.}
+  \item{rows}{A \code{\link[base]{vector}} indicating subset of rows
+(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
+is done.}
+  \item{cols}{A \code{\link[base]{vector}} indicating subset of rows
+(and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
+is done.}
+  \item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link[base]{NA}}s
+are excluded first, otherwise not.}
+  \item{dim.}{An \code{\link[base]{integer}} \code{\link[base]{vector}} of
+length two specifying the dimension of \code{x}, also when not a
+\code{\link[base]{matrix}}.}
+}}
 }
 \description{
 A wrapper for matrixStats::rowMaxs()

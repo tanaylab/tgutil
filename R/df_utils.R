@@ -1,7 +1,79 @@
+########################################################################
+#' A wrapper for matrixStats::colMaxs()
+#' Returns the minimal numeric value per column in a matrix or a dataframe
+#' @inheritDotParams matrixStats::rowMaxs
+#' @export
+colMaxs <- function(x, ...)
+{
+    UseMethod('colMaxs')
+}
+
+
+########################################################################
+#' @export
+colMaxs.numeric <- function(x, ...)
+{
+    return(matrixStats::colMaxs(x, ...))
+}
+
+
+########################################################################
+#' @export
+colMaxs.data.frame <- function(x, rows = NULL, cols = NULL, ...)
+{
+    if (!is.null(cols)) {
+        x <- x[,cols]
+    }
+    mask <- unlist(lapply(x, is.numeric))
+    rc <- rep(NA_real_, ncol(x))
+    if (any(mask)) {
+        rc[mask] <- matrixStats::colMaxs(as.matrix(x[,mask]), rows=rows, cols=NULL, ...)
+    }
+    return(rc)
+}
+
+
+########################################################################
+#' A wrapper for matrixStats::colMins()
+#' Returns the minimal numeric value per column in a matrix or a dataframe
+#' @inheritDotParams matrixStats::rowMaxs
+#' @export
+colMins <- function(x, ...)
+{
+    UseMethod('colMins')
+}
+
+
+########################################################################
+#' @export
+colMins.numeric <- function(x, ...)
+{
+    return(matrixStats::colMins(x, ...))
+}
+
+
+########################################################################
+#' @export
+colMins.data.frame <- function(x, rows = NULL, cols = NULL, ...)
+{
+    if (!is.null(cols)) {
+        x <- x[,cols]
+    }
+    mask <- unlist(lapply(x, is.numeric))
+    rc <- rep(NA_real_, ncol(x))
+    if (any(mask)) {
+        rc[mask] <- matrixStats::colMins(as.matrix(x[,mask]), rows=rows, cols=NULL, ...)
+    }
+    return(rc)
+}
+
+
+########################################################################
 #' A wrapper for matrixStats::rowMaxs()
 #' Returns the maximal numeric value per row in a matrix or a dataframe
+#' @inheritDotParams matrixStats::rowMaxs
 #' @export
-rowMaxs <- function (x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x), ...)
+rowMaxs <- function (x, ...)
 {
     UseMethod('rowMaxs')
 }
@@ -17,18 +89,25 @@ rowMaxs.numeric <- function(x, ...)
 
 ########################################################################
 #' @export
-rowMaxs.data.frame <- function(x, ...)
+rowMaxs.data.frame <- function(x, rows = NULL, cols = NULL, ...)
 {
+    if (!is.null(cols)) {
+        x <- x[,cols]
+    }
     x <- dplyr::select_if(x, is.numeric)
-    return(matrixStats::rowMaxs(as.matrix(x), ...))
+    if (ncol(x) == 0) {
+        return(numeric())
+    }
+    return(matrixStats::rowMaxs(as.matrix(x), rows=rows, cols=NULL, ...))
 }
 
 
 ########################################################################
 #' A wrapper for matrixStats::rowMins()
 #' Returns the minimal numeric value per row in a matrix or a dataframe
+#' @inheritDotParams matrixStats::rowMaxs
 #' @export
-rowMins <- function (x, rows = NULL, cols = NULL, na.rm = FALSE, dim. = dim(x), ...)
+rowMins <- function (x, ...)
 {
     UseMethod('rowMins')
 }
@@ -44,10 +123,16 @@ rowMins.numeric <- function(x, ...)
 
 ########################################################################
 #' @export
-rowMins.data.frame <- function(x, ...)
+rowMins.data.frame <- function(x, rows = NULL, cols = NULL, ...)
 {
+    if (!is.null(cols)) {
+        x <- x[,cols]
+    }
     x <- dplyr::select_if(x, is.numeric)
-    return(matrixStats::rowMins(as.matrix(x), ...))
+    if (ncol(x) == 0) {
+        return(numeric())
+    }
+    return(matrixStats::rowMins(as.matrix(x), rows=rows, cols=NULL, ...))
 }
 
 
@@ -118,33 +203,34 @@ segment_by <- function(df, column, var='segment')
 ########################################################################
 # Convert a matrix into the tidy format of x, y, val
 #' @export
-gather_matrix <- function(mtrx)
+gather_matrix <- function(mtrx, x='x', y='y', val='val')
 {
-    has_colnames <- !is.null(colnames(mtrx))
-    has_rownames <- !is.null(rownames(mtrx))
-    mtrx <- as.data.frame(mtrx)
+    cnames <- colnames(mtrx)
+    rnames <- rownames(mtrx)
+    mtrx <- tibble::as_tibble(mtrx)
 
-    if (has_colnames) {
-        colnames(mtrx) <- paste0('_', colnames(mtrx))
-    }
-    else {
+    if (is.null(cnames)) {
         colnames(mtrx) <- 1:ncol(mtrx)
     }
+    else {
+        colnames(mtrx) <- paste0('_', cnames)
+    }
 
-    if (has_rownames) {
-        mtrx$y <- rownames(mtrx)
+    if (is.null(rnames)) {
+        mtrx[[y]] <- 1:nrow(mtrx)
     }
     else {
-        mtrx$y <- 1:nrow(mtrx)
+        mtrx[[y]] <- rnames
     }
 
-	mtrx <- tidyr::gather(mtrx, x, val, -y)
-    if (has_colnames) {
-        mtrx$x <- substring(mtrx$x, 2)
+    mtrx <- tidyr::gather(mtrx, !!x, !!val, -!!y)
+
+    if (is.null(cnames)) {
+        mtrx[[x]] <- as.integer(mtrx[[x]])
     }
     else {
-        mtrx$x <- as.integer(mtrx$x)
+        mtrx[[x]] <- substring(mtrx[[x]], 2)
     }
 
-    return(mtrx %>% dplyr::select(x, y, val))
+    return(mtrx %>% dplyr::select(!!x, !!y, !!val))
 }
