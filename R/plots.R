@@ -5,11 +5,18 @@ tgplot_heatmap <- function(mtrx, col_names=NULL, row_names=NULL, xlab=NULL, ylab
     if (is.null(col_names)) {
         col_names <- colnames(mtrx)
     }
-    if (is.null(row_names)) {
-        row_names <- rownames(mtrx)
+    else if ((length(col_names)==1) && !col_names) {
+        col_names <- NULL
     }
     if (!is.null(col_names) && (length(col_names) != ncol(mtrx))) {
         stop("Length of col_names must equal the number of columns")
+    }
+
+    if (is.null(row_names)) {
+        row_names <- rownames(mtrx)
+    }
+    else if ((length(row_names)==1) && !row_names) {
+        row_names <- NULL
     }
     if (!is.null(row_names) && (length(row_names) != nrow(mtrx))) {
         stop("Length of row_names must equal the number of rows")
@@ -19,7 +26,6 @@ tgplot_heatmap <- function(mtrx, col_names=NULL, row_names=NULL, xlab=NULL, ylab
     rownames(mtrx) <- NULL
     ggp <- ggplot2::ggplot(gather_matrix(mtrx), ggplot2::aes(x=x, y=y, fill=val)) +
         ggplot2::geom_raster() +
-        ggplot2::coord_cartesian(expand=FALSE) +
         ggplot2::theme(axis.ticks=ggplot2::element_blank())
 
     if (!is.null(xlab)) {
@@ -37,12 +43,22 @@ tgplot_heatmap <- function(mtrx, col_names=NULL, row_names=NULL, xlab=NULL, ylab
 
     if (!is.null(col_names)) {
         ggp <- ggp +
-               ggplot2::scale_x_continuous(breaks=1:ncol(mtrx), labels=col_names, sec.axis=ggplot2::dup_axis())
+               ggplot2::scale_x_continuous(breaks=1:ncol(mtrx), labels=col_names, expand=c(0,0), sec.axis=ggplot2::dup_axis())
+    }
+    else {
+        ggp <- ggp +
+               ggplot2::scale_x_continuous(expand=c(0,0)) +
+               ggplot2::theme(axis.text.x=ggplot2::element_blank())
     }
 
     if (!is.null(row_names)) {
         ggp <- ggp +
-               ggplot2::scale_y_continuous(breaks=1:nrow(mtrx), labels=row_names, sec.axis=ggplot2::dup_axis())
+               ggplot2::scale_y_continuous(breaks=1:nrow(mtrx), labels=row_names, expand=c(0,0), sec.axis=ggplot2::dup_axis())
+    }
+    else {
+        ggp <- ggp +
+               ggplot2::scale_y_continuous(expand=c(0,0)) +
+               ggplot2::theme(axis.text.y=ggplot2::element_blank())
     }
 
 
