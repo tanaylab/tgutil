@@ -25,7 +25,7 @@ fread <- function(...) {
 
 
 ########################################################################
-#' Use `fread()` to read a csv/tsv with row names (e.g. one created with `read.table()`)
+#' Use `fread()` to read a csv/tsv with row names (e.g. one created with `write.table()`)
 #' @export
 #' @param row.var Name of column that will hold row names.
 #'                Setting this parameter to NULL will maintain row names as row names.
@@ -90,7 +90,6 @@ fwrite_mm <- function(x, fname, sep=' ', row.names=TRUE, col.names=TRUE)
 			col.names <- paste0(fname, '.colnames')
 		}
         cols <- tibble(colname=colnames(x))
-        # data.table::fwrite(cols, col.names, row.names=FALSE, col.names=FALSE)
         colnames(x) <- NULL
     }
 
@@ -110,13 +109,13 @@ fwrite_mm <- function(x, fname, sep=' ', row.names=TRUE, col.names=TRUE)
 	writeLines(paste(dims[1], dims[2], nrow(x), sep=sep), output)
 	close(output)
 
-	data.table::fwrite(x, fname, sep=sep, row.names=FALSE, col.names=FALSE, append=TRUE)
+	fwrite(x, fname, sep=sep, row.names=FALSE, col.names=FALSE, append=TRUE)
 
 	if (!is.null(rows)) {
-		data.table::fwrite(rows, row.names, row.names=FALSE, col.names=FALSE)
+		fwrite(rows, row.names, row.names=FALSE, col.names=FALSE)
 	}
 	if (!is.null(cols)) {
-		data.table::fwrite(cols, col.names, row.names=FALSE, col.names=FALSE)
+		fwrite(cols, col.names, row.names=FALSE, col.names=FALSE)
 	}
 }
 
@@ -184,7 +183,7 @@ fread_mm <- function(fname, sep=' ', row.names=TRUE, col.names=TRUE)
 	}
 	close(input)
 
-	x <- data.table::fread(fname, sep=sep, header=FALSE, skip=skip, colClasses=c('integer', 'integer', value_type), data.table=FALSE)
+	x <- fread(fname, sep=sep, header=FALSE, skip=skip, colClasses=c('integer', 'integer', value_type))
 	if (nrow(x) != dims[3]) {
 		stop("Number of data lines in file does not match dimensions line")
 	}
@@ -192,14 +191,158 @@ fread_mm <- function(fname, sep=' ', row.names=TRUE, col.names=TRUE)
 	x <- Matrix::sparseMatrix(i=x[,1], j=x[,2], x=x[,3], dims=dims[1:2])
 
 	if (file.exists(row.names)) {
-        rows <- data.table::fread(row.names, sep='\t', header=FALSE, data.table=FALSE)
+        rows <- fread(row.names, sep='\t', header=FALSE)
         rownames(x) <- rows[,1]
     }
 
     if (file.exists(col.names)) {
-        cols <- data.table::fread(col.names, sep='\t', header=FALSE, data.table=FALSE)
+        cols <- fread(col.names, sep='\t', header=FALSE)
         colnames(x) <- cols[,1]
     }
 
 	return(x)
+}
+
+
+########################################################################
+load_vector <- function(fname)
+{
+    x <- fread(fname, sep='\t', header=FALSE)
+    if (ncol(x) == 1) {
+        x <- x[,1]
+    }
+    else if (ncol(x) == 2) {
+        x <- structure(x[,2], names=x[,1])
+    }
+    else {
+        stop("File ", fname, " must have one or two columns")
+    }
+
+    return(x)
+}
+
+
+########################################################################
+#' Read a numeric vector from a file created by save_numeric
+#' @export
+load_numeric <- function(fname)
+{
+    return(as.numeric(read_vector(fname)))
+}
+
+
+########################################################################
+#' Read a character vector from a file created by save_character
+#' @export
+load_character <- function(fname)
+{
+    return(as.character(read_vector(fname)))
+}
+
+
+########################################################################
+#' Read a dataframe from a file created by save_dataframe
+#' @export
+load_dataframe <- function(fname)
+{
+    x <- fread(fname, sep='\t', header=TRUE)
+
+    if (colnames(x)[1] == '__rownames__') {
+        x <- tibble::column_to_rownames(x, '__rownames__')
+    }
+
+    return(x)
+}
+
+
+########################################################################
+#' Read a matrix from a file created by save_matrix
+#' @export
+load_matrix <- function(fname)
+{
+    x <- fread(fname, sep='\t', header=TRUE)
+
+    if (colnames(x)[1] == '__rownames__') {
+        x <- tibble::column_to_rownames(x, '__rownames__')
+    }
+
+    x <- as.matrix(x)
+
+    if (all(startsWith(colnames(x), '__null_'))) {
+        colnames(x) <- NULL
+    }
+
+    return(x)
+}
+
+
+########################################################################
+save_vector <- function(x, fname)
+{
+    stopifnot(is.vector(x))
+
+    if (is.null(names(x))) {
+        x <- tibble::tibble(x=x)
+    }
+    else {
+        x <- tibble::tibble(names=names(x), x=x)
+    }
+
+    fwrite(x, fname, sep='\t', row.names=FALSE, col.names=FALSE)
+}
+
+
+########################################################################
+# Write a numeric vector to a file, preserving cell names.
+#' @export
+save_numeric <- function(x, fname)
+{
+    stopifnot(is.numeric(x))
+    return(write_vector(x, fname))
+}
+
+
+########################################################################
+# Write a character vector to a file, preserving cell names.
+#' @export
+save_character <- function(x, fname)
+{
+    stopifnot(is.character(x))
+    return(write_vector(x, fname))
+}
+
+
+########################################################################
+# Writes a dataframe to a file, preserving row names.
+#' @export
+save_dataframe <- function(x, fname)
+{
+    stopifnot(is.data.frame(x))
+    if (!is.null(rownames(x)) &&
+        !all(rownames(x) == 1:nrow(x))) {
+        x <- tibble::rownames_to_column(x, '__rownames__')
+    }
+
+    fwrite(x, fname, sep='\t', quote=FALSE, col.names=TRUE, row.names=FALSE)
+}
+
+
+########################################################################
+# Writes a matrix to a file, preserving row and column names.
+#' @export
+save_matrix <- function(x, fname)
+{
+    stopifnot(is.matrix(x))
+
+    if (is.null(colnames(x))) {
+        colnames(x) <- paste0('__null_', 1:ncol(x), '__')
+    }
+
+    x <- as.data.frame(x)
+
+    if (!is.null(rownames(x)) && !all(rownames(x) == 1:nrow(x))) {
+        x <- tibble::rownames_to_column(x, '__rownames__')
+    }
+
+    fwrite(x, fname, sep='\t', col.names=TRUE, row.names=FALSE)
 }
