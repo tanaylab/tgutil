@@ -25,7 +25,9 @@ annotate_members <- function(x, ...)
 #' 
 #' @inheritDotParams utils::install.packages
 #' @export
-tg_install <- function(...) install.packages(..., repos=c(getOption('repos'), 'https://tanaylab.bitbucket.io/repo'))
+tg_install <- function(...) {
+    install.packages(..., repos=c(getOption('repos'), 'https://tanaylab.bitbucket.io/repo'))
+}
 
 ########################################################################
 #' Cut a tree into groups of data in the order of the tree
