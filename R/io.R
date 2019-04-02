@@ -323,7 +323,7 @@ save_dataframe <- function(x, fname)
         x <- tibble::rownames_to_column(x, '__rownames__')
     }
 
-    fwrite(x, fname, sep='\t', quote=FALSE, col.names=TRUE, row.names=FALSE)
+    fwrite(x, fname, sep='\t', col.names=TRUE, row.names=FALSE)
 }
 
 
@@ -340,9 +340,45 @@ save_matrix <- function(x, fname)
 
     x <- as.data.frame(x)
 
-    if (!is.null(rownames(x)) && !all(rownames(x) == 1:nrow(x))) {
+    if (!is.null(rownames(x))) {
         x <- tibble::rownames_to_column(x, '__rownames__')
     }
 
     fwrite(x, fname, sep='\t', col.names=TRUE, row.names=FALSE)
+}
+
+
+########################################################################
+# Tries reading a cached matrix result from the filename on the right
+# side. If the file is missing, generate the matrix using the function
+# call on the left side and write the result to the file.
+#' @export
+`%cache_matrix%` <- function(call, fname)
+{
+    if (file.exists(fname)) {
+        message("Using cached matrix from '", fname, "'")
+        return(load_matrix(fname))
+    }
+
+    result <- call
+    save_matrix(result, fname)
+    return(result)
+}
+
+
+########################################################################
+# Tries reading a cached dataframe result from the filename on the right
+# side. If the file is missing, generate the dataframe using the
+# function call on the left side and write the result to the file.
+#' @export
+`%cache_df%` <- function(call, fname)
+{
+    if (file.exists(fname)) {
+        message("Using cached dataframe from '", fname, "'")
+        return(load_dataframe(fname))
+    }
+
+    result <- call
+    save_dataframe(result, fname)
+    return(result)
 }
