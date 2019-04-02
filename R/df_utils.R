@@ -19,7 +19,7 @@ colMaxs.numeric <- function(x, ...)
 
 ########################################################################
 #' @export
-colMaxs.data.frame <- function(x, rows = NULL, cols = NULL, ...)
+colMaxs.data.frame <- function(x, rows=NULL, cols=NULL, ...)
 {
     if (!is.null(cols)) {
         x <- x[,cols]
@@ -31,6 +31,17 @@ colMaxs.data.frame <- function(x, rows = NULL, cols = NULL, ...)
     }
     return(rc)
 }
+
+
+########################################################################
+#' @export
+colMaxs.dgCMatrix <- function(x, rows=NULL, cols=NULL)
+{
+    x <- .prune_matrix(x, rows, cols)
+    val <- qlcMatrix::colMax(x, ignore.zero=FALSE)
+    return(as.vector(val))
+}
+setMethod('colMaxs', 'dgCMatrix', colMaxs.dgCMatrix)
 
 
 ########################################################################
@@ -54,7 +65,7 @@ colMins.numeric <- function(x, ...)
 
 ########################################################################
 #' @export
-colMins.data.frame <- function(x, rows = NULL, cols = NULL, ...)
+colMins.data.frame <- function(x, rows=NULL, cols=NULL, ...)
 {
     if (!is.null(cols)) {
         x <- x[,cols]
@@ -66,6 +77,17 @@ colMins.data.frame <- function(x, rows = NULL, cols = NULL, ...)
     }
     return(rc)
 }
+
+
+########################################################################
+#' @export
+colMins.dgCMatrix <- function(x, rows=NULL, cols=NULL)
+{
+    x <- .prune_matrix(x, rows, cols)
+    val <- qlcMatrix::colMin(x, ignore.zero=FALSE)
+    return(as.vector(val))
+}
+setMethod('colMins', 'dgCMatrix', colMins.dgCMatrix)
 
 
 ########################################################################
@@ -89,7 +111,7 @@ rowMaxs.numeric <- function(x, ...)
 
 ########################################################################
 #' @export
-rowMaxs.data.frame <- function(x, rows = NULL, cols = NULL, ...)
+rowMaxs.data.frame <- function(x, rows=NULL, cols=NULL, ...)
 {
     if (!is.null(cols)) {
         x <- x[,cols]
@@ -100,6 +122,17 @@ rowMaxs.data.frame <- function(x, rows = NULL, cols = NULL, ...)
     }
     return(matrixStats::rowMaxs(as.matrix(x), rows=rows, cols=NULL, ...))
 }
+
+
+########################################################################
+#' @export
+rowMaxs.dgCMatrix <- function(x, rows=NULL, cols=NULL)
+{
+    x <- .prune_matrix(x, rows, cols)
+    val <- qlcMatrix::rowMax(x, ignore.zero=FALSE)
+    return(as.vector(val))
+}
+setMethod('rowMaxs', 'dgCMatrix', rowMaxs.dgCMatrix)
 
 
 ########################################################################
@@ -123,7 +156,7 @@ rowMins.numeric <- function(x, ...)
 
 ########################################################################
 #' @export
-rowMins.data.frame <- function(x, rows = NULL, cols = NULL, ...)
+rowMins.data.frame <- function(x, rows=NULL, cols=NULL, ...)
 {
     if (!is.null(cols)) {
         x <- x[,cols]
@@ -133,6 +166,34 @@ rowMins.data.frame <- function(x, rows = NULL, cols = NULL, ...)
         return(numeric())
     }
     return(matrixStats::rowMins(as.matrix(x), rows=rows, cols=NULL, ...))
+}
+
+
+########################################################################
+#' @export
+rowMins.dgCMatrix <- function(x, rows=NULL, cols=NULL)
+{
+    x <- .prune_matrix(x, rows, cols)
+    val <- qlcMatrix::rowMin(x, ignore.zero=FALSE)
+    return(as.vector(val))
+}
+setMethod('rowMins', 'dgCMatrix', rowMins.dgCMatrix)
+
+
+########################################################################
+.prune_matrix <- function(x, rows, cols)
+{
+    if (!is.null(rows) && !is.null(cols)) {
+        x <- x[rows, cols]
+    }
+    else if (!is.null(rows)) {
+        x <- x[rows,]
+    }
+    else if (!is.null(cols)) {
+        x <- x[, cols]
+    }
+
+    return(x)
 }
 
 
