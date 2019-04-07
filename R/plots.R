@@ -26,6 +26,7 @@ tgplot_heatmap <- function(mtrx, col_names=NULL, row_names=NULL, xlab=NULL, ylab
     rownames(mtrx) <- NULL
     ggp <- ggplot2::ggplot(gather_matrix(mtrx), ggplot2::aes(x=x, y=y, fill=val)) +
         ggplot2::geom_raster() +
+        ggplot2::theme_bw() +
         ggplot2::theme(axis.ticks=ggplot2::element_blank())
 
     if (!is.null(xlab)) {
@@ -63,6 +64,37 @@ tgplot_heatmap <- function(mtrx, col_names=NULL, row_names=NULL, xlab=NULL, ylab
 
 
     return(ggp)
+}
+
+
+########################################################################
+#' @export
+tgplot_add_axis_annotation <- function(heatmap, annotation, position='bottom', size=0.02)
+{
+    position = char.expand(position, c('top', 'bottom', 'left', 'right'))
+    if (!is(annotation, 'gg')) {
+        if (position %in% c('top', 'bottom')) {
+            ggdata <- tibble::tibble(x=1:length(annotation), y=1)
+        }
+        else {
+            ggdata <- tibble::tibble(x=1, y=1:length(annotation))
+        }
+
+        annotation <- ggplot2::ggplot(ggdata, aes(x=x, y=y)) +
+                      ggplot2::geom_raster(fill=annotation) +
+                      ggplot2::coord_cartesian(expand=FALSE) +
+                      ggplot2::theme_void() +
+                      ggplot2::theme(panel.border=element_rect(size=0.2, color='black', fill=NA))
+    }
+
+    if (position %in% c('top', 'bottom')) {
+        heatmap <- cowplot::insert_xaxis_grob(heatmap, annotation, grid::unit(size, 'null'), position=position)
+    }
+    else {
+        heatmap <- cowplot::insert_yaxis_grob(heatmap, annotation, grid::unit(size, 'null'), position=position)
+    }
+
+    return(heatmap)
 }
 
 
