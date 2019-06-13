@@ -9,7 +9,7 @@ annotate_members <- function(x, ...)
 	} else {
         names(groups) <- ifelse((names(groups) != ''), names(groups), group_names)
     }
-    
+
     annotations <- character(length(x))
     names(annotations) <- names(x)
     for (gname in names(groups)) {
@@ -22,7 +22,7 @@ annotate_members <- function(x, ...)
 
 ########################################################################
 #' Install packages from the Tanay Group repository
-#' 
+#'
 #' @export
 tg_install <- function(...) {
     install.packages(..., repos=c(getOption('repos'), 'https://tanaylab.bitbucket.io/repo'))
@@ -30,20 +30,20 @@ tg_install <- function(...) {
 
 ########################################################################
 #' Cut a tree into groups of data in the order of the tree
-#' 
+#'
 #' Cut a tree (result from hclust) into groups of data. Groups are in the order of the tree leafs
-#' 
-#' @param tree an hclust object 
+#'
+#' @param tree an hclust object
 #' @param k the desired number of groups
-#' @param h height where the tree is to be cut 
-#' 
+#' @param h height where the tree is to be cut
+#'
 #' @section Notes: Taken from http://larmarange.github.io/JLutils/reference/cutree.order.html
-#' 
-#' @examples 
-#' 
+#'
+#' @examples
+#'
 #' hc <- hclust(dist(USArrests))
 #' memb <- cutree_order(hc, k = 10)
-#' 
+#'
 #' @export
 cutree_order <- function(tree, k = k, h = h){
     coupe <- cutree(tree, k = k, h = h)
@@ -64,4 +64,32 @@ cutree_order <- function(tree, k = k, h = h){
     coupe.out[is.na(coupe.out)] <- j
     names(coupe.out) <- names(coupe)
     coupe.out
+}
+
+
+########################################################################
+#' Equivalent to python's sys.exit()
+#' Stop the script without saving R's status.
+#'
+#' @param rc Exist status. A NULL is equivalent to 0. Non integer values will be printed to stderr and exit status will be set to 1.
+#'
+#' @export
+exit <- function(...)
+{
+    args <- list(...)
+    if (all(sapply(args, is.null))) {
+        rc <- 0
+    }
+    else if ((length(args) > 1) || !is.numeric(args[[1]])) {
+        args = c(args, list('\n'))
+        args$file = stderr()
+        args$sep = ''
+        do.call(cat, args)
+        rc <- 1
+    }
+    else {
+        rc <- as.integer(args[[1]])
+    }
+
+    q(save='no', status=rc)
 }
