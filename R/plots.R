@@ -1,6 +1,6 @@
 ########################################################################
 #' @export
-tgplot_heatmap <- function(mtrx, col_names=NULL, row_names=NULL, xlab=NULL, ylab=NULL)
+tgplot_heatmap <- function(mtrx, col_names=NULL, row_names=NULL, xlab=NULL, ylab=NULL, plot_top=TRUE, plot_right=TRUE)
 {
     if (is.null(col_names)) {
         col_names <- colnames(mtrx)
@@ -43,8 +43,15 @@ tgplot_heatmap <- function(mtrx, col_names=NULL, row_names=NULL, xlab=NULL, ylab
     }
 
     if (!is.null(col_names)) {
+
+        if (plot_top){
+            sec.axis_top <- ggplot2::dup_axis()
+        } else {
+            sec.axis_top <- ggplot2::waiver()
+        }
+
         ggp <- ggp +
-               ggplot2::scale_x_continuous(breaks=1:ncol(mtrx), labels=col_names, expand=c(0,0), sec.axis=ggplot2::dup_axis())
+               ggplot2::scale_x_continuous(breaks=1:ncol(mtrx), labels=col_names, expand=c(0,0), sec.axis=sec.axis_top)
     }
     else {
         ggp <- ggp +
@@ -53,8 +60,16 @@ tgplot_heatmap <- function(mtrx, col_names=NULL, row_names=NULL, xlab=NULL, ylab
     }
 
     if (!is.null(row_names)) {
+
+        if (plot_right){
+            sec.axis_right <- ggplot2::dup_axis()
+        } else {
+            sec.axis_right <- ggplot2::waiver()
+        }
+
+      
         ggp <- ggp +
-               ggplot2::scale_y_continuous(breaks=1:nrow(mtrx), labels=row_names, expand=c(0,0), sec.axis=ggplot2::dup_axis())
+               ggplot2::scale_y_continuous(breaks=1:nrow(mtrx), labels=row_names, expand=c(0,0), sec.axis=sec.axis_right)
     }
     else {
         ggp <- ggp +
