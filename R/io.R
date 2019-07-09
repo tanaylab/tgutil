@@ -32,22 +32,21 @@ fread <- function(...) {
 #' @inheritDotParams data.table::fread -data.table -key -header -skip -col.names
 fread_rownames <- function(..., row.var='rowname')
 {
-	use_rownames = FALSE
+	withCallingHandlers({
+		data <- fread(...)
+	},
+	warning = function(w) {
+		if ((as.character(w$call[1]) == 'data.table::fread') &&
+		    grepl("Added 1 extra default column name for the first column", w$message, fixed=TRUE)) {
+			invokeRestart('muffleWarning')
+		}
+	})
+
 	if (is.null(row.var)) {
-		use_rownames = TRUE
-		row.var = '__rowname__'
+		data <- tibble::column_to_rownames(data, colnames(data)[1])
 	}
-
-	params <- list(...)
-	header <- strsplit(readLines(params[[1]], n=1, warn=FALSE), '\t', fixed=TRUE)[[1]]
-
-	params$header = FALSE;
-    params$skip = 1;
-    params$col.names = c(row.var, header)
-
-	data <- do.call(fread, params)
-	if (use_rownames) {
-		data <- tibble::column_to_rownames(data, '__rowname__')
+	else {
+		colnames(data)[1] <- row.var
 	}
 
 	return(data)
