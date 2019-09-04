@@ -4,8 +4,8 @@
 status](https://travis-ci.com/tanaylab/tgutil.svg?branch=master)](https://travis-ci.org/tanaylab/tgutil)
 <!-- badges: end -->
 
-tgutils package - Tanay’s group collection of simple utility functions
-======================================================================
+tgutil package - Tanay’s group collection of simple utility functions
+=====================================================================
 
 Read legacy csv’s
 -----------------
