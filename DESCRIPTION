@@ -3,7 +3,7 @@ Title: Simple utility functions for Tanay lab code
 Version: 0.1.5
 Authors@R: c(person("Elad", "Chomsky", email = "elad@chomsky.me", role = c("aut", "cre")), person("Aviezer", "Lifshitz", email="aviezer.lifshitz@weizmann.ac.il", role=c("aut")))
 Description: Simple utility functions that are shared across several packages maintained by the Tanay lab.
-BugReports: https://bitbucket.org/tanaylab/tgutil/issues
+BugReports: https://github.com/tanaylab/tgutil/issues
 Depends: R (>= 3.2.0)
 License: GPL-3
 Encoding: UTF-8
