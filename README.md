@@ -1,7 +1,7 @@
 <!-- badges: start -->
 
 [![Travis build
-status](https://travis-ci.org/tanaylab/tgutil.svg?branch=master)](https://travis-ci.org/tanaylab/tgutil)
+status](https://travis-ci.com/tanaylab/tgutil.svg?branch=master)](https://travis-ci.org/tanaylab/tgutil)
 <!-- badges: end -->
 
 tgutils package - Tanay’s group collection of simple utility functions
