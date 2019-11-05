@@ -100,7 +100,6 @@ exit <- function(...)
 #' @param func function to wrap
 #' @param fn name of csv file
 #' @param row.names Should row names be cached as well
-#' @param ... default parameters for func
 #' 
 #' @return a wrapped function
 #' 
@@ -158,7 +157,6 @@ get_csv <- function(func, fn, row.names = FALSE, ...) {
 #' 
 #' @param func function to wrap
 #' @param fn name of rds file
-#' @param ... default parameters for func
 #' 
 #' @return a wrapped function
 #' 
@@ -182,7 +180,7 @@ get_csv <- function(func, fn, row.names = FALSE, ...) {
 #' get_mtcars_cyl(6, recalc=TRUE)
 #' 
 #' @export
-get_rds <- function(func, fn,  ...) {
+get_rds <- function(func, fn) {
     func <- purrr::as_mapper(func)
     res_func <- function(..., recalc = FALSE) {
             if (!file.exists(fn) || recalc) {

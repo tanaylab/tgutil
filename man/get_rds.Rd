@@ -4,14 +4,12 @@
 \alias{get_rds}
 \title{Wrap a function to cache results in an rds file}
 \usage{
-get_rds(func, fn, ...)
+get_rds(func, fn)
 }
 \arguments{
 \item{func}{function to wrap}
 
 \item{fn}{name of rds file}
-
-\item{...}{default parameters for func}
 }
 \value{
 a wrapped function

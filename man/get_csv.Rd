@@ -12,8 +12,6 @@ get_csv(func, fn, row.names = FALSE, ...)
 \item{fn}{name of csv file}
 
 \item{row.names}{Should row names be cached as well}
-
-\item{...}{default parameters for func}
 }
 \value{
 a wrapped function
