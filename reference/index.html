@@ -183,15 +183,45 @@ Stop the script without saving R's status.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="get_csv.html">get_csv()</a></code> </p>
+          <p><code><a href="grapes-cache_df-grapes.html">`%cache_df%`</a></code> </p>
         </td>
-        <td><p>Wrap a function that results a data frame to cache results in a csv file</p></td>
+        <td><p>Tries reading a cached dataframe result from the filename on the right
+side. If the file is missing, generate the dataframe using the
+function call on the left side and write the result to the file.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="get_rds.html">get_rds()</a></code> </p>
+          <p><code><a href="grapes-cache_matrix-grapes.html">`%cache_matrix%`</a></code> </p>
         </td>
-        <td><p>Wrap a function to cache results in an rds file</p></td>
+        <td><p>Tries reading a cached matrix result from the filename on the right
+side. If the file is missing, generate the matrix using the function
+call on the left side and write the result to the file.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="grapes-cache_rds-grapes.html">`%cache_rds%`</a></code> </p>
+        </td>
+        <td><p>Tries reading a cached dataframe result from the filename on the right
+side. If the file is missing, generate the dataframe using the
+function call on the left side and write the result to the file.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="grapes-fcache_df-grapes.html">`%fcache_df%`</a></code> </p>
+        </td>
+        <td><p>cache_df that force recreating the cached file</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="grapes-fcache_matrix-grapes.html">`%fcache_matrix%`</a></code> </p>
+        </td>
+        <td><p>cache_matrix that force recreating the cached file</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="grapes-fcache_rds-grapes.html">`%fcache_rds%`</a></code> </p>
+        </td>
+        <td><p>cache_rds that force recreating the cached file</p></td>
       </tr><tr>
         
         <td>
@@ -230,6 +260,30 @@ Returns the maximal numeric value per row in a matrix or a dataframe</p></td>
         </td>
         <td><p>A wrapper for matrixStats::rowMins()
 Returns the minimal numeric value per row in a matrix or a dataframe</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="save_character.html">save_character()</a></code> </p>
+        </td>
+        <td><p>Write a character vector to a file, preserving cell names.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="save_dataframe.html">save_dataframe()</a></code> </p>
+        </td>
+        <td><p>Writes a dataframe to a file, preserving row names.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="save_matrix.html">save_matrix()</a></code> </p>
+        </td>
+        <td><p>Writes a matrix to a file, preserving row and column names.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="save_numeric.html">save_numeric()</a></code> </p>
+        </td>
+        <td><p>Write a numeric vector to a file, preserving cell names.</p></td>
       </tr><tr>
         
         <td>
