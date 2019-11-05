@@ -65,6 +65,16 @@ fwrite <- function(x, ...) {
 
 ########################################################################
 #' Efficiently write Matrix Market format
+#' 
+#' @param x sparse matrix
+#' @param fname file name
+#' @param sep separator for output file
+#' @param row.names save row names of the matrix
+#' @param col.names save column names of the matrix
+#' 
+#' @return None
+#' 
+#' 
 #' @export
 fwrite_mm <- function(x, fname, sep=' ', row.names=TRUE, col.names=TRUE)
 {
@@ -121,6 +131,14 @@ fwrite_mm <- function(x, fname, sep=' ', row.names=TRUE, col.names=TRUE)
 
 ########################################################################
 #' Efficiently read Matrix Market format
+#' 
+#' @param fname name of the file to load from
+#' @param sep separator of the input file
+#' @param row.names load row names 
+#' @param col.names load column names
+#' 
+#' @return sparse matrix
+#' 
 #' @export
 fread_mm <- function(fname, sep=' ', row.names=TRUE, col.names=TRUE)
 {
@@ -223,6 +241,9 @@ load_vector <- function(fname)
 
 ########################################################################
 #' Read a numeric vector from a file created by save_numeric
+#' 
+#' @param fname name of file to load from
+#' 
 #' @export
 load_numeric <- function(fname)
 {
@@ -232,6 +253,9 @@ load_numeric <- function(fname)
 
 ########################################################################
 #' Read a character vector from a file created by save_character
+#' 
+#' @param fname name of file to load from
+#' 
 #' @export
 load_character <- function(fname)
 {
@@ -241,6 +265,9 @@ load_character <- function(fname)
 
 ########################################################################
 #' Read a dataframe from a file created by save_dataframe
+#' 
+#' @param fname name of file to load from
+#' 
 #' @export
 load_dataframe <- function(fname)
 {
@@ -256,6 +283,9 @@ load_dataframe <- function(fname)
 
 ########################################################################
 #' Read a matrix from a file created by save_matrix
+#' 
+#' @param fname name of file to load from
+#' 
 #' @export
 load_matrix <- function(fname)
 {

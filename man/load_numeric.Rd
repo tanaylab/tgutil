@@ -6,6 +6,9 @@
 \usage{
 load_numeric(fname)
 }
+\arguments{
+\item{fname}{name of file to load from}
+}
 \description{
 Read a numeric vector from a file created by save_numeric
 }

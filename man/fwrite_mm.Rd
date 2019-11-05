@@ -6,6 +6,20 @@
 \usage{
 fwrite_mm(x, fname, sep = " ", row.names = TRUE, col.names = TRUE)
 }
+\arguments{
+\item{x}{sparse matrix}
+
+\item{fname}{file name}
+
+\item{sep}{separator for output file}
+
+\item{row.names}{save row names of the matrix}
+
+\item{col.names}{save column names of the matrix}
+}
+\value{
+None
+}
 \description{
 Efficiently write Matrix Market format
 }

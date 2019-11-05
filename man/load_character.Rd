@@ -6,6 +6,9 @@
 \usage{
 load_character(fname)
 }
+\arguments{
+\item{fname}{name of file to load from}
+}
 \description{
 Read a character vector from a file created by save_character
 }

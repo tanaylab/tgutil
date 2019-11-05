@@ -1,5 +1,5 @@
 ########################################################################
-# Return the number of the system's physical CPU cores
+#' Return the number of the system's physical CPU cores
 #' @export
 num_physical_cores <- function()
 {
@@ -11,7 +11,7 @@ num_physical_cores <- function()
 
 
 ########################################################################
-# Return the number of the system's logical CPU cores
+#' Return the number of the system's logical CPU cores
 #' @export
 num_logical_cores <- function()
 {
@@ -22,7 +22,8 @@ num_logical_cores <- function()
 
 
 ########################################################################
-# Generate RNG seeds for parallel runs
+#' Generate RNG seeds for parallel runs
+#' @export
 gen_seeds <- function(n)
 {
     # Our naive approach would break when the chance of a new random number being
@@ -41,8 +42,8 @@ gen_seeds <- function(n)
 
 
 ########################################################################
-# Similar to mclapply, however ensures a reproducible random-number
-# stream for each application of fun()
+#' Similar to mclapply, however ensures a reproducible random-number
+#' stream for each application of fun()
 #' @export
 run_wide <- function(x, fun, ..., mc_preschedule=TRUE, mc_cores=num_physical_cores(), .seeds=NULL)
 {

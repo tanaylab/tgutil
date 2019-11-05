@@ -1,14 +1,23 @@
+
 <!-- badges: start -->
 
 [![Travis build
 status](https://travis-ci.com/tanaylab/tgutil.svg?branch=master)](https://travis-ci.org/tanaylab/tgutil)
+[![Codecov test
+coverage](https://codecov.io/gh/tanaylab/tgutil/branch/master/graph/badge.svg)](https://codecov.io/gh/tanaylab/tgutil?branch=master)
 <!-- badges: end -->
 
-tgutil package - Tanay’s group collection of simple utility functions
-=====================================================================
+# tgutil package - Tanay’s group collection of simple utility functions
 
-Read legacy csv’s
------------------
+## Installation
+
+You can install tgutil with:
+
+``` r
+remotes::install_github("tanaylab/tgutil")
+```
+
+## Read legacy csv’s
 
 ### fread\_rownames
 
@@ -24,8 +33,7 @@ All arguments are passed to the underlying `fread()` call. Note that the
 following arguments can’t be used (and will be silently ignored):
 `header`, `skip`, `col.names`.
 
-Sparse Matrix I/O
------------------
+## Sparse Matrix I/O
 
 ### fwrite\_mm
 
@@ -35,7 +43,7 @@ fwrite_mm(x, fname, sep=' ', row.names=TRUE, col.names=TRUE)
 
 Write the contents of the sparse matrix `x` into the text file `fname`
 in the MatrixMarket format (see
-<a href="http://math.nist.gov/MatrixMarket/formats.html" class="uri">http://math.nist.gov/MatrixMarket/formats.html</a>).
+<http://math.nist.gov/MatrixMarket/formats.html>).
 
 The MatrixMarket format does not save row and column names.
 `fwrite_mm()` allows saving them into separate files using the

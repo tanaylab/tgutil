@@ -6,6 +6,9 @@
 \usage{
 load_matrix(fname)
 }
+\arguments{
+\item{fname}{name of file to load from}
+}
 \description{
 Read a matrix from a file created by save_matrix
 }

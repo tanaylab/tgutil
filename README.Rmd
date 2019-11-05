@@ -1,7 +1,5 @@
 ---
-output:
-  md_document:
-    variant: markdown_github
+output: github_document
 ---
 
 ```{r, echo = FALSE}
@@ -13,10 +11,18 @@ knitr::opts_chunk$set(
 ```
 <!-- badges: start -->
   [![Travis build status](https://travis-ci.com/tanaylab/tgutil.svg?branch=master)](https://travis-ci.org/tanaylab/tgutil)
-  <!-- badges: end -->
+  [![Codecov test coverage](https://codecov.io/gh/tanaylab/tgutil/branch/master/graph/badge.svg)](https://codecov.io/gh/tanaylab/tgutil?branch=master)
+<!-- badges: end -->
 
 # tgutil package - Tanay's group collection of simple utility functions #
 
+## Installation
+
+You can install tgutil with:
+
+``` r
+remotes::install_github("tanaylab/tgutil")
+```
 
 ## Read legacy csv's
 
@@ -31,9 +37,9 @@ Use `fread()` to read a csv/tsv with row names (e.g. one created with `read.tabl
 All arguments are passed to the underlying `fread()` call. Note that the following arguments can't be used (and will be silently ignored): `header`, `skip`, `col.names`.
 
 
-## Sparse Matrix I/O ##
+## Sparse Matrix I/O
 
-### fwrite_mm ###
+### fwrite_mm
 
 ```{r, eval=FALSE}
 fwrite_mm(x, fname, sep=' ', row.names=TRUE, col.names=TRUE)
@@ -45,7 +51,7 @@ The MatrixMarket format does not save row and column names. `fwrite_mm()` allows
 
 The argument `sep` indicates the field separator that will be used. Note that using any field separator other than space will result in an output that is not compliant with the MatrixMarket format.
 
-### fread_mm ###
+### fread_mm 
 
 ```{r, eval=FALSE}
 fread_mm(fname, sep=' ', row.names=TRUE, col.names=TRUE)

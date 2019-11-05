@@ -6,6 +6,18 @@
 \usage{
 fread_mm(fname, sep = " ", row.names = TRUE, col.names = TRUE)
 }
+\arguments{
+\item{fname}{name of the file to load from}
+
+\item{sep}{separator of the input file}
+
+\item{row.names}{load row names}
+
+\item{col.names}{load column names}
+}
+\value{
+sparse matrix
+}
 \description{
 Efficiently read Matrix Market format
 }

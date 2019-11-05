@@ -6,6 +6,9 @@
 \usage{
 load_dataframe(fname)
 }
+\arguments{
+\item{fname}{name of file to load from}
+}
 \description{
 Read a dataframe from a file created by save_dataframe
 }
