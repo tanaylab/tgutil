@@ -292,7 +292,7 @@ save_vector <- function(x, fname)
 
 
 ########################################################################
-# Write a numeric vector to a file, preserving cell names.
+#' Write a numeric vector to a file, preserving cell names.
 #' @export
 save_numeric <- function(x, fname)
 {
@@ -302,7 +302,7 @@ save_numeric <- function(x, fname)
 
 
 ########################################################################
-# Write a character vector to a file, preserving cell names.
+#' Write a character vector to a file, preserving cell names.
 #' @export
 save_character <- function(x, fname)
 {
@@ -312,7 +312,7 @@ save_character <- function(x, fname)
 
 
 ########################################################################
-# Writes a dataframe to a file, preserving row names.
+#' Writes a dataframe to a file, preserving row names.
 #' @export
 save_dataframe <- function(x, fname)
 {
@@ -327,7 +327,7 @@ save_dataframe <- function(x, fname)
 
 
 ########################################################################
-# Writes a matrix to a file, preserving row and column names.
+#' Writes a matrix to a file, preserving row and column names.
 #' @export
 save_matrix <- function(x, fname)
 {
@@ -348,9 +348,27 @@ save_matrix <- function(x, fname)
 
 
 ########################################################################
-# Tries reading a cached matrix result from the filename on the right
-# side. If the file is missing, generate the matrix using the function
-# call on the left side and write the result to the file.
+#' Tries reading a cached matrix result from the filename on the right
+#' side. If the file is missing, generate the matrix using the function
+#' call on the left side and write the result to the file.
+#' 
+#' @param call function call
+#' @param fname filename
+#' 
+#' 
+#' @examples
+#' temp_file <- tempfile(fileext = ".tsv")
+#'   calc_mtcars_cyl <- function(cyl) {
+#'       message("calculating")
+#'       as.matrix(mtcars[mtcars$cyl == cyl, ])
+#'   }
+#'
+#'   # Call "calc_mtcars_cyl" function
+#'   res1 <- calc_mtcars_cyl(6) %cache_matrix% temp_file
+#'
+#'   # Load cached file
+#'   res2 <- calc_mtcars_cyl(6) %cache_matrix% temp_file
+#'
 #' @export
 `%cache_matrix%` <- function(call, fname)
 {
@@ -364,11 +382,58 @@ save_matrix <- function(x, fname)
     return(result)
 }
 
+########################################################################
+#' cache_matrix that force recreating the cached file
+#' 
+#' @param call function call
+#' @param fname filename
+#' 
+#' 
+#' @examples
+#' temp_file <- tempfile(fileext = ".tsv")
+#'   calc_mtcars_cyl <- function(cyl) {
+#'       message("calculating")
+#'       as.matrix(mtcars[mtcars$cyl == cyl, ])
+#'   }
+#'
+#'   # Call "calc_mtcars_cyl" function
+#'   res1 <- calc_mtcars_cyl(6) %cache_matrix% temp_file
+#'
+#'   # Force re-calling the function
+#'   res2 <- calc_mtcars_cyl(6) %fcache_matrix% temp_file
+#'
+#' @export
+`%fcache_matrix%` <- function(call, fname)
+{
+    result <- call
+    save_matrix(result, fname)
+    return(result)
+}
+
+
 
 ########################################################################
-# Tries reading a cached dataframe result from the filename on the right
-# side. If the file is missing, generate the dataframe using the
-# function call on the left side and write the result to the file.
+#' Tries reading a cached dataframe result from the filename on the right
+#' side. If the file is missing, generate the dataframe using the
+#' function call on the left side and write the result to the file.
+#' 
+#' @param call function call
+#' @param fname filename
+#' 
+#' 
+#' @examples
+#' temp_file <- tempfile(fileext = ".tsv")
+#'   calc_mtcars_cyl <- function(cyl) {
+#'       message("calculating")
+#'       as.data.frame(mtcars[mtcars$cyl == cyl, ])
+#'   }
+#'
+#'   # Call "calc_mtcars_cyl" function
+#'   res1 <- calc_mtcars_cyl(6) %cache_df% temp_file
+#'
+#'   # Load cached file
+#'   res2 <- calc_mtcars_cyl(6) %cache_df% temp_file
+#'
 #' @export
 `%cache_df%` <- function(call, fname)
 {
@@ -379,5 +444,96 @@ save_matrix <- function(x, fname)
 
     result <- call
     save_dataframe(result, fname)
+    return(result)
+}
+
+########################################################################
+#' cache_df that force recreating the cached file
+#' 
+#' @param call function call
+#' @param fname filename
+#' 
+#' 
+#' @examples
+#' temp_file <- tempfile(fileext = ".tsv")
+#'   calc_mtcars_cyl <- function(cyl) {
+#'       message("calculating")
+#'       as.data.frame(mtcars[mtcars$cyl == cyl, ])
+#'   }
+#'
+#'   # Call "calc_mtcars_cyl" function
+#'   res1 <- calc_mtcars_cyl(6) %cache_df% temp_file
+#'
+#'   # Force re-calling the function
+#'   res2 <- calc_mtcars_cyl(6) %fcache_df% temp_file
+#'
+#' @export
+`%fcache_df%` <- function(call, fname)
+{
+    result <- call
+    save_dataframe(result, fname)
+    return(result)
+}
+
+########################################################################
+#' Tries reading a cached dataframe result from the filename on the right
+#' side. If the file is missing, generate the dataframe using the
+#' function call on the left side and write the result to the file.
+#' 
+#' @param call function call
+#' @param fname filename
+#' 
+#' 
+#' @examples
+#' temp_file <- tempfile(fileext = "rds")
+#'   calc_mtcars_cyl <- function(cyl) {
+#'       message("calculating")
+#'       mtcars[mtcars$cyl == cyl, ]
+#'   }
+#'
+#'   # Call "calc_mtcars_cyl" function
+#'   res1 <- calc_mtcars_cyl(6) %cache_rds% temp_file
+#'
+#'   # Load cached file
+#'   res2 <- calc_mtcars_cyl(6) %cache_rds% temp_file
+#'
+#' @export
+`%cache_rds%` <- function(call, fname)
+{
+    if (file.exists(fname)) {
+        message("Using cached dataframe from '", fname, "'")
+        return(readr::read_rds(fname))
+    }
+
+    result <- call
+    readr::write_rds(result, fname)
+    return(result)
+}
+
+########################################################################
+#' cache_rds that force recreating the cached file
+#' 
+#' @param call function call
+#' @param fname filename
+#' 
+#' 
+#' @examples
+#' temp_file <- tempfile(fileext = "rds")
+#'   calc_mtcars_cyl <- function(cyl) {
+#'       message("calculating")
+#'       mtcars[mtcars$cyl == cyl, ]
+#'   }
+#'
+#'   # Call "calc_mtcars_cyl" function
+#'   res1 <- calc_mtcars_cyl(6) %cache_rds% temp_file
+#'
+#'   # Force re-calling the function
+#'   res2 <- calc_mtcars_cyl(6) %fcache_rds% temp_file
+#'
+#' @export
+`%fcache_rds%` <- function(call, fname)
+{
+    result <- call
+    readr::write_rds(result, fname)
     return(result)
 }
