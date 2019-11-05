@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Efficiently write Matrix Market format — fwrite_mm • tgutil</title>
+<title>Similar to mclapply, however ensures a reproducible random-number
+stream for each application of fun() — run_wide • tgutil</title>
 
 
 <!-- jquery -->
@@ -35,8 +36,10 @@
 
 
 
-<meta property="og:title" content="Efficiently write Matrix Market format — fwrite_mm" />
-<meta property="og:description" content="Efficiently write Matrix Market format" />
+<meta property="og:title" content="Similar to mclapply, however ensures a reproducible random-number
+stream for each application of fun() — run_wide" />
+<meta property="og:description" content="Similar to mclapply, however ensures a reproducible random-number
+stream for each application of fun()" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -100,52 +103,26 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Efficiently write Matrix Market format</h1>
+    <h1>Similar to mclapply, however ensures a reproducible random-number
+stream for each application of fun()</h1>
     
-    <div class="hidden name"><code>fwrite_mm.Rd</code></div>
+    <div class="hidden name"><code>run_wide.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Efficiently write Matrix Market format</p>
+    <p>Similar to mclapply, however ensures a reproducible random-number
+stream for each application of fun()</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fwrite_mm</span>(<span class='no'>x</span>, <span class='no'>fname</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>" "</span>, <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>run_wide</span>(<span class='no'>x</span>, <span class='no'>fun</span>, <span class='no'>...</span>, <span class='kw'>mc_preschedule</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>mc_cores</span> <span class='kw'>=</span> <span class='fu'><a href='num_physical_cores.html'>num_physical_cores</a></span>(), <span class='kw'>.seeds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>sparse matrix</p></td>
-    </tr>
-    <tr>
-      <th>fname</th>
-      <td><p>file name</p></td>
-    </tr>
-    <tr>
-      <th>sep</th>
-      <td><p>separator for output file</p></td>
-    </tr>
-    <tr>
-      <th>row.names</th>
-      <td><p>save row names of the matrix</p></td>
-    </tr>
-    <tr>
-      <th>col.names</th>
-      <td><p>save column names of the matrix</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>None</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
     </ul>
 
   </div>

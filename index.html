@@ -64,13 +64,19 @@
 <div id="tgutil-package---tanays-group-collection-of-simple-utility-functions" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#tgutil-package---tanays-group-collection-of-simple-utility-functions" class="anchor"></a>tgutil package - Tanay’s group collection of simple utility functions</h1></div>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>You can install tgutil with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"tanaylab/tgutil"</span>)</a></code></pre></div>
+</div>
 <div id="read-legacy-csvs" class="section level2">
 <h2 class="hasAnchor">
 <a href="#read-legacy-csvs" class="anchor"></a>Read legacy csv’s</h2>
 <div id="fread_rownames" class="section level3">
 <h3 class="hasAnchor">
 <a href="#fread_rownames" class="anchor"></a>fread_rownames</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="reference/fread_rownames.html">fread_rownames</a></span>(..., <span class="dt">row.var=</span><span class="st">'rowname'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="reference/fread_rownames.html">fread_rownames</a></span>(..., <span class="dt">row.var=</span><span class="st">'rowname'</span>)</a></code></pre></div>
 <p>Use <code><a href="reference/fread.html">fread()</a></code> to read a csv/tsv with row names (e.g. one created with <code><a href="https://rdrr.io/r/utils/read.table.html">read.table()</a></code>). The name of the column that will hold the row names is given in <code>row.var</code>.</p>
 <p>All arguments are passed to the underlying <code><a href="reference/fread.html">fread()</a></code> call. Note that the following arguments can’t be used (and will be silently ignored): <code>header</code>, <code>skip</code>, <code>col.names</code>.</p>
 </div>
@@ -81,7 +87,7 @@
 <div id="fwrite_mm" class="section level3">
 <h3 class="hasAnchor">
 <a href="#fwrite_mm" class="anchor"></a>fwrite_mm</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="reference/fwrite_mm.html">fwrite_mm</a></span>(x, fname, <span class="dt">sep=</span><span class="st">' '</span>, <span class="dt">row.names=</span><span class="ot">TRUE</span>, <span class="dt">col.names=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="reference/fwrite_mm.html">fwrite_mm</a></span>(x, fname, <span class="dt">sep=</span><span class="st">' '</span>, <span class="dt">row.names=</span><span class="ot">TRUE</span>, <span class="dt">col.names=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Write the contents of the sparse matrix <code>x</code> into the text file <code>fname</code> in the MatrixMarket format (see <a href="http://math.nist.gov/MatrixMarket/formats.html" class="uri">http://math.nist.gov/MatrixMarket/formats.html</a>).</p>
 <p>The MatrixMarket format does not save row and column names. <code><a href="reference/fwrite_mm.html">fwrite_mm()</a></code> allows saving them into separate files using the <code>row.names</code> and <code>col.names</code> arguments. These arguments may contain file names into which the column and row names will be written. Alternately setting these arguments to <code>TRUE</code> will cause the row and column names to be written to <code>&lt;fname&gt;.rownames</code> and <code>&lt;fname&gt;.colnames</code> respectively.</p>
 <p>The argument <code>sep</code> indicates the field separator that will be used. Note that using any field separator other than space will result in an output that is not compliant with the MatrixMarket format.</p>
@@ -89,7 +95,7 @@
 <div id="fread_mm" class="section level3">
 <h3 class="hasAnchor">
 <a href="#fread_mm" class="anchor"></a>fread_mm</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="reference/fread_mm.html">fread_mm</a></span>(fname, <span class="dt">sep=</span><span class="st">' '</span>, <span class="dt">row.names=</span><span class="ot">TRUE</span>, <span class="dt">col.names=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="reference/fread_mm.html">fread_mm</a></span>(fname, <span class="dt">sep=</span><span class="st">' '</span>, <span class="dt">row.names=</span><span class="ot">TRUE</span>, <span class="dt">col.names=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Reads a sparse matrix in the MatrixMarket format from the file <code>fname</code>.</p>
 <p>The MatrixMarket format does not save row and column names. <code><a href="reference/fread_mm.html">fread_mm()</a></code> allows reading them from separate files using the <code>row.names</code> and <code>col.names</code> arguments. These arguments may contain file names from which the column and row names will be read. Alternately setting these arguments to <code>TRUE</code> will cause the row and column names to be read from <code>&lt;fname&gt;.rownames</code> and <code>&lt;fname&gt;.colnames</code> respectively.</p>
 </div>
@@ -124,6 +130,7 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/tanaylab/tgutil"><img src="https://travis-ci.com/tanaylab/tgutil.svg?branch=master" alt="Travis build status"></a></li>
+<li><a href="https://codecov.io/gh/tanaylab/tgutil?branch=master"><img src="https://codecov.io/gh/tanaylab/tgutil/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 </div>
