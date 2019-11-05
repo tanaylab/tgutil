@@ -93,3 +93,61 @@ exit <- function(...)
 
     q(save='no', status=rc)
 }
+
+########################################################################
+#' Wrap a function that results a data frame to cache results in a csv file
+#' 
+#' @param func function to wrap
+#' @param fn name of csv file
+#' @param row.names Should row names be cached as well
+#' @param ... default parameters for func
+#' 
+#' @return a wrapped function
+#' 
+#' @examples
+#' 
+#'  temp_file <- tempfile(fileext = ".csv")
+#' 
+#'  calc_mtcars_cyl <- function(cyl) {
+#'       message("calculating")
+#'       mtcars[mtcars$cyl == cyl, ]
+#'  }
+#' 
+#' get_mtcars_cyl <- get_csv(calc_mtcars_cyl, temp_file)
+#'
+#' # Call "calc_mtcars_cyl" function
+#' get_mtcars_cyl(6)
+#'
+#' # Load cached file
+#' get_mtcars_cyl(6)
+#'
+#' # Force re-calculating
+#' get_mtcars_cyl(6, recalc=TRUE)
+#' 
+#' @export
+get_csv <- function(func, fn, row.names = FALSE, ...) {
+    func <- purrr::as_mapper(func)
+    if (row.names){
+        res_func <- function(..., recalc = FALSE) {
+            if (!file.exists(fn) || recalc) {
+                res <- func(...)        
+                tgutil::fwrite(res, fn, row.names = TRUE)            
+            } else {
+                res <- tgutil::fread_rownames(fn)
+                res <- tibble::column_to_rownames(res, "rowname")
+            }
+            return(res)
+        }
+    } else {
+        res_func <- function(..., recalc = FALSE) {
+            if (!file.exists(fn) || recalc) {
+                res <- func(...)        
+                tgutil::fwrite(res, fn, row.names = FALSE)            
+            } else {
+                res <- tgutil::fread(fn)
+            }
+            return(res)
+        }        
+    }
+    return(res_func)
+}
