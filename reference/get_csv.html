@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>A wrapper for matrixStats::colMaxs()
-Returns the minimal numeric value per column in a matrix or a dataframe — colMaxs • tgutil</title>
+<title>Wrap a function that results a data frame to cache results in a csv file — get_csv • tgutil</title>
 
 
 <!-- jquery -->
@@ -36,10 +35,8 @@ Returns the minimal numeric value per column in a matrix or a dataframe — colM
 
 
 
-<meta property="og:title" content="A wrapper for matrixStats::colMaxs()
-Returns the minimal numeric value per column in a matrix or a dataframe — colMaxs" />
-<meta property="og:description" content="A wrapper for matrixStats::colMaxs()
-Returns the minimal numeric value per column in a matrix or a dataframe" />
+<meta property="og:title" content="Wrap a function that results a data frame to cache results in a csv file — get_csv" />
+<meta property="og:description" content="Wrap a function that results a data frame to cache results in a csv file" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,48 +100,88 @@ Returns the minimal numeric value per column in a matrix or a dataframe" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>A wrapper for matrixStats::colMaxs()
-Returns the minimal numeric value per column in a matrix or a dataframe</h1>
+    <h1>Wrap a function that results a data frame to cache results in a csv file</h1>
     
-    <div class="hidden name"><code>colMaxs.Rd</code></div>
+    <div class="hidden name"><code>get_csv.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A wrapper for matrixStats::colMaxs()
-Returns the minimal numeric value per column in a matrix or a dataframe</p>
+    <p>Wrap a function that results a data frame to cache results in a csv file</p>
     </div>
 
-    <pre class="usage"><span class='fu'>colMaxs</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>get_csv</span>(<span class='no'>func</span>, <span class='no'>fn</span>, <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>func</th>
+      <td><p>function to wrap</p></td>
+    </tr>
+    <tr>
+      <th>fn</th>
+      <td><p>name of csv file</p></td>
+    </tr>
+    <tr>
+      <th>row.names</th>
+      <td><p>Should row names be cached as well</p></td>
+    </tr>
+    <tr>
       <th>...</th>
-      <td><p>Arguments passed on to <code><a href='https://rdrr.io/pkg/matrixStats/man/rowRanges.html'>matrixStats::rowMaxs</a></code></p><dl class='dl-horizontal'>
-  <dt>x</dt><dd><p>A <code><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></code> NxK <code><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></code>.</p></dd>
-  <dt>rows</dt><dd><p>A <code><a href='https://rdrr.io/r/base/vector.html'>vector</a></code> indicating subset of rows
-(and/or columns) to operate over. If <code><a href='https://rdrr.io/r/base/NULL.html'>NULL</a></code>, no subsetting
-is done.</p></dd>
-  <dt>cols</dt><dd><p>A <code><a href='https://rdrr.io/r/base/vector.html'>vector</a></code> indicating subset of rows
-(and/or columns) to operate over. If <code><a href='https://rdrr.io/r/base/NULL.html'>NULL</a></code>, no subsetting
-is done.</p></dd>
-  <dt>na.rm</dt><dd><p>If <code><a href='https://rdrr.io/r/base/logical.html'>TRUE</a></code>, <code><a href='https://rdrr.io/r/base/NA.html'>NA</a></code>s
-are excluded first, otherwise not.</p></dd>
-  <dt>dim.</dt><dd><p>An <code><a href='https://rdrr.io/r/base/integer.html'>integer</a></code> <code><a href='https://rdrr.io/r/base/vector.html'>vector</a></code> of
-length two specifying the dimension of <code>x</code>, also when not a
-<code><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></code>.</p></dd>
-
-</dl></td>
+      <td><p>default parameters for func</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>a wrapped function</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+ <span class='no'>temp_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".csv"</span>)
+
+ <span class='no'>calc_mtcars_cyl</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>cyl</span>) {
+      <span class='fu'><a href='https://rdrr.io/r/base/message.html'>message</a></span>(<span class='st'>"calculating"</span>)
+      <span class='no'>mtcars</span>[<span class='no'>mtcars</span>$<span class='no'>cyl</span> <span class='kw'>==</span> <span class='no'>cyl</span>, ]
+ }
+
+<span class='no'>get_mtcars_cyl</span> <span class='kw'>&lt;-</span> <span class='fu'>get_csv</span>(<span class='no'>calc_mtcars_cyl</span>, <span class='no'>temp_file</span>)
+
+<span class='co'># Call "calc_mtcars_cyl" function</span>
+<span class='fu'>get_mtcars_cyl</span>(<span class='fl'>6</span>)</div><div class='output co'>#&gt; <span class='message'>calculating</span></div><div class='output co'>#&gt;                 mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+#&gt; Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+#&gt; Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+#&gt; Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+#&gt; Valiant        18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+#&gt; Merc 280       19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+#&gt; Merc 280C      17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+#&gt; Ferrari Dino   19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6</div><div class='input'>
+<span class='co'># Load cached file</span>
+<span class='fu'>get_mtcars_cyl</span>(<span class='fl'>6</span>)</div><div class='output co'>#&gt;    mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+#&gt; 1 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+#&gt; 2 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+#&gt; 3 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+#&gt; 4 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+#&gt; 5 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+#&gt; 6 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+#&gt; 7 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6</div><div class='input'>
+<span class='co'># Force re-calculating</span>
+<span class='fu'>get_mtcars_cyl</span>(<span class='fl'>6</span>, <span class='kw'>recalc</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>calculating</span></div><div class='output co'>#&gt;                 mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+#&gt; Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+#&gt; Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+#&gt; Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+#&gt; Valiant        18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+#&gt; Merc 280       19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+#&gt; Merc 280C      17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+#&gt; Ferrari Dino   19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
