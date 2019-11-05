@@ -151,3 +151,48 @@ get_csv <- function(func, fn, row.names = FALSE, ...) {
     }
     return(res_func)
 }
+
+
+########################################################################
+#' Wrap a function to cache results in an rds file
+#' 
+#' @param func function to wrap
+#' @param fn name of rds file
+#' @param ... default parameters for func
+#' 
+#' @return a wrapped function
+#' 
+#' @examples
+#' 
+#'  temp_file <- tempfile(fileext = ".rds")
+#' 
+#'  calc_mtcars_cyl <- function(cyl) {#'       
+#'       mtcars[mtcars$cyl == cyl, ]
+#'  }
+#' 
+#' get_mtcars_cyl <- get_rds(calc_mtcars_cyl, temp_file)
+#'
+#' # Call "calc_mtcars_cyl" function
+#' get_mtcars_cyl(6)
+#'
+#' # Load cached file
+#' get_mtcars_cyl(6)
+#'
+#' # Force re-calculating
+#' get_mtcars_cyl(6, recalc=TRUE)
+#' 
+#' @export
+get_rds <- function(func, fn,  ...) {
+    func <- purrr::as_mapper(func)
+    res_func <- function(..., recalc = FALSE) {
+            if (!file.exists(fn) || recalc) {
+                res <- func(...)        
+                readr::write_rds(res, fn)            
+            } else {
+                res <- readr::read_rds(fn)                
+            }
+            return(res)
+    } 
+    return(res_func)
+}
+
