@@ -72,7 +72,7 @@ tgplot_heatmap <- function(mtrx, col_names=NULL, row_names=NULL, xlab=NULL, ylab
                       'horizontal' = ggplot2::theme(),
                       'vertical'   = ggplot2::theme(axis.text.x.top=element_text(angle=-90, hjust=1, vjust=0.5),
                                                     axis.text.x.bottom=element_text(angle=-90, hjust=0, vjust=0.5)),
-                      'slanted'    = ggplot2::theme(axis.text.x.top=element_text(angle=-45, hjust=1, vjust=0.5),
+                      'slanted'    = ggplot2::theme(axis.text.x.top=element_text(angle=-45, hjust=1, vjust=0),
                                                     axis.text.x.bottom=element_text(angle=-45, hjust=0, vjust=1))
                )
     }
