@@ -1,7 +1,24 @@
 ########################################################################
+#' Easily plot a matrix as an heatmap using ggplot2
+#' @param mtrx The matrix to be plotted
+#' @param col_names The names that will be used as the X-axis labels.
+#'                  A NULL (the defualt) indicates that the original matrix colnames are used.
+#'                  A FALSE indicates that no X-axis labels should be displayed.
+#' @param row_names The names that will be used as the Y-axis labels.
+#'                  A NULL (the defualt) indicates that the original matrix rownames are used.
+#'                  A FALSE indicates that no Y-axis labels should be displayed.
+#' @param xlab The X-axis label
+#' @param ylab The Y-axis label
+#' @param plot_top Whether to put the X-axis labels at the top of the heatmap (as well as at the bottom)
+#' @param plot_right Whether to put the Y-axis labels at the right side of the heatmap (as well as at the left hand side)
+#' @param col_names_orient Orientation of the X-axis label
+#' 
 #' @export
-tgplot_heatmap <- function(mtrx, col_names=NULL, row_names=NULL, xlab=NULL, ylab=NULL, plot_top=TRUE, plot_right=TRUE)
+tgplot_heatmap <- function(mtrx, col_names=NULL, row_names=NULL, xlab=NULL, ylab=NULL,
+                           plot_top=TRUE, plot_right=TRUE, col_names_orient=c('horizontal', 'vertical', 'slanted'))
 {
+    col_names_orient <- match.arg(col_names_orient)
+
     if (is.null(col_names)) {
         col_names <- colnames(mtrx)
     }
@@ -43,7 +60,6 @@ tgplot_heatmap <- function(mtrx, col_names=NULL, row_names=NULL, xlab=NULL, ylab
     }
 
     if (!is.null(col_names)) {
-
         if (plot_top){
             sec.axis_top <- ggplot2::dup_axis()
         } else {
@@ -51,7 +67,14 @@ tgplot_heatmap <- function(mtrx, col_names=NULL, row_names=NULL, xlab=NULL, ylab
         }
 
         ggp <- ggp +
-               ggplot2::scale_x_continuous(breaks=1:ncol(mtrx), labels=col_names, expand=c(0,0), sec.axis=sec.axis_top)
+               ggplot2::scale_x_continuous(breaks=1:ncol(mtrx), labels=col_names, expand=c(0,0), sec.axis=sec.axis_top) +
+               switch(col_names_orient,
+                      'horizontal' = ggplot2::theme(),
+                      'vertical'   = ggplot2::theme(axis.text.x.top=element_text(angle=-90, hjust=1, vjust=0.5),
+                                                    axis.text.x.bottom=element_text(angle=-90, hjust=0, vjust=0.5)),
+                      'slanted'    = ggplot2::theme(axis.text.x.top=element_text(angle=-45, hjust=1, vjust=0.5),
+                                                    axis.text.x.bottom=element_text(angle=-45, hjust=0, vjust=1))
+               )
     }
     else {
         ggp <- ggp +
