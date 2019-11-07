@@ -6,9 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tries reading a cached dataframe result from the filename on the right
-side. If the file is missing, generate the dataframe using the
-function call on the left side and write the result to the file. — %cache_rds% • tgutil</title>
+<title>Easily plot a matrix as an heatmap using ggplot2 — tgplot_heatmap • tgutil</title>
 
 
 <!-- jquery -->
@@ -37,12 +35,8 @@ function call on the left side and write the result to the file. — %cache_rds%
 
 
 
-<meta property="og:title" content="Tries reading a cached dataframe result from the filename on the right
-side. If the file is missing, generate the dataframe using the
-function call on the left side and write the result to the file. — %cache_rds%" />
-<meta property="og:description" content="Tries reading a cached dataframe result from the filename on the right
-side. If the file is missing, generate the dataframe using the
-function call on the left side and write the result to the file." />
+<meta property="og:title" content="Easily plot a matrix as an heatmap using ggplot2 — tgplot_heatmap" />
+<meta property="og:description" content="Easily plot a matrix as an heatmap using ggplot2" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -106,53 +100,66 @@ function call on the left side and write the result to the file." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Tries reading a cached dataframe result from the filename on the right
-side. If the file is missing, generate the dataframe using the
-function call on the left side and write the result to the file.</h1>
+    <h1>Easily plot a matrix as an heatmap using ggplot2</h1>
     
-    <div class="hidden name"><code>grapes-cache_rds-grapes.Rd</code></div>
+    <div class="hidden name"><code>tgplot_heatmap.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Tries reading a cached dataframe result from the filename on the right
-side. If the file is missing, generate the dataframe using the
-function call on the left side and write the result to the file.</p>
+    <p>Easily plot a matrix as an heatmap using ggplot2</p>
     </div>
 
-    <pre class="usage"><span class='no'>call</span> <span class='kw'>%cache_rds%</span> <span class='no'>fname</span></pre>
+    <pre class="usage"><span class='fu'>tgplot_heatmap</span>(<span class='no'>mtrx</span>, <span class='kw'>col_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>row_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>plot_top</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plot_right</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>col_names_orient</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"horizontal"</span>, <span class='st'>"vertical"</span>, <span class='st'>"slanted"</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>call</th>
-      <td><p>function call</p></td>
+      <th>mtrx</th>
+      <td><p>The matrix to be plotted</p></td>
     </tr>
     <tr>
-      <th>fname</th>
-      <td><p>filename</p></td>
+      <th>col_names</th>
+      <td><p>The names that will be used as the X-axis labels.
+A NULL (the defualt) indicates that the original matrix colnames are used.
+A FALSE indicates that no X-axis labels should be displayed.</p></td>
+    </tr>
+    <tr>
+      <th>row_names</th>
+      <td><p>The names that will be used as the Y-axis labels.
+A NULL (the defualt) indicates that the original matrix rownames are used.
+A FALSE indicates that no Y-axis labels should be displayed.</p></td>
+    </tr>
+    <tr>
+      <th>xlab</th>
+      <td><p>The X-axis label</p></td>
+    </tr>
+    <tr>
+      <th>ylab</th>
+      <td><p>The Y-axis label</p></td>
+    </tr>
+    <tr>
+      <th>plot_top</th>
+      <td><p>Whether to put the X-axis labels at the top of the heatmap (as well as at the bottom)</p></td>
+    </tr>
+    <tr>
+      <th>plot_right</th>
+      <td><p>Whether to put the Y-axis labels at the right side of the heatmap (as well as at the left hand side)</p></td>
+    </tr>
+    <tr>
+      <th>col_names_orient</th>
+      <td><p>Orientation of the X-axis label</p></td>
     </tr>
     </table>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>temp_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>"rds"</span>)
-  <span class='no'>calc_mtcars_cyl</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>cyl</span>) {
-      <span class='fu'><a href='https://rdrr.io/r/base/message.html'>message</a></span>(<span class='st'>"calculating"</span>)
-      <span class='no'>mtcars</span>[<span class='no'>mtcars</span>$<span class='no'>cyl</span> <span class='kw'>==</span> <span class='no'>cyl</span>, ]
-  }
-
-  <span class='co'># Call "calc_mtcars_cyl" function</span>
-  <span class='no'>res1</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_mtcars_cyl</span>(<span class='fl'>6</span>) <span class='kw'>%cache_rds%</span> <span class='no'>temp_file</span></div><div class='output co'>#&gt; <span class='message'>calculating</span></div><div class='input'>
-  <span class='co'># Load cached file</span>
-  <span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_mtcars_cyl</span>(<span class='fl'>6</span>) <span class='kw'>%cache_rds%</span> <span class='no'>temp_file</span></div><div class='output co'>#&gt; <span class='message'>Using cached dataframe from '/tmp/RtmpKjtI8C/file4a3034757ecbrds'</span></div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
