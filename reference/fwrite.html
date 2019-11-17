@@ -139,6 +139,7 @@
 </ul></p></dd>
   <dt>logical01</dt><dd><p>Should <code>logical</code> values be written as <code>1</code> and <code>0</code> rather than <code>"TRUE"</code> and <code>"FALSE"</code>?</p></dd>
   <dt>logicalAsInt</dt><dd><p>Deprecated. Old name for `logical01`. Name change for consistency with `fread` for which `logicalAsInt` would not make sense.</p></dd>
+  <dt>scipen</dt><dd><p><code>integer</code> In terms of printing width, how much of a bias should there be towards printing whole numbers rather than scientific notation? See Details.</p></dd>
   <dt>dateTimeAs</dt><dd><p>How <code>Date</code>/<code>IDate</code>, <code>ITime</code> and <code>POSIXct</code> items are written.
       <ul>
 <li><p>"ISO" (default) - <code>2016-09-12</code>, <code>18:12:16</code> and <code>2016-09-12T18:12:16.999999Z</code>. 0, 3 or 6 digits of fractional seconds are printed if and when present for convenience, regardless of any R options such as <code>digits.secs</code>. The idea being that if milli and microseconds are present then you most likely want to retain them. R's internal UTC representation is written faithfully to encourage ISO standards, stymie timezone ambiguity and for speed. An option to consider is to start R in the UTC timezone simply with <code>"$ TZ='UTC' R"</code> at the shell (NB: it must be one or more spaces between <code>TZ='UTC'</code> and <code>R</code>, anything else will be silently ignored; this TZ setting applies just to that R process) or <code><a href='https://rdrr.io/r/base/Sys.setenv.html'>Sys.setenv(TZ='UTC')</a></code> at the R prompt and then continue as if UTC were local time.</p></li>
@@ -152,6 +153,9 @@
   <dt>buffMB</dt><dd><p>The buffer size (MB) per thread in the range 1 to 1024, default 8MB. Experiment to see what works best for your data on your hardware.</p></dd>
   <dt>nThread</dt><dd><p>The number of threads to use. Experiment to see what works best for your data on your hardware.</p></dd>
   <dt>showProgress</dt><dd><p>Display a progress meter on the console? Ignored when <code>file==""</code>.</p></dd>
+  <dt>compress</dt><dd><p>If <code>compress = "auto"</code> and if <code>file</code> ends in <code>.gz</code> then output format is gzipped csv else csv. If <code>compress = "none"</code>, output format is always csv. If <code>compress = "gzip"</code> then format is gzipped csv. Output to the console is never gzipped even if <code>compress = "gzip"</code>. By default, <code>compress = "auto"</code>.</p></dd>
+  <dt>yaml</dt><dd><p>If <code>TRUE</code>, <code>fwrite</code> will output a CSVY file, that is, a CSV file with metadata stored as a YAML header, using <code><a href='https://rdrr.io/pkg/yaml/man/as.yaml.html'>as.yaml</a></code>. See <code>Details</code>.</p></dd>
+  <dt>bom</dt><dd><p>If <code>TRUE</code> a BOM (Byte Order Mark) sequence (EF BB BF) is added at the beginning of the file; format 'UTF-8 with BOM'.</p></dd>
   <dt>verbose</dt><dd><p>Be chatty and report timings?</p></dd>
 
 </dl></td>
