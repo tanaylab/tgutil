@@ -1,3 +1,10 @@
+tgutil_message <- function(...){
+    if (getOption("tgutil.verbose")){
+        message(...)    
+    }    
+}
+
+
 ########################################################################
 #' @export
 argpack <- function(...)
@@ -403,7 +410,7 @@ save_matrix <- function(x, fname)
 `%cache_matrix%` <- function(call, fname)
 {
     if (file.exists(fname)) {
-        message("Using cached matrix from '", fname, "'")
+        tgutil_message("Using cached matrix from '", fname, "'")
         return(load_matrix(fname))
     }
 
@@ -468,7 +475,7 @@ save_matrix <- function(x, fname)
 `%cache_df%` <- function(call, fname)
 {
     if (file.exists(fname)) {
-        message("Using cached dataframe from '", fname, "'")
+        tgutil_message("Using cached dataframe from '", fname, "'")
         return(load_dataframe(fname))
     }
 
@@ -531,7 +538,7 @@ save_matrix <- function(x, fname)
 `%cache_rds%` <- function(call, fname)
 {
     if (file.exists(fname)) {
-        message("Using cached dataframe from '", fname, "'")
+        tgutil_message("Using cached dataframe from '", fname, "'")
         return(readr::read_rds(fname))
     }
 
