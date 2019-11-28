@@ -8,7 +8,8 @@
 
 <title>Tries reading a cached dataframe result from the filename on the right
 side. If the file is missing, generate the dataframe using the
-function call on the left side and write the result to the file. — %cache_df% • tgutil</title>
+function call on the left side and write the result to the file. If "tgutil.cache"
+option is FALSE, right side would be always recumputed. — %cache_df% • tgutil</title>
 
 
 <!-- jquery -->
@@ -39,10 +40,12 @@ function call on the left side and write the result to the file. — %cache_df% 
 
 <meta property="og:title" content="Tries reading a cached dataframe result from the filename on the right
 side. If the file is missing, generate the dataframe using the
-function call on the left side and write the result to the file. — %cache_df%" />
+function call on the left side and write the result to the file. If "tgutil.cache"
+option is FALSE, right side would be always recumputed. — %cache_df%" />
 <meta property="og:description" content="Tries reading a cached dataframe result from the filename on the right
 side. If the file is missing, generate the dataframe using the
-function call on the left side and write the result to the file." />
+function call on the left side and write the result to the file. If &quot;tgutil.cache&quot;
+option is FALSE, right side would be always recumputed." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -108,7 +111,8 @@ function call on the left side and write the result to the file." />
     <div class="page-header">
     <h1>Tries reading a cached dataframe result from the filename on the right
 side. If the file is missing, generate the dataframe using the
-function call on the left side and write the result to the file.</h1>
+function call on the left side and write the result to the file. If "tgutil.cache"
+option is FALSE, right side would be always recumputed.</h1>
     
     <div class="hidden name"><code>grapes-cache_df-grapes.Rd</code></div>
     </div>
@@ -116,7 +120,8 @@ function call on the left side and write the result to the file.</h1>
     <div class="ref-description">
     <p>Tries reading a cached dataframe result from the filename on the right
 side. If the file is missing, generate the dataframe using the
-function call on the left side and write the result to the file.</p>
+function call on the left side and write the result to the file. If "tgutil.cache"
+option is FALSE, right side would be always recumputed.</p>
     </div>
 
     <pre class="usage"><span class='no'>call</span> <span class='kw'>%cache_df%</span> <span class='no'>fname</span></pre>
@@ -145,7 +150,7 @@ function call on the left side and write the result to the file.</p>
   <span class='co'># Call "calc_mtcars_cyl" function</span>
   <span class='no'>res1</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_mtcars_cyl</span>(<span class='fl'>6</span>) <span class='kw'>%cache_df%</span> <span class='no'>temp_file</span></div><div class='output co'>#&gt; <span class='message'>calculating</span></div><div class='input'>
   <span class='co'># Load cached file</span>
-  <span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_mtcars_cyl</span>(<span class='fl'>6</span>) <span class='kw'>%cache_df%</span> <span class='no'>temp_file</span></div><div class='output co'>#&gt; <span class='message'>Using cached dataframe from '/tmp/RtmpmlXj5J/file481d438e4c14.tsv'</span></div><div class='input'>
+  <span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_mtcars_cyl</span>(<span class='fl'>6</span>) <span class='kw'>%cache_df%</span> <span class='no'>temp_file</span></div><div class='output co'>#&gt; <span class='message'>Using cached dataframe from '/tmp/RtmpBgxwXY/file49161b7a88f8.tsv'</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
