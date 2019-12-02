@@ -179,7 +179,7 @@ test_that("NAs are saved and loaded with fwrite and fread", {
     dt <- tibble(a = c(NA_integer_, 1L, 2L), b = c("a", "b", NA_character_))
     tmp <- tempfile()
     fwrite(dt, tmp)
-    dt2 <- fread(tmp)
+    dt2 <- as_tibble(fread(tmp))
     expect_equal(dt, dt2)
 })
 
