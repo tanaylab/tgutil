@@ -5,8 +5,14 @@
 \title{Similar to mclapply, however ensures a reproducible random-number
 stream for each application of fun()}
 \usage{
-run_wide(x, fun, ..., mc_preschedule = TRUE,
-  mc_cores = num_physical_cores(), .seeds = NULL)
+run_wide(
+  x,
+  fun,
+  ...,
+  mc_preschedule = TRUE,
+  mc_cores = num_physical_cores(),
+  .seeds = NULL
+)
 }
 \description{
 Similar to mclapply, however ensures a reproducible random-number

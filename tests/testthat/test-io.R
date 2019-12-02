@@ -153,4 +153,11 @@ test_that("%fcache_df% calls the function twice", {
     expect_message(res2 <- calc_mtcars_cyl(6) %fcache_df% temp_file, "calculating")
 })
 
+test_that("NAs are saved and loaded with fwrite and fread", {
+    dt <- tibble(a = c(NA_integer_, 1L, 2L), b = c("a", "b", NA_character_))
+    tmp <- tempfile()
+    fwrite(dt, tmp)
+    dt2 <- fread(tmp)
+    expect_equal(dt, dt2)
+})
 

@@ -8,21 +8,22 @@ Returns the maximal numeric value per row in a matrix or a dataframe}
 rowMaxs(x, ...)
 }
 \arguments{
-\item{...}{Arguments passed on to \code{matrixStats::rowMaxs}
-\describe{
-  \item{x}{A \code{\link[base]{numeric}} NxK \code{\link[base]{matrix}}.}
-  \item{rows}{A \code{\link[base]{vector}} indicating subset of rows
+\item{...}{
+  Arguments passed on to \code{\link[matrixStats:rowMaxs]{matrixStats::rowMaxs}}
+  \describe{
+    \item{\code{x}}{A \code{\link[base]{numeric}} NxK \code{\link[base]{matrix}}.}
+    \item{\code{rows}}{A \code{\link[base]{vector}} indicating subset of rows
 (and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
 is done.}
-  \item{cols}{A \code{\link[base]{vector}} indicating subset of rows
+    \item{\code{cols}}{A \code{\link[base]{vector}} indicating subset of rows
 (and/or columns) to operate over. If \code{\link[base]{NULL}}, no subsetting
 is done.}
-  \item{na.rm}{If \code{\link[base:logical]{TRUE}}, \code{\link[base]{NA}}s
+    \item{\code{na.rm}}{If \code{\link[base:logical]{TRUE}}, \code{\link[base]{NA}}s
 are excluded first, otherwise not.}
-  \item{dim.}{An \code{\link[base]{integer}} \code{\link[base]{vector}} of
+    \item{\code{dim.}}{An \code{\link[base]{integer}} \code{\link[base]{vector}} of
 length two specifying the dimension of \code{x}, also when not a
 \code{\link[base]{matrix}}.}
-}}
+  }}
 }
 \description{
 A wrapper for matrixStats::rowMaxs()

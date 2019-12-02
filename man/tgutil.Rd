@@ -3,7 +3,6 @@
 \docType{package}
 \name{tgutil}
 \alias{tgutil}
-\alias{tgutil-package}
 \title{tgutil.}
 \description{
 tgutil.

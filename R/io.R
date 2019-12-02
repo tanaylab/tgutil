@@ -61,12 +61,11 @@ fread_rownames <- function(..., row.var='rowname')
 
 
 ########################################################################
-#' Wrapper for data.table::fwrite
+#' Wrapper for data.table::fwrite with NA's saved as "NA" instad of "".
 #' @export
-#' @inheritParams data.table::fwrite
-#' @inheritDotParams data.table::fwrite
+#' @inheritDotParams data.table::fwrite -na
 fwrite <- function(x, ...) {
-	data.table::fwrite(x, na='NA', ...)
+	data.table::fwrite(x, na = "NA", ...)
 }
 
 
