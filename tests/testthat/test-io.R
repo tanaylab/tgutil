@@ -120,6 +120,10 @@ test_that("%fcache_rds% calls the function twice", {
     res1 <- calc_mtcars_cyl(6) %cache_rds% temp_file
 
     expect_message(res2 <- calc_mtcars_cyl(6) %fcache_rds% temp_file, "calculating")
+    
+    options(tgutil.cache = FALSE)    
+    expect_message(res2 <- calc_mtcars_cyl(6) %cache_rds% temp_file, "calculating")
+    options(tgutil.cache = TRUE)
 
     # No message when tgutil.verbose is FALSE
     opt <- options(tgutil.verbose = FALSE)
@@ -138,6 +142,15 @@ test_that("%fcache_matrix% calls the function twice", {
     res1 <- calc_mtcars_cyl(6) %cache_matrix% temp_file
 
     expect_message(res2 <- calc_mtcars_cyl(6) %fcache_matrix% temp_file, "calculating")
+    
+    options(tgutil.cache = FALSE)    
+    expect_message(res2 <- calc_mtcars_cyl(6) %cache_matrix% temp_file, "calculating")
+    options(tgutil.cache = TRUE)
+    
+    # No message when tgutil.verbose is FALSE
+    opt <- options(tgutil.verbose = FALSE)
+    on.exit(options(opt))
+    expect_silent(res2 <- calc_mtcars_cyl(6) %cache_matrix% temp_file)
 })
 
 test_that("%fcache_df% calls the function twice", {
@@ -151,6 +164,15 @@ test_that("%fcache_df% calls the function twice", {
     res1 <- calc_mtcars_cyl(6) %cache_df% temp_file
 
     expect_message(res2 <- calc_mtcars_cyl(6) %fcache_df% temp_file, "calculating")
+    
+    options(tgutil.cache = FALSE)    
+    expect_message(res2 <- calc_mtcars_cyl(6) %fcache_df% temp_file, "calculating")
+    options(tgutil.cache = TRUE)
+    
+    # No message when tgutil.verbose is FALSE
+    opt <- options(tgutil.verbose = FALSE)
+    on.exit(options(opt))
+    expect_silent(res2 <- calc_mtcars_cyl(6) %cache_df% temp_file)
 })
 
 test_that("NAs are saved and loaded with fwrite and fread", {
