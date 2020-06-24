@@ -164,3 +164,28 @@ scale_fill_gradientn_abs <- function(..., colors, values, abs_range)
 
     return(ggplot2::scale_fill_gradientn(..., colors=colors, values=values))
 }
+
+
+
+#' Plot using preview instead of plotting to X device
+#' 
+#' @description uses \code{\link[ggplot2]{ggsave}} to save a ggplot object to file and then opens a new device and displays it.
+#' 
+#' @inheritParams ggplot2::ggsave
+#' @inheritDotParams ggplot2::ggsave
+#' 
+#' @seealso \code{\link[ggplot2]{ggsave}}
+#' 
+#' @examples
+#' 
+#' \dontrun{
+#'  p <- ggplot(mtcars, aes(mpg, wt)) + geom_point() + ggpreview()
+#' }
+#' 
+#' @export
+ggpreview <- function(plot = ggplot2::last_plot(), filename=tempfile(fileext = ".png"), ...){
+    plot <- ggsave(plot, filename=filename, ...)
+    grid::grid.newpage()
+    grid::grid.raster(png::readPNG(filename))
+    invisible(plot)
+}

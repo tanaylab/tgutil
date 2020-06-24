@@ -4,6 +4,3 @@
 \name{tgutil}
 \alias{tgutil}
 \title{tgutil.}
-\description{
-tgutil.
-}
