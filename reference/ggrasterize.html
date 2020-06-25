@@ -6,10 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tries reading a cached matrix result from the filename on the right
-side. If the file is missing, generate the matrix using the function
-call on the left side and write the result to the file. If "tgutil.cache"
-option is FALSE, right side would be always recumputed. — %cache_matrix% • tgutil</title>
+<title>Rasterize ggplot panel area — ggrasterize • tgutil</title>
 
 
 <!-- jquery -->
@@ -42,14 +39,8 @@ option is FALSE, right side would be always recumputed. — %cache_matrix% • t
 
 
 
-<meta property="og:title" content="Tries reading a cached matrix result from the filename on the right
-side. If the file is missing, generate the matrix using the function
-call on the left side and write the result to the file. If "tgutil.cache"
-option is FALSE, right side would be always recumputed. — %cache_matrix%" />
-<meta property="og:description" content="Tries reading a cached matrix result from the filename on the right
-side. If the file is missing, generate the matrix using the function
-call on the left side and write the result to the file. If &quot;tgutil.cache&quot;
-option is FALSE, right side would be always recumputed." />
+<meta property="og:title" content="Rasterize ggplot panel area — ggrasterize" />
+<meta property="og:description" content="Draws the panel area of a ggplot to a png file, and then re-draws it as raster to the current device. There is also an option to save the result to a file (if filename is not NULL)." />
 
 
 
@@ -117,49 +108,99 @@ option is FALSE, right side would be always recumputed." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Tries reading a cached matrix result from the filename on the right
-side. If the file is missing, generate the matrix using the function
-call on the left side and write the result to the file. If "tgutil.cache"
-option is FALSE, right side would be always recumputed.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tanaylab/tgutil/blob/master/R/io.R'><code>R/io.R</code></a></small>
-    <div class="hidden name"><code>grapes-cache_matrix-grapes.Rd</code></div>
+    <h1>Rasterize ggplot panel area</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tanaylab/tgutil/blob/master/R/plots.R'><code>R/plots.R</code></a></small>
+    <div class="hidden name"><code>ggrasterize.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Tries reading a cached matrix result from the filename on the right
-side. If the file is missing, generate the matrix using the function
-call on the left side and write the result to the file. If "tgutil.cache"
-option is FALSE, right side would be always recumputed.</p>
+    <p>Draws the panel area of a ggplot to a png file, and then re-draws it as raster to the current device. There is also an option to save the result to a file (if <code>filename</code> is not NULL).</p>
     </div>
 
-    <pre class="usage"><span class='no'>call</span> <span class='kw'>%cache_matrix%</span> <span class='no'>fname</span></pre>
+    <pre class="usage"><span class='fu'>ggrasterize</span>(
+  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/last_plot.html'>last_plot</a></span>(),
+  <span class='kw'>filename</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>device</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>dpi</span> <span class='kw'>=</span> <span class='fl'>300</span>,
+  <span class='kw'>units</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"in"</span>, <span class='st'>"cm"</span>, <span class='st'>"mm"</span>),
+  <span class='kw'>limitsize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>call</th>
-      <td><p>function call</p></td>
+      <th>plot</th>
+      <td><p>Plot to save, defaults to last plot displayed.</p></td>
     </tr>
     <tr>
-      <th>fname</th>
-      <td><p>filename</p></td>
+      <th>filename</th>
+      <td><p>File name to create on disk.</p></td>
+    </tr>
+    <tr>
+      <th>device</th>
+      <td><p>Device to use. Can either be a device function
+(e.g. <code><a href='https://rdrr.io/r/grDevices/png.html'>png()</a></code>), or one of "eps", "ps", "tex" (pictex),
+"pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).</p></td>
+    </tr>
+    <tr>
+      <th>scale</th>
+      <td><p>Multiplicative scaling factor.</p></td>
+    </tr>
+    <tr>
+      <th>width</th>
+      <td><p>Plot size in <code>units</code> ("in", "cm", or "mm").
+If not supplied, uses the size of current graphics device.</p></td>
+    </tr>
+    <tr>
+      <th>height</th>
+      <td><p>Plot size in <code>units</code> ("in", "cm", or "mm").
+If not supplied, uses the size of current graphics device.</p></td>
+    </tr>
+    <tr>
+      <th>dpi</th>
+      <td><p>Plot resolution. Also accepts a string input: "retina" (320),
+"print" (300), or "screen" (72). Applies only to raster output types.</p></td>
+    </tr>
+    <tr>
+      <th>units</th>
+      <td><p>Plot size in <code>units</code> ("in", "cm", or "mm").
+If not supplied, uses the size of current graphics device.</p></td>
+    </tr>
+    <tr>
+      <th>limitsize</th>
+      <td><p>When <code>TRUE</code> (the default), <code>ggsave</code> will not
+save images larger than 50x50 inches, to prevent the common error of
+specifying dimensions in pixels.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggplot2::ggsave</a></code></p><dl'>
+    <dt><code>path</code></dt><dd><p>Path of the directory to save plot to: <code>path</code> and <code>filename</code>
+are combined to create the fully qualified file name. Defaults to the
+working directory.</p></dd>
+  
+</dl></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='https://ggplot2.tidyverse.org/reference/ggsave.html'>ggsave</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>temp_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".tsv"</span>)
-  <span class='no'>calc_mtcars_cyl</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>cyl</span>) {
-      <span class='fu'><a href='https://rdrr.io/r/base/message.html'>message</a></span>(<span class='st'>"calculating"</span>)
-      <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>mtcars</span>[<span class='no'>mtcars</span>$<span class='no'>cyl</span> <span class='kw'>==</span> <span class='no'>cyl</span>, ])
-  }
+    <pre class="examples"><div class='input'>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+ <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>ggplot</span>(<span class='no'>mtcars</span>, <span class='fu'>aes</span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'>geom_point</span>()
+ <span class='fu'>ggrasterize</span>(<span class='no'>p</span>)
 
-  <span class='co'># Call "calc_mtcars_cyl" function</span>
-  <span class='no'>res1</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_mtcars_cyl</span>(<span class='fl'>6</span>) <span class='kw'>%cache_matrix%</span> <span class='no'>temp_file</span></div><div class='output co'>#&gt; <span class='message'>calculating</span></div><div class='input'>
-  <span class='co'># Load cached file</span>
-  <span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_mtcars_cyl</span>(<span class='fl'>6</span>) <span class='kw'>%cache_matrix%</span> <span class='no'>temp_file</span></div><div class='output co'>#&gt; <span class='message'>Using cached matrix from '/tmp/Rtmpafpwer/file4e5f46e43afc.tsv'</span></div><div class='input'>
-</div></pre>
+ <span class='co'># save to a pdf file  </span>
+ <span class='fu'>ggrasterize</span>(<span class='no'>p</span>, <span class='st'>"myfile.pdf"</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
