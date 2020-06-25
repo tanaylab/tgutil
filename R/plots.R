@@ -184,8 +184,75 @@ scale_fill_gradientn_abs <- function(..., colors, values, abs_range)
 #' 
 #' @export
 ggpreview <- function(plot = ggplot2::last_plot(), filename=tempfile(fileext = ".png"), ...){
-    plot <- ggsave(plot, filename=filename, ...)
+    plot <- ggplot2::ggsave(plot, filename=filename, ...)
     grid::grid.newpage()
     grid::grid.raster(png::readPNG(filename))
-    invisible(plot)
+    invisible()
+}
+
+
+#' Rasterize ggplot panel area
+#' 
+#' @description Draws the panel area of a ggplot to a png file, and then re-draws it as raster to the current device. There is also an option to save the result to a file (if \code{filename} is not NULL).
+#' 
+#' @inheritParams ggplot2::ggsave
+#' @inheritDotParams ggplot2::ggsave
+#' 
+#' @seealso \code{\link[ggplot2]{ggsave}}
+#' 
+#' @examples
+#' 
+#' \dontrun{
+#'  p <- ggplot(mtcars, aes(mpg, wt)) + geom_point() 
+#'  ggrasterize(p)
+#' 
+#'  # save to a pdf file  
+#'  ggrasterize(p, "myfile.pdf")
+#' }
+#' 
+#' @export
+ggrasterize <- function(plot = ggplot2::last_plot(), filename=NULL, device = NULL, scale = 1, width = NA, height = NA, dpi = 300, units = c("in", "cm", "mm"), limitsize = TRUE, ...){
+
+    dpi <- ggplot2:::parse_dpi(dpi)
+    dim <- suppressMessages(ggplot2:::plot_dim(c(NA, NA), scale = 1, units = c("in", "cm", "mm"),
+        limitsize = FALSE))
+
+    # plot the panel and other elements separately
+    gt <- cowplot::as_gtable(plot)
+
+    # Plot the panel to png         
+    gt_panel <- gt
+    gt_panel$grobs <- gt$grobs %>% purrr::modify_at(grep("panel", gt$layout$name, invert=TRUE), ~ grid::nullGrob())
+
+    old_dev <- grDevices::dev.cur()     
+    temp_fn <- tempfile(fileext = ".png")
+    temp_dev <- ggplot2:::plot_dev(NULL, temp_fn, dpi = dpi)
+    temp_dev(filename = temp_fn, width = dim[1], height = dim[2],   ...)    
+    grid::grid.draw(gt_panel)
+    grDevices::dev.off()
+
+    # Plot other elements as vector graphics
+    gt_other <- gt
+    gt_other$grobs <- gt$grobs %>% purrr::modify_at(grep("panel", gt$layout$name), ~ grid::nullGrob())
+    gt_other$grobs <- gt_other$grobs %>% purrr::modify_at(grep("background", gt$layout$name), ~ grid::nullGrob())
+
+
+    if (!is.null(filename)){
+        dim <- ggplot2:::plot_dim(c(width, height), scale = scale, units = units,
+        limitsize = limitsize)
+        dev <- ggplot2:::plot_dev(device, filename, dpi = dpi)   
+        dev(filename = filename, width = dim[1], height = dim[2], ...) 
+        on.exit(utils::capture.output({
+            grDevices::dev.off()
+            if (old_dev > 1) grDevices::dev.set(old_dev)
+        }))
+        grid::grid.raster(png::readPNG(temp_fn))
+        grid::grid.draw(gt_other)    
+    } else {
+        utils::capture.output({            
+            if (old_dev > 1) grDevices::dev.set(old_dev)
+        })
+        grid::grid.raster(png::readPNG(temp_fn))
+        grid::grid.draw(gt_other)  
+    }    
 }
