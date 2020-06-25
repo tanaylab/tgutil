@@ -8,6 +8,7 @@ ggrasterize(
   plot = ggplot2::last_plot(),
   filename = NULL,
   device = NULL,
+  path = NULL,
   scale = 1,
   width = NA,
   height = NA,
@@ -25,6 +26,10 @@ ggrasterize(
 \item{device}{Device to use. Can either be a device function
 (e.g. \code{\link[=png]{png()}}), or one of "eps", "ps", "tex" (pictex),
 "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).}
+
+\item{path}{Path of the directory to save plot to: \code{path} and \code{filename}
+are combined to create the fully qualified file name. Defaults to the
+working directory.}
 
 \item{scale}{Multiplicative scaling factor.}
 
@@ -44,13 +49,8 @@ If not supplied, uses the size of current graphics device.}
 save images larger than 50x50 inches, to prevent the common error of
 specifying dimensions in pixels.}
 
-\item{...}{
-  Arguments passed on to \code{\link[ggplot2:ggsave]{ggplot2::ggsave}}
-  \describe{
-    \item{\code{path}}{Path of the directory to save plot to: \code{path} and \code{filename}
-are combined to create the fully qualified file name. Defaults to the
-working directory.}
-  }}
+\item{...}{Other arguments passed on to the graphics device function,
+as specified by \code{device}.}
 }
 \description{
 Draws the panel area of a ggplot to a png file, and then re-draws it as raster to the current device. There is also an option to save the result to a file (if \code{filename} is not NULL).
