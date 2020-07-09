@@ -6,10 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tries reading a cached dataframe result from the filename on the right
-side. If the file is missing, generate the dataframe using the
-function call on the left side and write the result to the file. If "tgutil.cache"
-option is FALSE, right side would be always recumputed. — %cache_df% • tgutil</title>
+<title>Call `main()` — call_main • tgutil</title>
 
 
 <!-- jquery -->
@@ -42,14 +39,10 @@ option is FALSE, right side would be always recumputed. — %cache_df% • tguti
 
 
 
-<meta property="og:title" content="Tries reading a cached dataframe result from the filename on the right
-side. If the file is missing, generate the dataframe using the
-function call on the left side and write the result to the file. If "tgutil.cache"
-option is FALSE, right side would be always recumputed. — %cache_df%" />
-<meta property="og:description" content="Tries reading a cached dataframe result from the filename on the right
-side. If the file is missing, generate the dataframe using the
-function call on the left side and write the result to the file. If &quot;tgutil.cache&quot;
-option is FALSE, right side would be always recumputed." />
+<meta property="og:title" content="Call `main()` — call_main" />
+<meta property="og:description" content="Call the function `main()` with the script name and the command line
+argument. When the `main()` finishes, exit with the return code as 
+the program status." />
 
 
 
@@ -117,49 +110,27 @@ option is FALSE, right side would be always recumputed." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Tries reading a cached dataframe result from the filename on the right
-side. If the file is missing, generate the dataframe using the
-function call on the left side and write the result to the file. If "tgutil.cache"
-option is FALSE, right side would be always recumputed.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tanaylab/tgutil/blob/master/R/io.R'><code>R/io.R</code></a></small>
-    <div class="hidden name"><code>grapes-cache_df-grapes.Rd</code></div>
+    <h1>Call `main()`</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tanaylab/tgutil/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>call_main.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Tries reading a cached dataframe result from the filename on the right
-side. If the file is missing, generate the dataframe using the
-function call on the left side and write the result to the file. If "tgutil.cache"
-option is FALSE, right side would be always recumputed.</p>
+    <p>Call the function `main()` with the script name and the command line
+argument. When the `main()` finishes, exit with the return code as 
+the program status.</p>
     </div>
 
-    <pre class="usage"><span class='no'>call</span> <span class='kw'>%cache_df%</span> <span class='no'>fname</span></pre>
+    <pre class="usage"><span class='fu'>call_main</span>()</pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>call</th>
-      <td><p>function call</p></td>
-    </tr>
-    <tr>
-      <th>fname</th>
-      <td><p>filename</p></td>
-    </tr>
-    </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>temp_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".tsv"</span>)
-  <span class='no'>calc_mtcars_cyl</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>cyl</span>) {
-      <span class='fu'><a href='https://rdrr.io/r/base/message.html'>message</a></span>(<span class='st'>"calculating"</span>)
-      <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>mtcars</span>[<span class='no'>mtcars</span>$<span class='no'>cyl</span> <span class='kw'>==</span> <span class='no'>cyl</span>, ])
-  }
-
-  <span class='co'># Call "calc_mtcars_cyl" function</span>
-  <span class='no'>res1</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_mtcars_cyl</span>(<span class='fl'>6</span>) <span class='kw'>%cache_df%</span> <span class='no'>temp_file</span></div><div class='output co'>#&gt; <span class='message'>calculating</span></div><div class='input'>
-  <span class='co'># Load cached file</span>
-  <span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_mtcars_cyl</span>(<span class='fl'>6</span>) <span class='kw'>%cache_df%</span> <span class='no'>temp_file</span></div><div class='output co'>#&gt; <span class='message'>Using cached dataframe from '/tmp/Rtmpao72FG/file5135511d05e6.tsv'</span></div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>sys.nframe</a></span>() <span class='kw'>==</span> <span class='fl'>0</span>) {
+        <span class='fu'>call_main</span>()
+    }
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
