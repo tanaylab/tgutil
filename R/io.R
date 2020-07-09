@@ -1,3 +1,10 @@
+tgutil_message <- function(...){
+    if (getOption("tgutil.verbose")){
+        message(...)    
+    }    
+}
+
+
 ########################################################################
 #' @export
 argpack <- function(...)
@@ -54,12 +61,11 @@ fread_rownames <- function(..., row.var='rowname')
 
 
 ########################################################################
-#' Wrapper for data.table::fwrite
+#' Wrapper for data.table::fwrite with NA's saved as "NA" instad of "".
 #' @export
-#' @inheritParams data.table::fwrite
-#' @inheritDotParams data.table::fwrite
+#' @inheritDotParams data.table::fwrite -na
 fwrite <- function(x, ...) {
-	data.table::fwrite(x, na='NA', ...)
+	data.table::fwrite(x, na = "NA", ...)
 }
 
 
@@ -380,7 +386,8 @@ save_matrix <- function(x, fname)
 ########################################################################
 #' Tries reading a cached matrix result from the filename on the right
 #' side. If the file is missing, generate the matrix using the function
-#' call on the left side and write the result to the file.
+#' call on the left side and write the result to the file. If "tgutil.cache"
+#' option is FALSE, right side would be always recumputed.
 #' 
 #' @param call function call
 #' @param fname filename
@@ -402,8 +409,12 @@ save_matrix <- function(x, fname)
 #' @export
 `%cache_matrix%` <- function(call, fname)
 {
+	if (!getOption("tgutil.cache")){
+		return(call %fcache_matrix% fname)
+	}
+	
     if (file.exists(fname)) {
-        message("Using cached matrix from '", fname, "'")
+        tgutil_message("Using cached matrix from '", fname, "'")
         return(load_matrix(fname))
     }
 
@@ -445,7 +456,8 @@ save_matrix <- function(x, fname)
 ########################################################################
 #' Tries reading a cached dataframe result from the filename on the right
 #' side. If the file is missing, generate the dataframe using the
-#' function call on the left side and write the result to the file.
+#' function call on the left side and write the result to the file. If "tgutil.cache"
+#' option is FALSE, right side would be always recumputed.
 #' 
 #' @param call function call
 #' @param fname filename
@@ -467,8 +479,12 @@ save_matrix <- function(x, fname)
 #' @export
 `%cache_df%` <- function(call, fname)
 {
+	if (!getOption("tgutil.cache")){
+		return(call %fcache_df% fname)
+	}
+	
     if (file.exists(fname)) {
-        message("Using cached dataframe from '", fname, "'")
+        tgutil_message("Using cached dataframe from '", fname, "'")
         return(load_dataframe(fname))
     }
 
@@ -508,7 +524,8 @@ save_matrix <- function(x, fname)
 ########################################################################
 #' Tries reading a cached dataframe result from the filename on the right
 #' side. If the file is missing, generate the dataframe using the
-#' function call on the left side and write the result to the file.
+#' function call on the left side and write the result to the file. If "tgutil.cache"
+#' option is FALSE, right side would be always recumputed.
 #' 
 #' @param call function call
 #' @param fname filename
@@ -530,8 +547,12 @@ save_matrix <- function(x, fname)
 #' @export
 `%cache_rds%` <- function(call, fname)
 {
+	if (!getOption("tgutil.cache")){
+		return(call %fcache_rds% fname)
+	}
+	
     if (file.exists(fname)) {
-        message("Using cached dataframe from '", fname, "'")
+        tgutil_message("Using cached dataframe from '", fname, "'")
         return(readr::read_rds(fname))
     }
 

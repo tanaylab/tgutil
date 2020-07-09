@@ -4,7 +4,8 @@
 \alias{\%cache_df\%}
 \title{Tries reading a cached dataframe result from the filename on the right
 side. If the file is missing, generate the dataframe using the
-function call on the left side and write the result to the file.}
+function call on the left side and write the result to the file. If "tgutil.cache"
+option is FALSE, right side would be always recumputed.}
 \usage{
 call \%cache_df\% fname
 }
@@ -16,7 +17,8 @@ call \%cache_df\% fname
 \description{
 Tries reading a cached dataframe result from the filename on the right
 side. If the file is missing, generate the dataframe using the
-function call on the left side and write the result to the file.
+function call on the left side and write the result to the file. If "tgutil.cache"
+option is FALSE, right side would be always recumputed.
 }
 \examples{
 temp_file <- tempfile(fileext = ".tsv")

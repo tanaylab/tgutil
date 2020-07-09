@@ -2,34 +2,33 @@
 % Please edit documentation in R/io.R
 \name{fwrite}
 \alias{fwrite}
-\title{Wrapper for data.table::fwrite}
+\title{Wrapper for data.table::fwrite with NA's saved as "NA" instad of "".}
 \usage{
 fwrite(x, ...)
 }
 \arguments{
-\item{x}{Any \code{list} of same length vectors; e.g. \code{data.frame} and \code{data.table}. If \code{matrix}, it gets internally coerced to \code{data.table} preserving col names but not row names}
-
-\item{...}{Arguments passed on to \code{data.table::fwrite}
-\describe{
-  \item{x}{Any \code{list} of same length vectors; e.g. \code{data.frame} and \code{data.table}. If \code{matrix}, it gets internally coerced to \code{data.table} preserving col names but not row names}
-  \item{file}{Output file name. \code{""} indicates output to the console. }
-  \item{append}{If \code{TRUE}, the file is opened in append mode and column names (header row) are not written.}
-  \item{quote}{When \code{"auto"}, character fields, factor fields and column names will only be surrounded by double quotes when they need to be; i.e., when the field contains the separator \code{sep}, a line ending \code{\\n}, the double quote itself or (when \code{list} columns are present) \code{sep2[2]} (see \code{sep2} below). If \code{FALSE} the fields are not wrapped with quotes even if this would break the CSV due to the contents of the field. If \code{TRUE} double quotes are always included other than around numeric fields, as \code{write.csv}.}
-  \item{sep}{The separator between columns. Default is \code{","}.}
-  \item{sep2}{For columns of type \code{list} where each item is an atomic vector, \code{sep2} controls how to separate items \emph{within} the column. \code{sep2[1]} is written at the start of the output field, \code{sep2[2]} is placed between each item and \code{sep2[3]} is written at the end. \code{sep2[1]} and \code{sep2[3]} may be any length strings including empty \code{""} (default). \code{sep2[2]} must be a single character and (when \code{list} columns are present and therefore \code{sep2} is used) different from both \code{sep} and \code{dec}. The default (\code{|}) is chosen to visually distinguish from the default \code{sep}. In speaking, writing and in code comments we may refer to \code{sep2[2]} as simply "sep2".}
-  \item{eol}{Line separator. Default is \code{"\r\n"} for Windows and \code{"\n"} otherwise.}
-  \item{na}{The string to use for missing values in the data. Default is a blank string \code{""}.}
-  \item{dec}{The decimal separator, by default \code{"."}. See link in references. Cannot be the same as \code{sep}.}
-  \item{row.names}{Should row names be written? For compatibility with \code{data.frame} and \code{write.csv} since \code{data.table} never has row names. Hence default \code{FALSE} unlike \code{write.csv}.}
-  \item{col.names}{Should the column names (header row) be written? The default is \code{TRUE} for new files and when overwriting existing files (\code{append=FALSE}). Otherwise, the default is \code{FALSE} to prevent column names appearing again mid-file when stacking a set of \code{data.table}s or appending rows to the end of a file.}
-  \item{qmethod}{A character string specifying how to deal with embedded double quote characters when quoting strings.
+\item{...}{
+  Arguments passed on to \code{\link[data.table:fwrite]{data.table::fwrite}}
+  \describe{
+    \item{\code{x}}{Any \code{list} of same length vectors; e.g. \code{data.frame} and \code{data.table}. If \code{matrix}, it gets internally coerced to \code{data.table} preserving col names but not row names}
+    \item{\code{file}}{Output file name. \code{""} indicates output to the console. }
+    \item{\code{append}}{If \code{TRUE}, the file is opened in append mode and column names (header row) are not written.}
+    \item{\code{quote}}{When \code{"auto"}, character fields, factor fields and column names will only be surrounded by double quotes when they need to be; i.e., when the field contains the separator \code{sep}, a line ending \code{\\n}, the double quote itself or (when \code{list} columns are present) \code{sep2[2]} (see \code{sep2} below). If \code{FALSE} the fields are not wrapped with quotes even if this would break the CSV due to the contents of the field. If \code{TRUE} double quotes are always included other than around numeric fields, as \code{write.csv}.}
+    \item{\code{sep}}{The separator between columns. Default is \code{","}.}
+    \item{\code{sep2}}{For columns of type \code{list} where each item is an atomic vector, \code{sep2} controls how to separate items \emph{within} the column. \code{sep2[1]} is written at the start of the output field, \code{sep2[2]} is placed between each item and \code{sep2[3]} is written at the end. \code{sep2[1]} and \code{sep2[3]} may be any length strings including empty \code{""} (default). \code{sep2[2]} must be a single character and (when \code{list} columns are present and therefore \code{sep2} is used) different from both \code{sep} and \code{dec}. The default (\code{|}) is chosen to visually distinguish from the default \code{sep}. In speaking, writing and in code comments we may refer to \code{sep2[2]} as simply "sep2".}
+    \item{\code{eol}}{Line separator. Default is \code{"\r\n"} for Windows and \code{"\n"} otherwise.}
+    \item{\code{dec}}{The decimal separator, by default \code{"."}. See link in references. Cannot be the same as \code{sep}.}
+    \item{\code{row.names}}{Should row names be written? For compatibility with \code{data.frame} and \code{write.csv} since \code{data.table} never has row names. Hence default \code{FALSE} unlike \code{write.csv}.}
+    \item{\code{col.names}}{Should the column names (header row) be written? The default is \code{TRUE} for new files and when overwriting existing files (\code{append=FALSE}). Otherwise, the default is \code{FALSE} to prevent column names appearing again mid-file when stacking a set of \code{data.table}s or appending rows to the end of a file.}
+    \item{\code{qmethod}}{A character string specifying how to deal with embedded double quote characters when quoting strings.
       \itemize{
 	\item{"escape" - the quote character (as well as the backslash character) is escaped in C style by a backslash, or}
 	\item{"double" (default, same as \code{write.csv}), in which case the double quote is doubled with another one.}
       }}
-  \item{logical01}{Should \code{logical} values be written as \code{1} and \code{0} rather than \code{"TRUE"} and \code{"FALSE"}?}
-  \item{logicalAsInt}{Deprecated. Old name for `logical01`. Name change for consistency with `fread` for which `logicalAsInt` would not make sense.}
-  \item{dateTimeAs}{ How \code{Date}/\code{IDate}, \code{ITime} and \code{POSIXct} items are written.
+    \item{\code{logical01}}{Should \code{logical} values be written as \code{1} and \code{0} rather than \code{"TRUE"} and \code{"FALSE"}?}
+    \item{\code{logicalAsInt}}{Deprecated. Old name for `logical01`. Name change for consistency with `fread` for which `logicalAsInt` would not make sense.}
+    \item{\code{scipen}}{ \code{integer} In terms of printing width, how much of a bias should there be towards printing whole numbers rather than scientific notation? See Details. }
+    \item{\code{dateTimeAs}}{ How \code{Date}/\code{IDate}, \code{ITime} and \code{POSIXct} items are written.
       \itemize{
 	\item{"ISO" (default) - \code{2016-09-12}, \code{18:12:16} and \code{2016-09-12T18:12:16.999999Z}. 0, 3 or 6 digits of fractional seconds are printed if and when present for convenience, regardless of any R options such as \code{digits.secs}. The idea being that if milli and microseconds are present then you most likely want to retain them. R's internal UTC representation is written faithfully to encourage ISO standards, stymie timezone ambiguity and for speed. An option to consider is to start R in the UTC timezone simply with \code{"$ TZ='UTC' R"} at the shell (NB: it must be one or more spaces between \code{TZ='UTC'} and \code{R}, anything else will be silently ignored; this TZ setting applies just to that R process) or \code{Sys.setenv(TZ='UTC')} at the R prompt and then continue as if UTC were local time.}
 	\item{"squash" - \code{20160912}, \code{181216} and \code{20160912181216999}. This option allows fast and simple extraction of \code{yyyy}, \code{mm}, \code{dd} and (most commonly to group by) \code{yyyymm} parts using integer div and mod operations. In R for example, one line helper functions could use \code{\%/\%10000}, \code{\%/\%100\%\%100}, \code{\%\%100} and \code{\%/\%100} respectively. POSIXct UTC is squashed to 17 digits (including 3 digits of milliseconds always, even if \code{000}) which may be read comfortably as \code{integer64} (automatically by \code{fread()}).}
@@ -40,12 +39,15 @@ fwrite(x, ...)
   This option applies to vectors of date/time in list column cells, too. \cr \cr
   A fully flexible format string (such as \code{"\%m/\%d/\%Y"}) is not supported. This is to encourage use of ISO standards and because that flexibility is not known how to make fast at C level. We may be able to support one or two more specific options if required.
   }
-  \item{buffMB}{The buffer size (MB) per thread in the range 1 to 1024, default 8MB. Experiment to see what works best for your data on your hardware.}
-  \item{nThread}{The number of threads to use. Experiment to see what works best for your data on your hardware.}
-  \item{showProgress}{ Display a progress meter on the console? Ignored when \code{file==""}. }
-  \item{verbose}{Be chatty and report timings?}
-}}
+    \item{\code{buffMB}}{The buffer size (MB) per thread in the range 1 to 1024, default 8MB. Experiment to see what works best for your data on your hardware.}
+    \item{\code{nThread}}{The number of threads to use. Experiment to see what works best for your data on your hardware.}
+    \item{\code{showProgress}}{ Display a progress meter on the console? Ignored when \code{file==""}. }
+    \item{\code{compress}}{If \code{compress = "auto"} and if \code{file} ends in \code{.gz} then output format is gzipped csv else csv. If \code{compress = "none"}, output format is always csv. If \code{compress = "gzip"} then format is gzipped csv. Output to the console is never gzipped even if \code{compress = "gzip"}. By default, \code{compress = "auto"}.}
+    \item{\code{yaml}}{If \code{TRUE}, \code{fwrite} will output a CSVY file, that is, a CSV file with metadata stored as a YAML header, using \code{\link[yaml]{as.yaml}}. See \code{Details}. }
+    \item{\code{bom}}{If \code{TRUE} a BOM (Byte Order Mark) sequence (EF BB BF) is added at the beginning of the file; format 'UTF-8 with BOM'.}
+    \item{\code{verbose}}{Be chatty and report timings?}
+  }}
 }
 \description{
-Wrapper for data.table::fwrite
+Wrapper for data.table::fwrite with NA's saved as "NA" instad of "".
 }

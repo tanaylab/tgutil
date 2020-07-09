@@ -4,7 +4,8 @@
 \alias{\%cache_matrix\%}
 \title{Tries reading a cached matrix result from the filename on the right
 side. If the file is missing, generate the matrix using the function
-call on the left side and write the result to the file.}
+call on the left side and write the result to the file. If "tgutil.cache"
+option is FALSE, right side would be always recumputed.}
 \usage{
 call \%cache_matrix\% fname
 }
@@ -16,7 +17,8 @@ call \%cache_matrix\% fname
 \description{
 Tries reading a cached matrix result from the filename on the right
 side. If the file is missing, generate the matrix using the function
-call on the left side and write the result to the file.
+call on the left side and write the result to the file. If "tgutil.cache"
+option is FALSE, right side would be always recumputed.
 }
 \examples{
 temp_file <- tempfile(fileext = ".tsv")

@@ -4,9 +4,16 @@
 \alias{tgplot_heatmap}
 \title{Easily plot a matrix as an heatmap using ggplot2}
 \usage{
-tgplot_heatmap(mtrx, col_names = NULL, row_names = NULL, xlab = NULL,
-  ylab = NULL, plot_top = TRUE, plot_right = TRUE,
-  col_names_orient = c("horizontal", "vertical", "slanted"))
+tgplot_heatmap(
+  mtrx,
+  col_names = NULL,
+  row_names = NULL,
+  xlab = NULL,
+  ylab = NULL,
+  plot_top = TRUE,
+  plot_right = TRUE,
+  col_names_orient = c("horizontal", "vertical", "slanted")
+)
 }
 \arguments{
 \item{mtrx}{The matrix to be plotted}
