@@ -58,5 +58,8 @@ run_wide <- function(x, fun, ..., mc_preschedule=TRUE, mc_cores=num_physical_cor
         return(fun(x[i], ...))
     }
 
-    return(parallel::mclapply(1:length(x), run_once, mc.preschedule=mc_preschedule, mc.cores=mc_cores))
+    idxs <- 1:length(x)
+    names(idxs) <- names(x)
+
+    return(parallel::mclapply(idxs, run_once, mc.preschedule=mc_preschedule, mc.cores=mc_cores))
 }
