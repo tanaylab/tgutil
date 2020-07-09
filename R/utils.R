@@ -93,3 +93,31 @@ exit <- function(...)
 
     q(save='no', status=rc)
 }
+
+
+########################################################################
+#' Call `main()`
+#' 
+#' Call the function `main()` with the script name and the command line
+#' argument. When the `main()` finishes, exit with the return code as 
+#' the program status.
+#' 
+#' @examples 
+#' \dontrun{
+#'     if (sys.nframe() == 0) {
+#'         call_main()
+#'     }
+#' }
+#' 
+#' @export
+call_main <- function() {
+    args <- commandArgs(trailingOnly = FALSE)
+    arg0 <- grep("^--file=", args, perl = TRUE, value = TRUE)
+    if (length(arg0) > 0) {
+        arg0 <- substring(arg0[1], 8)
+    }
+    else {
+        arg0 <- NA
+    }
+    exit(main(c(arg0, commandArgs(trailingOnly = TRUE))))
+}
