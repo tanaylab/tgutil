@@ -552,7 +552,7 @@ save_matrix <- function(x, fname)
 	}
 	
     if (file.exists(fname)) {
-        tgutil_message("Using cached dataframe from '", fname, "'")
+        tgutil_message("Using cached rds from '", fname, "'")
         return(readr::read_rds(fname))
     }
 
