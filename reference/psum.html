@@ -6,10 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tries reading a cached matrix result from the filename on the right
-side. If the file is missing, generate the matrix using the function
-call on the left side and write the result to the file. If "tgutil.cache"
-option is FALSE, right side would be always recumputed. — %cache_matrix% • tgutil</title>
+<title>Vectorized sum, similiar to <code>pmin</code> and <code>pmax</code> — psum • tgutil</title>
 
 
 <!-- jquery -->
@@ -42,14 +39,8 @@ option is FALSE, right side would be always recumputed. — %cache_matrix% • t
 
 
 
-<meta property="og:title" content="Tries reading a cached matrix result from the filename on the right
-side. If the file is missing, generate the matrix using the function
-call on the left side and write the result to the file. If "tgutil.cache"
-option is FALSE, right side would be always recumputed. — %cache_matrix%" />
-<meta property="og:description" content="Tries reading a cached matrix result from the filename on the right
-side. If the file is missing, generate the matrix using the function
-call on the left side and write the result to the file. If &quot;tgutil.cache&quot;
-option is FALSE, right side would be always recumputed." />
+<meta property="og:title" content="Vectorized sum, similiar to <code>pmin</code> and <code>pmax</code> — psum" />
+<meta property="og:description" content="Vectorized sum, similiar to pmin and pmax" />
 
 
 
@@ -117,49 +108,34 @@ option is FALSE, right side would be always recumputed." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Tries reading a cached matrix result from the filename on the right
-side. If the file is missing, generate the matrix using the function
-call on the left side and write the result to the file. If "tgutil.cache"
-option is FALSE, right side would be always recumputed.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tanaylab/tgutil/blob/master/R/io.R'><code>R/io.R</code></a></small>
-    <div class="hidden name"><code>grapes-cache_matrix-grapes.Rd</code></div>
+    <h1>Vectorized sum, similiar to <code>pmin</code> and <code>pmax</code></h1>
+    <small class="dont-index">Source: <a href='https://github.com/tanaylab/tgutil/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>psum.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Tries reading a cached matrix result from the filename on the right
-side. If the file is missing, generate the matrix using the function
-call on the left side and write the result to the file. If "tgutil.cache"
-option is FALSE, right side would be always recumputed.</p>
+    <p>Vectorized sum, similiar to <code>pmin</code> and <code>pmax</code></p>
     </div>
 
-    <pre class="usage"><span class='no'>call</span> <span class='kw'>%cache_matrix%</span> <span class='no'>fname</span></pre>
+    <pre class="usage"><span class='fu'>psum</span>(<span class='no'>...</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>call</th>
-      <td><p>function call</p></td>
+      <th>...</th>
+      <td><p>numeric vectors to sum</p></td>
     </tr>
     <tr>
-      <th>fname</th>
-      <td><p>filename</p></td>
+      <th>na.rm</th>
+      <td><p>a logical indicating whether missing values should be removed</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>temp_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".tsv"</span>)
-  <span class='no'>calc_mtcars_cyl</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>cyl</span>) {
-      <span class='fu'><a href='https://rdrr.io/r/base/message.html'>message</a></span>(<span class='st'>"calculating"</span>)
-      <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>mtcars</span>[<span class='no'>mtcars</span>$<span class='no'>cyl</span> <span class='kw'>==</span> <span class='no'>cyl</span>, ])
-  }
+    <p>a vector with sum of <code>...</code> arguments</p>
 
-  <span class='co'># Call "calc_mtcars_cyl" function</span>
-  <span class='no'>res1</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_mtcars_cyl</span>(<span class='fl'>6</span>) <span class='kw'>%cache_matrix%</span> <span class='no'>temp_file</span></div><div class='output co'>#&gt; <span class='message'>calculating</span></div><div class='input'>
-  <span class='co'># Load cached file</span>
-  <span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='fu'>calc_mtcars_cyl</span>(<span class='fl'>6</span>) <span class='kw'>%cache_matrix%</span> <span class='no'>temp_file</span></div><div class='output co'>#&gt; <span class='message'>Using cached matrix from '/tmp/RtmpCBR4oC/file7e032b948795.tsv'</span></div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
