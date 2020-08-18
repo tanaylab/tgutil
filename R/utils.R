@@ -67,6 +67,24 @@ cutree_order <- function(tree, k = k, h = h){
 }
 
 
+#######################################################################
+#' Vectorized mean, similiar to \code{pmin} and \code{pmax}
+#' 
+#' @param ... numeric vectors to sum
+#' @param na.rm a logical indicating whether missing values should be removed
+#' 
+#' @return a vector with sum of \code{...} arguments
+#' 
+#' @export
+pmean <- function (..., na.rm = FALSE){
+    d <- do.call(cbind, list(...))
+    res <- rowMeans(d, na.rm = na.rm)
+    idx_na <- !rowMeans(!is.na(d))
+    res[idx_na] <- NA
+    return(res)
+}
+
+
 ########################################################################
 #' Equivalent to python's sys.exit()
 #' Stop the script without saving R's status.
