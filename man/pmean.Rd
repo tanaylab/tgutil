@@ -7,12 +7,12 @@
 pmean(..., na.rm = FALSE)
 }
 \arguments{
-\item{...}{numeric vectors to sum}
+\item{...}{numeric vectors to average}
 
 \item{na.rm}{a logical indicating whether missing values should be removed}
 }
 \value{
-a vector with sum of \code{...} arguments
+a vector with mean of \code{...} arguments
 }
 \description{
 Vectorized mean, similiar to \code{pmin} and \code{pmax}

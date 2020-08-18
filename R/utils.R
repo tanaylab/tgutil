@@ -70,10 +70,10 @@ cutree_order <- function(tree, k = k, h = h){
 #######################################################################
 #' Vectorized mean, similiar to \code{pmin} and \code{pmax}
 #' 
-#' @param ... numeric vectors to sum
+#' @param ... numeric vectors to average
 #' @param na.rm a logical indicating whether missing values should be removed
 #' 
-#' @return a vector with sum of \code{...} arguments
+#' @return a vector with mean of \code{...} arguments
 #' 
 #' @export
 pmean <- function (..., na.rm = FALSE){
@@ -83,6 +83,25 @@ pmean <- function (..., na.rm = FALSE){
     res[idx_na] <- NA
     return(res)
 }
+
+
+#######################################################################
+#' Vectorized sum, similiar to \code{pmin} and \code{pmax}
+#' 
+#' @param ... numeric vectors to sum
+#' @param na.rm a logical indicating whether missing values should be removed
+#' 
+#' @return a vector with sum of \code{...} arguments
+#' 
+#' @export
+psum <- function (..., na.rm = FALSE){
+    d <- do.call(cbind, list(...))
+    res <- rowSums(d, na.rm = na.rm)
+    idx_na <- !rowSums(!is.na(d))
+    res[idx_na] <- NA
+    return(res)
+}
+
 
 
 ########################################################################
