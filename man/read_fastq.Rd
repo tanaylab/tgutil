@@ -7,9 +7,9 @@
 read_fastq(fn, ...)
 }
 \arguments{
-\item{...}{other parameters for \code{fread}. Note that \code{cmd,col.names} and \code{sep} are set by the function.}
+\item{fn}{of the file - can be zipped (with "gz" file extension).}
 
-\item{name}{of the file - can be zipped (with "gz" file extension).}
+\item{...}{other parameters for \code{fread}. Note that \code{cmd,col.names} and \code{sep} are set by the function.}
 }
 \value{
 data frame with "id", "seq", and "qual" corresponding to lines 1-3 of the fastq file

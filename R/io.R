@@ -592,7 +592,7 @@ save_matrix <- function(x, fname)
 ########################################################################
 #' Read a fastq file to data frame
 #' 
-#' @param name of the file - can be zipped (with "gz" file extension).
+#' @param fn of the file - can be zipped (with "gz" file extension).
 #' @param ... other parameters for \code{fread}. Note that \code{cmd,col.names} and \code{sep} are set by the function.
 #' 
 #' @return data frame with "id", "seq", and "qual" corresponding to lines 1-3 of the fastq file
@@ -611,3 +611,25 @@ read_fastq <- function(fn, ...){
     
     return(res)
 }
+
+########################################################################
+#' Write a data frame with "id", "seq" and "qual" to fastq file
+#' 
+#' @param df data frame with "id", "seq" and "qual" columns (e.g. output of \code{read_fastq})
+#' @param name of the file - can be zipped (with "gz" file extension).
+#' 
+#' @return None
+#' 
+#' @export 
+write_fastq <- function(df, fn){
+    fq_list <- df %>% 
+		dplyr::mutate(dummy = "+") %>% 
+		dplyr::select(id, seq, dummy, qual) %>% 
+		as.matrix() %>% 
+		t() %>% 
+		as.character() %>% 
+		as_tibble()
+    
+    fwrite(fq_list, file = fn, compress = "auto", col.names = FALSE, quote = FALSE)    
+}
+
