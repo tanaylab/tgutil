@@ -592,7 +592,7 @@ save_matrix <- function(x, fname)
 ########################################################################
 #' Read a fastq file to data frame
 #' 
-#' @param fn of the file - can be zipped (with "gz" file extension).
+#' @param fn name of the file - can be zipped (with "gz" file extension).
 #' @param ... other parameters for \code{fread}. Note that \code{cmd,col.names} and \code{sep} are set by the function.
 #' 
 #' @return data frame with "id", "seq", and "qual" corresponding to lines 1-3 of the fastq file

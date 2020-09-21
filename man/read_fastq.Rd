@@ -7,7 +7,7 @@
 read_fastq(fn, ...)
 }
 \arguments{
-\item{fn}{of the file - can be zipped (with "gz" file extension).}
+\item{fn}{name of the file - can be zipped (with "gz" file extension).}
 
 \item{...}{other parameters for \code{fread}. Note that \code{cmd,col.names} and \code{sep} are set by the function.}
 }
