@@ -76,7 +76,9 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install tgutil with:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"tanaylab/tgutil"</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"tanaylab/tgutil"</span>)
+</pre></div>
 </div>
 <div id="read-legacy-csvs" class="section level2">
 <h2 class="hasAnchor">
@@ -84,7 +86,9 @@
 <div id="fread_rownames" class="section level3">
 <h3 class="hasAnchor">
 <a href="#fread_rownames" class="anchor"></a>fread_rownames</h3>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="reference/fread_rownames.html">fread_rownames</a></span>(<span class="no">...</span>, <span class="kw">row.var</span><span class="kw">=</span><span class="st">'rowname'</span>)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu"><a href="reference/fread_rownames.html">fread_rownames</a></span>(<span class="kw">...</span>, row.var=<span class="st">'rowname'</span>)
+</pre></div>
 <p>Use <code><a href="reference/fread.html">fread()</a></code> to read a csv/tsv with row names (e.g. one created with <code><a href="https://rdrr.io/r/utils/read.table.html">read.table()</a></code>). The name of the column that will hold the row names is given in <code>row.var</code>.</p>
 <p>All arguments are passed to the underlying <code><a href="reference/fread.html">fread()</a></code> call. Note that the following arguments can’t be used (and will be silently ignored): <code>header</code>, <code>skip</code>, <code>col.names</code>.</p>
 </div>
@@ -95,7 +99,9 @@
 <div id="fwrite_mm" class="section level3">
 <h3 class="hasAnchor">
 <a href="#fwrite_mm" class="anchor"></a>fwrite_mm</h3>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="reference/fwrite_mm.html">fwrite_mm</a></span>(<span class="no">x</span>, <span class="no">fname</span>, <span class="kw">sep</span><span class="kw">=</span><span class="st">' '</span>, <span class="kw">row.names</span><span class="kw">=</span><span class="fl">TRUE</span>, <span class="kw">col.names</span><span class="kw">=</span><span class="fl">TRUE</span>)</pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="reference/fwrite_mm.html">fwrite_mm</a></span>(<span class="kw">x</span>, <span class="kw">fname</span>, sep=<span class="st">' '</span>, row.names=<span class="fl">TRUE</span>, col.names=<span class="fl">TRUE</span>)
+</pre></div>
 <p>Write the contents of the sparse matrix <code>x</code> into the text file <code>fname</code> in the MatrixMarket format (see <a href="http://math.nist.gov/MatrixMarket/formats.html" class="uri">http://math.nist.gov/MatrixMarket/formats.html</a>).</p>
 <p>The MatrixMarket format does not save row and column names. <code><a href="reference/fwrite_mm.html">fwrite_mm()</a></code> allows saving them into separate files using the <code>row.names</code> and <code>col.names</code> arguments. These arguments may contain file names into which the column and row names will be written. Alternately setting these arguments to <code>TRUE</code> will cause the row and column names to be written to <code>&lt;fname&gt;.rownames</code> and <code>&lt;fname&gt;.colnames</code> respectively.</p>
 <p>The argument <code>sep</code> indicates the field separator that will be used. Note that using any field separator other than space will result in an output that is not compliant with the MatrixMarket format.</p>
@@ -103,7 +109,9 @@
 <div id="fread_mm" class="section level3">
 <h3 class="hasAnchor">
 <a href="#fread_mm" class="anchor"></a>fread_mm</h3>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="reference/fread_mm.html">fread_mm</a></span>(<span class="no">fname</span>, <span class="kw">sep</span><span class="kw">=</span><span class="st">' '</span>, <span class="kw">row.names</span><span class="kw">=</span><span class="fl">TRUE</span>, <span class="kw">col.names</span><span class="kw">=</span><span class="fl">TRUE</span>)</pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="fu"><a href="reference/fread_mm.html">fread_mm</a></span>(<span class="kw">fname</span>, sep=<span class="st">' '</span>, row.names=<span class="fl">TRUE</span>, col.names=<span class="fl">TRUE</span>)
+</pre></div>
 <p>Reads a sparse matrix in the MatrixMarket format from the file <code>fname</code>.</p>
 <p>The MatrixMarket format does not save row and column names. <code><a href="reference/fread_mm.html">fread_mm()</a></code> allows reading them from separate files using the <code>row.names</code> and <code>col.names</code> arguments. These arguments may contain file names from which the column and row names will be read. Alternately setting these arguments to <code>TRUE</code> will cause the row and column names to be read from <code>&lt;fname&gt;.rownames</code> and <code>&lt;fname&gt;.colnames</code> respectively.</p>
 </div>
@@ -152,7 +160,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -117,20 +117,20 @@
     <p>Wrapper for data.table::fwrite with NA's saved as "NA" instad of "".</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fwrite</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>fwrite</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed on to <code><a href='https://Rdatatable.gitlab.io/data.table/reference/fwrite.html'>data.table::fwrite</a></code></p><dl'>
+      <td><p>Arguments passed on to <code><a href='https://Rdatatable.gitlab.io/data.table/reference/fwrite.html'>data.table::fwrite</a></code></p><dl>
     <dt><code>x</code></dt><dd><p>Any <code>list</code> of same length vectors; e.g. <code>data.frame</code> and <code>data.table</code>. If <code>matrix</code>, it gets internally coerced to <code>data.table</code> preserving col names but not row names</p></dd>
     <dt><code>file</code></dt><dd><p>Output file name. <code>""</code> indicates output to the console.</p></dd>
     <dt><code>append</code></dt><dd><p>If <code>TRUE</code>, the file is opened in append mode and column names (header row) are not written.</p></dd>
     <dt><code>quote</code></dt><dd><p>When <code>"auto"</code>, character fields, factor fields and column names will only be surrounded by double quotes when they need to be; i.e., when the field contains the separator <code>sep</code>, a line ending <code>\n</code>, the double quote itself or (when <code>list</code> columns are present) <code>sep2[2]</code> (see <code>sep2</code> below). If <code>FALSE</code> the fields are not wrapped with quotes even if this would break the CSV due to the contents of the field. If <code>TRUE</code> double quotes are always included other than around numeric fields, as <code>write.csv</code>.</p></dd>
     <dt><code>sep</code></dt><dd><p>The separator between columns. Default is <code>","</code>.</p></dd>
-    <dt><code>sep2</code></dt><dd><p>For columns of type <code>list</code> where each item is an atomic vector, <code>sep2</code> controls how to separate items <em>within</em> the column. <code>sep2[1]</code> is written at the start of the output field, <code>sep2[2]</code> is placed between each item and <code>sep2[3]</code> is written at the end. <code>sep2[1]</code> and <code>sep2[3]</code> may be any length strings including empty <code>""</code> (default). <code>sep2[2]</code> must be a single character and (when <code>list</code> columns are present and therefore <code>sep2</code> is used) different from both <code>sep</code> and <code>dec</code>. The default (<code>|</code>) is chosen to visually distinguish from the default <code>sep</code>. In speaking, writing and in code comments we may refer to <code>sep2[2]</code> as simply "sep2".</p></dd>
+    <dt><code>sep2</code></dt><dd><p>For columns of type <code>list</code> where each item is an atomic vector, <code>sep2</code> controls how to separate items <em>within</em> the column. <code>sep2[1]</code> is written at the start of the output field, <code>sep2[2]</code> is placed between each item and <code>sep2[3]</code> is written at the end. <code>sep2[1]</code> and <code>sep2[3]</code> may be any length strings including empty <code>""</code> (default). <code>sep2[2]</code> must be a single character and (when <code>list</code> columns are present and therefore <code>sep2</code> is used) different from both <code>sep</code> and <code>dec</code>. The default (<code><a href='https://rdrr.io/r/base/Logic.html'>|</a></code>) is chosen to visually distinguish from the default <code>sep</code>. In speaking, writing and in code comments we may refer to <code>sep2[2]</code> as simply "sep2".</p></dd>
     <dt><code>eol</code></dt><dd><p>Line separator. Default is <code>"\r\n"</code> for Windows and <code>"\n"</code> otherwise.</p></dd>
     <dt><code>dec</code></dt><dd><p>The decimal separator, by default <code>"."</code>. See link in references. Cannot be the same as <code>sep</code>.</p></dd>
     <dt><code>row.names</code></dt><dd><p>Should row names be written? For compatibility with <code>data.frame</code> and <code>write.csv</code> since <code>data.table</code> never has row names. Hence default <code>FALSE</code> unlike <code>write.csv</code>.</p></dd>
@@ -181,7 +181,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
