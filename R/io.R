@@ -588,3 +588,26 @@ save_matrix <- function(x, fname)
     readr::write_rds(result, fname)
     return(result)
 }
+
+########################################################################
+#' Read a fastq file to data frame
+#' 
+#' @param name of the file - can be zipped (with "gz" file extension).
+#' @param ... other parameters for \code{fread}. Note that \code{cmd,col.names} and \code{sep} are set by the function.
+#' 
+#' @return data frame with "id", "seq", and "qual" corresponding to lines 1-3 of the fastq file
+#' 
+#' @export 
+read_fastq <- function(fn, ...){
+    ext <- tools::file_ext(fn)
+    
+    if (ext == "gz"){
+        cat_cmd <- "zcat"
+    } else {
+        cat_cmd <- "cat"
+    }
+    
+    res <- fread(cmd = glue::glue("{cat_cmd} {fn} | paste - - - - | cut -f1,2,4"), col.names=c("id", "seq", "qual"), sep="\t", ...)
+    
+    return(res)
+}

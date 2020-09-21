@@ -24,6 +24,7 @@ Imports:
     dplyr,
     ggplot2,
     grid,
+    glue,
     grDevices,
     magrittr,
     matrixStats,
