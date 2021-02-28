@@ -269,3 +269,22 @@ ggrasterize <- function(plot = ggplot2::last_plot(), filename = NULL, device = N
         grid::grid.draw(gt_other)
     }
 }
+
+
+#' Scale x axis by log2 (similar to scale_x_log10) 
+#' 
+#' @inheritDotParams ggplot2::scale_x_log10
+#' 
+#' @export
+scale_x_log2 <- function(...){
+    scale_x_continuous(..., trans = scales::log2_trans())
+}
+
+#' Scale y axis by log2 (similar to scale_y_log10) 
+#' 
+#' @inheritDotParams ggplot2::scale_y_log10
+#' 
+#' @export
+scale_y_log2 <- function(...){
+    scale_y_continuous(..., trans = scales::log2_trans())
+}

@@ -9,7 +9,7 @@ colMins(x, ...)
 }
 \arguments{
 \item{...}{
-  Arguments passed on to \code{\link[matrixStats:rowMaxs]{matrixStats::rowMaxs}}
+  Arguments passed on to \code{\link[matrixStats:rowRanges]{matrixStats::rowMaxs}}
   \describe{
     \item{\code{x}}{A \code{\link[base]{numeric}} NxK \code{\link[base]{matrix}}.}
     \item{\code{rows}}{A \code{\link[base]{vector}} indicating subset of rows
