@@ -88,18 +88,20 @@ tgplot_heatmap <- function(mtrx, col_names = NULL, row_names = NULL, xlab = NULL
     }
 
     if (!is.null(row_names)) {
-        if (interleave){            
+        if (interleave) {
             sec.axis_right <- ggplot2::dup_axis(
-                breaks = seq(2, nrow(mtrx), 2), 
-                labels = row_names[seq(2, nrow(mtrx), 2)])
+                breaks = seq(2, nrow(mtrx), 2),
+                labels = row_names[seq(2, nrow(mtrx), 2)]
+            )
             ggp <- ggp +
                 ggplot2::scale_y_continuous(
-                    breaks = seq(1, nrow(mtrx), 2), 
-                    labels = row_names[seq(1, nrow(mtrx), 2)], 
-                    expand = c(0, 0), 
-                    sec.axis = sec.axis_right)
+                    breaks = seq(1, nrow(mtrx), 2),
+                    labels = row_names[seq(1, nrow(mtrx), 2)],
+                    expand = c(0, 0),
+                    sec.axis = sec.axis_right
+                )
         } else {
-            if (plot_right) {            
+            if (plot_right) {
                 sec.axis_right <- ggplot2::dup_axis()
             } else {
                 sec.axis_right <- ggplot2::waiver()
@@ -193,7 +195,6 @@ scale_fill_gradientn_abs <- function(..., colors, values, abs_range) {
 #' @seealso \code{\link[ggplot2]{ggsave}}
 #'
 #' @examples
-#'
 #' \dontrun{
 #' p <- ggplot(mtcars, aes(mpg, wt)) +
 #'     geom_point() +
@@ -218,7 +219,6 @@ ggpreview <- function(plot = ggplot2::last_plot(), filename = tempfile(fileext =
 #' @seealso \code{\link[ggplot2]{ggsave}}
 #'
 #' @examples
-#'
 #' \dontrun{
 #' p <- ggplot(mtcars, aes(mpg, wt)) +
 #'     geom_point()
@@ -283,20 +283,20 @@ ggrasterize <- function(plot = ggplot2::last_plot(), filename = NULL, device = N
 }
 
 
-#' Scale x axis by log2 (similar to scale_x_log10) 
-#' 
+#' Scale x axis by log2 (similar to scale_x_log10)
+#'
 #' @inheritDotParams ggplot2::scale_x_log10
-#' 
+#'
 #' @export
-scale_x_log2 <- function(...){
+scale_x_log2 <- function(...) {
     scale_x_continuous(..., trans = scales::log2_trans())
 }
 
-#' Scale y axis by log2 (similar to scale_y_log10) 
-#' 
+#' Scale y axis by log2 (similar to scale_y_log10)
+#'
 #' @inheritDotParams ggplot2::scale_y_log10
-#' 
+#'
 #' @export
-scale_y_log2 <- function(...){
+scale_y_log2 <- function(...) {
     scale_y_continuous(..., trans = scales::log2_trans())
 }
