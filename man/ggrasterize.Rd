@@ -24,7 +24,7 @@ ggrasterize(
 \item{filename}{File name to create on disk.}
 
 \item{device}{Device to use. Can either be a device function
-(e.g. \code{\link[=png]{png()}}), or one of "eps", "ps", "tex" (pictex),
+(e.g. \link{png}), or one of "eps", "ps", "tex" (pictex),
 "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).}
 
 \item{path}{Path of the directory to save plot to: \code{path} and \code{filename}
@@ -33,19 +33,19 @@ working directory.}
 
 \item{scale}{Multiplicative scaling factor.}
 
-\item{width}{Plot size in \code{units} ("in", "cm", or "mm").
+\item{width}{Plot size in \code{units} ("in", "cm", "mm", or "px").
 If not supplied, uses the size of current graphics device.}
 
-\item{height}{Plot size in \code{units} ("in", "cm", or "mm").
+\item{height}{Plot size in \code{units} ("in", "cm", "mm", or "px").
 If not supplied, uses the size of current graphics device.}
 
 \item{dpi}{Plot resolution. Also accepts a string input: "retina" (320),
 "print" (300), or "screen" (72). Applies only to raster output types.}
 
-\item{units}{Plot size in \code{units} ("in", "cm", or "mm").
+\item{units}{Plot size in \code{units} ("in", "cm", "mm", or "px").
 If not supplied, uses the size of current graphics device.}
 
-\item{limitsize}{When \code{TRUE} (the default), \code{ggsave} will not
+\item{limitsize}{When \code{TRUE} (the default), \code{ggsave()} will not
 save images larger than 50x50 inches, to prevent the common error of
 specifying dimensions in pixels.}
 
@@ -56,7 +56,6 @@ as specified by \code{device}.}
 Draws the panel area of a ggplot to a png file, and then re-draws it as raster to the current device. There is also an option to save the result to a file (if \code{filename} is not NULL).
 }
 \examples{
-
 \dontrun{
 p <- ggplot(mtcars, aes(mpg, wt)) +
     geom_point()

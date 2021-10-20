@@ -24,5 +24,4 @@ Cut a tree (result from hclust) into groups of data. Groups are in the order of 
 
 hc <- hclust(dist(USArrests))
 memb <- cutree_order(hc, k = 10)
-
 }
