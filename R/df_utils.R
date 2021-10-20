@@ -268,7 +268,7 @@ gather_matrix <- function(mtrx, x='x', y='y', val='val')
 {
     cnames <- colnames(mtrx)
     rnames <- rownames(mtrx)
-    mtrx <- tibble::as_tibble(mtrx)
+    mtrx <- tibble::as_tibble(mtrx, .name_repair = "unique")
 
     if (is.null(cnames)) {
         colnames(mtrx) <- 1:ncol(mtrx)
