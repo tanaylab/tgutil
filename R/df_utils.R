@@ -267,8 +267,8 @@ segment_by <- function(df, column, var='segment')
 gather_matrix <- function(mtrx, x='x', y='y', val='val')
 {
     cnames <- colnames(mtrx)
-    rnames <- rownames(mtrx)
-    mtrx <- tibble::as_tibble(mtrx, .name_repair = "unique")
+    rnames <- rownames(mtrx)    
+    mtrx <- tibble::as_tibble(mtrx, .name_repair = "minimal")
 
     if (is.null(cnames)) {
         colnames(mtrx) <- 1:ncol(mtrx)
