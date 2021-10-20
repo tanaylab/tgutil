@@ -133,11 +133,11 @@ tgplot_add_axis_annotation <- function(heatmap, annotation, position = "bottom",
             ggdata <- tibble::tibble(x = 1, y = 1:length(annotation))
         }
 
-        annotation <- ggplot2::ggplot(ggdata, aes(x = x, y = y)) +
+        annotation <- ggplot2::ggplot(ggdata, ggplot2::aes(x = x, y = y)) +
             ggplot2::geom_raster(fill = annotation) +
             ggplot2::coord_cartesian(expand = FALSE) +
             ggplot2::theme_void() +
-            ggplot2::theme(panel.border = element_rect(size = 0.2, color = "black", fill = NA))
+            ggplot2::theme(panel.border = ggplot2::element_rect(size = 0.2, color = "black", fill = NA))
     }
 
     if (position %in% c("top", "bottom")) {
