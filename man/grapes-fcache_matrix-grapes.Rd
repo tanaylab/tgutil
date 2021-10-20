@@ -16,15 +16,14 @@ cache_matrix that force recreating the cached file
 }
 \examples{
 temp_file <- tempfile(fileext = ".tsv")
-  calc_mtcars_cyl <- function(cyl) {
-      message("calculating")
-      as.matrix(mtcars[mtcars$cyl == cyl, ])
-  }
+calc_mtcars_cyl <- function(cyl) {
+    message("calculating")
+    as.matrix(mtcars[mtcars$cyl == cyl, ])
+}
 
-  # Call "calc_mtcars_cyl" function
-  res1 <- calc_mtcars_cyl(6) \%cache_matrix\% temp_file
+# Call "calc_mtcars_cyl" function
+res1 <- calc_mtcars_cyl(6) \%cache_matrix\% temp_file
 
-  # Force re-calling the function
-  res2 <- calc_mtcars_cyl(6) \%fcache_matrix\% temp_file
-
+# Force re-calling the function
+res2 <- calc_mtcars_cyl(6) \%fcache_matrix\% temp_file
 }

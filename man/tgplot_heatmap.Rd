@@ -12,6 +12,7 @@ tgplot_heatmap(
   ylab = NULL,
   plot_top = TRUE,
   plot_right = TRUE,
+  interleave = FALSE,
   col_names_orient = c("horizontal", "vertical", "slanted")
 )
 }
@@ -33,6 +34,8 @@ A FALSE indicates that no Y-axis labels should be displayed.}
 \item{plot_top}{Whether to put the X-axis labels at the top of the heatmap (as well as at the bottom)}
 
 \item{plot_right}{Whether to put the Y-axis labels at the right side of the heatmap (as well as at the left hand side)}
+
+\item{interleave}{Plot the odd Y-Axis labels on the left side and the even on the right side}
 
 \item{col_names_orient}{Orientation of the X-axis label}
 }

@@ -8,14 +8,14 @@ call_main()
 }
 \description{
 Call the function `main()` with the script name and the command line
-argument. When the `main()` finishes, exit with the return code as 
+argument. When the `main()` finishes, exit with the return code as
 the program status.
 }
 \examples{
 \dontrun{
-    if (sys.nframe() == 0) {
-        call_main()
-    }
+if (sys.nframe() == 0) {
+    call_main()
+}
 }
 
 }

@@ -22,15 +22,14 @@ option is FALSE, right side would be always recumputed.
 }
 \examples{
 temp_file <- tempfile(fileext = ".tsv")
-  calc_mtcars_cyl <- function(cyl) {
-      message("calculating")
-      as.data.frame(mtcars[mtcars$cyl == cyl, ])
-  }
+calc_mtcars_cyl <- function(cyl) {
+    message("calculating")
+    as.data.frame(mtcars[mtcars$cyl == cyl, ])
+}
 
-  # Call "calc_mtcars_cyl" function
-  res1 <- calc_mtcars_cyl(6) \%cache_df\% temp_file
+# Call "calc_mtcars_cyl" function
+res1 <- calc_mtcars_cyl(6) \%cache_df\% temp_file
 
-  # Load cached file
-  res2 <- calc_mtcars_cyl(6) \%cache_df\% temp_file
-
+# Load cached file
+res2 <- calc_mtcars_cyl(6) \%cache_df\% temp_file
 }
