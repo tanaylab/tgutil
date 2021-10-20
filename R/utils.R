@@ -1,20 +1,19 @@
 ########################################################################
 #' @export
-annotate_members <- function(x, ...)
-{
+annotate_members <- function(x, ...) {
     groups <- list(...)
-	group_names <- sapply(substitute(list(...))[-1], deparse)
-	if (is.null(names(groups))) {
-		names(groups) <- group_names
-	} else {
-        names(groups) <- ifelse((names(groups) != ''), names(groups), group_names)
+    group_names <- sapply(substitute(list(...))[-1], deparse)
+    if (is.null(names(groups))) {
+        names(groups) <- group_names
+    } else {
+        names(groups) <- ifelse((names(groups) != ""), names(groups), group_names)
     }
 
     annotations <- character(length(x))
     names(annotations) <- names(x)
     for (gname in names(groups)) {
         mask <- x %in% groups[[gname]]
-        annotations[mask] <- paste0(annotations[mask], ',', gname)
+        annotations[mask] <- paste0(annotations[mask], ",", gname)
     }
     return(substring(annotations, 2))
 }
@@ -25,7 +24,7 @@ annotate_members <- function(x, ...)
 #'
 #' @export
 tg_install <- function(...) {
-    install.packages(..., repos=c(getOption('repos'), 'https://tanaylab.bitbucket.io/repo'))
+    install.packages(..., repos = c(getOption("repos"), "https://tanaylab.bitbucket.io/repo"))
 }
 
 ########################################################################
@@ -43,9 +42,8 @@ tg_install <- function(...) {
 #'
 #' hc <- hclust(dist(USArrests))
 #' memb <- cutree_order(hc, k = 10)
-#'
 #' @export
-cutree_order <- function(tree, k = k, h = h){
+cutree_order <- function(tree, k = k, h = h) {
     coupe <- cutree(tree, k = k, h = h)
     coupe.or <- coupe[tree$order]
     coupe.out <- rep(NA, length(coupe))
@@ -69,14 +67,14 @@ cutree_order <- function(tree, k = k, h = h){
 
 #######################################################################
 #' Vectorized mean, similiar to \code{pmin} and \code{pmax}
-#' 
+#'
 #' @param ... numeric vectors to average
 #' @param na.rm a logical indicating whether missing values should be removed
-#' 
+#'
 #' @return a vector with mean of \code{...} arguments
-#' 
+#'
 #' @export
-pmean <- function (..., na.rm = FALSE){
+pmean <- function(..., na.rm = FALSE) {
     d <- do.call(cbind, list(...))
     res <- rowMeans(d, na.rm = na.rm)
     idx_na <- !rowMeans(!is.na(d))
@@ -87,14 +85,14 @@ pmean <- function (..., na.rm = FALSE){
 
 #######################################################################
 #' Vectorized sum, similiar to \code{pmin} and \code{pmax}
-#' 
+#'
 #' @param ... numeric vectors to sum
 #' @param na.rm a logical indicating whether missing values should be removed
-#' 
+#'
 #' @return a vector with sum of \code{...} arguments
-#' 
+#'
 #' @export
-psum <- function (..., na.rm = FALSE){
+psum <- function(..., na.rm = FALSE) {
     d <- do.call(cbind, list(...))
     res <- rowSums(d, na.rm = na.rm)
     idx_na <- !rowSums(!is.na(d))
@@ -111,16 +109,15 @@ psum <- function (..., na.rm = FALSE){
 #' @param rc Exist status. A NULL is equivalent to 0. Non integer values will be printed to stderr and exit status will be set to 1.
 #'
 #' @export
-exit <- function(...)
-{
+exit <- function(...) {
     args <- list(...)
     if (all(sapply(args, is.null))) {
         rc <- 0
     }
     else if ((length(args) > 1) || !is.numeric(args[[1]])) {
-        args = c(args, list('\n'))
-        args$file = stderr()
-        args$sep = ''
+        args <- c(args, list("\n"))
+        args$file <- stderr()
+        args$sep <- ""
         do.call(cat, args)
         rc <- 1
     }
@@ -128,24 +125,24 @@ exit <- function(...)
         rc <- as.integer(args[[1]])
     }
 
-    q(save='no', status=rc)
+    q(save = "no", status = rc)
 }
 
 
 ########################################################################
 #' Call `main()`
-#' 
+#'
 #' Call the function `main()` with the script name and the command line
-#' argument. When the `main()` finishes, exit with the return code as 
+#' argument. When the `main()` finishes, exit with the return code as
 #' the program status.
-#' 
-#' @examples 
+#'
+#' @examples
 #' \dontrun{
-#'     if (sys.nframe() == 0) {
-#'         call_main()
-#'     }
+#' if (sys.nframe() == 0) {
+#'     call_main()
 #' }
-#' 
+#' }
+#'
 #' @export
 call_main <- function() {
     args <- commandArgs(trailingOnly = FALSE)

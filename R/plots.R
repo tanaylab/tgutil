@@ -11,11 +11,13 @@
 #' @param ylab The Y-axis label
 #' @param plot_top Whether to put the X-axis labels at the top of the heatmap (as well as at the bottom)
 #' @param plot_right Whether to put the Y-axis labels at the right side of the heatmap (as well as at the left hand side)
+#' @param interleave Plot the odd Y-Axis labels on the left side and the even on the right side
 #' @param col_names_orient Orientation of the X-axis label
 #'
 #' @export
 tgplot_heatmap <- function(mtrx, col_names = NULL, row_names = NULL, xlab = NULL, ylab = NULL,
-                           plot_top = TRUE, plot_right = TRUE, col_names_orient = c("horizontal", "vertical", "slanted")) {
+                           plot_top = TRUE, plot_right = TRUE, interleave = FALSE,
+                           col_names_orient = c("horizontal", "vertical", "slanted")) {
     col_names_orient <- match.arg(col_names_orient)
 
     if (is.null(col_names)) {
@@ -86,17 +88,29 @@ tgplot_heatmap <- function(mtrx, col_names = NULL, row_names = NULL, xlab = NULL
     }
 
     if (!is.null(row_names)) {
-        if (plot_right) {
-            sec.axis_right <- ggplot2::dup_axis()
+        if (interleave) {
+            sec.axis_right <- ggplot2::dup_axis(
+                breaks = seq(2, nrow(mtrx), 2),
+                labels = row_names[seq(2, nrow(mtrx), 2)]
+            )
+            ggp <- ggp +
+                ggplot2::scale_y_continuous(
+                    breaks = seq(1, nrow(mtrx), 2),
+                    labels = row_names[seq(1, nrow(mtrx), 2)],
+                    expand = c(0, 0),
+                    sec.axis = sec.axis_right
+                )
         } else {
-            sec.axis_right <- ggplot2::waiver()
+            if (plot_right) {
+                sec.axis_right <- ggplot2::dup_axis()
+            } else {
+                sec.axis_right <- ggplot2::waiver()
+            }
+
+            ggp <- ggp +
+                ggplot2::scale_y_continuous(breaks = 1:nrow(mtrx), labels = row_names, expand = c(0, 0), sec.axis = sec.axis_right)
         }
-
-
-        ggp <- ggp +
-            ggplot2::scale_y_continuous(breaks = 1:nrow(mtrx), labels = row_names, expand = c(0, 0), sec.axis = sec.axis_right)
-    }
-    else {
+    } else {
         ggp <- ggp +
             ggplot2::scale_y_continuous(expand = c(0, 0)) +
             ggplot2::theme(axis.text.y = ggplot2::element_blank())
@@ -181,7 +195,6 @@ scale_fill_gradientn_abs <- function(..., colors, values, abs_range) {
 #' @seealso \code{\link[ggplot2]{ggsave}}
 #'
 #' @examples
-#'
 #' \dontrun{
 #' p <- ggplot(mtcars, aes(mpg, wt)) +
 #'     geom_point() +
@@ -206,7 +219,6 @@ ggpreview <- function(plot = ggplot2::last_plot(), filename = tempfile(fileext =
 #' @seealso \code{\link[ggplot2]{ggsave}}
 #'
 #' @examples
-#'
 #' \dontrun{
 #' p <- ggplot(mtcars, aes(mpg, wt)) +
 #'     geom_point()
@@ -271,20 +283,20 @@ ggrasterize <- function(plot = ggplot2::last_plot(), filename = NULL, device = N
 }
 
 
-#' Scale x axis by log2 (similar to scale_x_log10) 
-#' 
+#' Scale x axis by log2 (similar to scale_x_log10)
+#'
 #' @inheritDotParams ggplot2::scale_x_log10
-#' 
+#'
 #' @export
-scale_x_log2 <- function(...){
+scale_x_log2 <- function(...) {
     scale_x_continuous(..., trans = scales::log2_trans())
 }
 
-#' Scale y axis by log2 (similar to scale_y_log10) 
-#' 
+#' Scale y axis by log2 (similar to scale_y_log10)
+#'
 #' @inheritDotParams ggplot2::scale_y_log10
-#' 
+#'
 #' @export
-scale_y_log2 <- function(...){
+scale_y_log2 <- function(...) {
     scale_y_continuous(..., trans = scales::log2_trans())
 }
