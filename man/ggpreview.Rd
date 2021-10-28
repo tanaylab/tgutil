@@ -45,6 +45,7 @@ uses \code{\link[ggplot2]{ggsave}} to save a ggplot object to file and then open
 }
 \examples{
 \dontrun{
+library(ggplot2)
 p <- ggplot(mtcars, aes(mpg, wt)) +
     geom_point() +
     ggpreview()

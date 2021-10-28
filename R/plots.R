@@ -1,5 +1,6 @@
 ########################################################################
 #' Easily plot a matrix as an heatmap using ggplot2
+#'
 #' @param mtrx The matrix to be plotted
 #' @param col_names The names that will be used as the X-axis labels.
 #'                  A NULL (the defualt) indicates that the original matrix colnames are used.
@@ -14,10 +15,16 @@
 #' @param interleave Plot the odd Y-Axis labels on the left side and the even on the right side
 #' @param col_names_orient Orientation of the X-axis label
 #'
+#' @return ggplot object with the matrix plot
+#'
+#' @examples
+#'
+#' tgplot_heatmap(as.matrix(mtcars))
 #' @export
 tgplot_heatmap <- function(mtrx, col_names = NULL, row_names = NULL, xlab = NULL, ylab = NULL,
                            plot_top = TRUE, plot_right = TRUE, interleave = FALSE,
                            col_names_orient = c("horizontal", "vertical", "slanted")) {
+    stopifnot("matrix" %in% class(mtrx))
     col_names_orient <- match.arg(col_names_orient)
 
     if (is.null(col_names)) {
@@ -122,6 +129,19 @@ tgplot_heatmap <- function(mtrx, col_names = NULL, row_names = NULL, xlab = NULL
 
 
 ########################################################################
+#' Add an axis annotation to a ggplot matrix
+#'
+#' @param heatmap a ggplot matrix object - output of \code{tgplot_heatmap}
+#' @param annotation can be either a vector of colors or a ggplot object
+#' @param position position of the axis annotation ("top", "bottom", "left" or "right")
+#' @param size width of the annotation
+#'
+#' @return a gtable object. Can be plotted using \code{cowplot::ggdraw}.
+#'
+#' @examples
+#' tgplot_heatmap(as.matrix(mtcars)) %>%
+#'     tgplot_add_axis_annotation(as.matrix(mtcars)[5, ] + 1) %>%
+#'     cowplot::ggdraw()
 #' @export
 tgplot_add_axis_annotation <- function(heatmap, annotation, position = "bottom", size = 0.02) {
     position <- char.expand(position, c("top", "bottom", "left", "right"))
@@ -196,6 +216,7 @@ scale_fill_gradientn_abs <- function(..., colors, values, abs_range) {
 #'
 #' @examples
 #' \dontrun{
+#' library(ggplot2)
 #' p <- ggplot(mtcars, aes(mpg, wt)) +
 #'     geom_point() +
 #'     ggpreview()
@@ -220,6 +241,7 @@ ggpreview <- function(plot = ggplot2::last_plot(), filename = tempfile(fileext =
 #'
 #' @examples
 #' \dontrun{
+#' library(ggplot2)
 #' p <- ggplot(mtcars, aes(mpg, wt)) +
 #'     geom_point()
 #' ggrasterize(p)

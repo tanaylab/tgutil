@@ -39,6 +39,13 @@ A FALSE indicates that no Y-axis labels should be displayed.}
 
 \item{col_names_orient}{Orientation of the X-axis label}
 }
+\value{
+ggplot object with the matrix plot
+}
 \description{
 Easily plot a matrix as an heatmap using ggplot2
+}
+\examples{
+
+tgplot_heatmap(as.matrix(mtcars))
 }
