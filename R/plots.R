@@ -135,6 +135,9 @@ tgplot_heatmap <- function(mtrx, col_names = NULL, row_names = NULL, xlab = NULL
 #' @param annotation can be either a vector of colors or a ggplot object
 #' @param position position of the axis annotation ("top", "bottom", "left" or "right")
 #' @param size width of the annotation
+#' @param label annotation label (optional)
+#' @param plot_left plot a label to the left of the annotation
+#' @param plot_right plot a label to the right of the annotation
 #'
 #' @return a gtable object. Can be plotted using \code{cowplot::ggdraw}.
 #'
@@ -143,7 +146,7 @@ tgplot_heatmap <- function(mtrx, col_names = NULL, row_names = NULL, xlab = NULL
 #'     tgplot_add_axis_annotation(as.matrix(mtcars)[5, ] + 1) %>%
 #'     cowplot::ggdraw()
 #' @export
-tgplot_add_axis_annotation <- function(heatmap, annotation, position = "bottom", size = 0.02) {
+tgplot_add_axis_annotation <- function(heatmap, annotation, position = "bottom", size = 0.02, label = NULL, plot_left = TRUE, plot_right = TRUE) {
     position <- char.expand(position, c("top", "bottom", "left", "right"))
     if (!is(annotation, "gg")) {
         if (position %in% c("top", "bottom")) {
@@ -167,7 +170,71 @@ tgplot_add_axis_annotation <- function(heatmap, annotation, position = "bottom",
         heatmap <- cowplot::insert_yaxis_grob(heatmap, annotation, grid::unit(size, "null"), position = position)
     }
 
+    if (!is.null(label)) {
+        heatmap <- draw_annotation_label(heatmap, label, position, plot_left, plot_right)
+    }
+
     return(heatmap)
+}
+
+draw_annotation_label <- function(gt, label, position = "bottom", plot_left = TRUE, plot_right = TRUE) {
+    if (position %in% c("top", "bottom")) {
+        gg <- ggplot2::ggplot(data.frame(), ggplot2::aes(y = 1, x = 1)) +
+            ggplot2::theme_bw() +
+            ggplot2::theme(
+                axis.title = ggplot2::element_blank(),
+                axis.ticks = ggplot2::element_blank()
+            )
+
+        if (plot_right) {
+            sec.axis_right <- ggplot2::dup_axis()
+        } else {
+            sec.axis_right <- ggplot2::waiver()
+        }
+
+        gg <- gg + ggplot2::scale_y_continuous(breaks = 1, labels = label, sec.axis = sec.axis_right)
+
+        grob <- cowplot::get_plot_component(gg, "axis-l")
+        pp <- gt$layout[gt$layout$name == "axis-l", ]
+
+        if (plot_right) {
+            grob_r <- cowplot::get_plot_component(gg, "axis-r")
+            pp_r <- gt$layout[gt$layout$name == "axis-r", ]
+        }
+
+        if (position == "top") {
+            if (plot_left) {
+                gt <- gtable::gtable_add_grob(gt, grob, pp$t - 1, pp$l, pp$t - 1, pp$r, name = "xaxis-label-grob-t")
+            }
+            if (plot_right) {
+                gt <- gtable::gtable_add_grob(gt, grob_r, pp_r$t - 1, pp_r$l, pp_r$t - 1, pp_r$r, name = "xaxis-label-grob-tr")
+            }
+        } else if (position == "bottom") {
+            if (plot_left) {
+                gt <- gtable::gtable_add_grob(gt, grob, pp$b + 1, pp$l, pp$b + 1, pp$r, name = "xaxis-label-grob-b")
+            }
+            if (plot_right) {
+                gt <- gtable::gtable_add_grob(gt, grob_r, pp_r$b + 1, pp_r$l, pp_r$b + 1, pp_r$r, name = "xaxis-label-grob-br")
+            }
+        }
+    } else if (position %in% c("left", "right")) {
+        grob <- ggplot2::ggplot(data.frame(), ggplot2::aes(x = label, y = 1)) +
+            ggplot2::theme_bw() +
+            ggplot2::theme(
+                axis.title = ggplot2::element_blank(),
+                axis.ticks = ggplot2::element_blank(),
+                axis.text.x = ggplot2::element_text(angle = 90, hjust = 1, vjust = 0.5)
+            )
+        grob <- cowplot::get_plot_component(grob, "axis-b")
+        pp <- gt$layout[gt$layout$name == "axis-b", ]
+        if (position == "left") {
+            gt <- gtable::gtable_add_grob(gt, grob, pp$t, pp$l - 1, pp$b, pp$l - 1, name = "yaxis-label-grob-l")
+        } else if (position == "right") {
+            gt <- gtable::gtable_add_grob(gt, grob, pp$t, pp$r + 1, pp$b, pp$r + 1, name = "yaxis-label-grob-r")
+        }
+    }
+
+    return(gt)
 }
 
 

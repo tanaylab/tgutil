@@ -8,7 +8,10 @@ tgplot_add_axis_annotation(
   heatmap,
   annotation,
   position = "bottom",
-  size = 0.02
+  size = 0.02,
+  label = NULL,
+  plot_left = TRUE,
+  plot_right = TRUE
 )
 }
 \arguments{
@@ -19,6 +22,12 @@ tgplot_add_axis_annotation(
 \item{position}{position of the axis annotation ("top", "bottom", "left" or "right")}
 
 \item{size}{width of the annotation}
+
+\item{label}{annotation label (optional)}
+
+\item{plot_left}{plot a label to the left of the annotation}
+
+\item{plot_right}{plot a label to the right of the annotation}
 }
 \value{
 a gtable object. Can be plotted using \code{cowplot::ggdraw}.
