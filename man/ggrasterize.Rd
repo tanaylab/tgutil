@@ -57,6 +57,7 @@ Draws the panel area of a ggplot to a png file, and then re-draws it as raster t
 }
 \examples{
 \dontrun{
+library(ggplot2)
 p <- ggplot(mtcars, aes(mpg, wt)) +
     geom_point()
 ggrasterize(p)
