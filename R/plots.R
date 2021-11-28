@@ -30,7 +30,7 @@ tgplot_heatmap <- function(mtrx, col_names = NULL, row_names = NULL, xlab = NULL
     if (is.null(col_names)) {
         col_names <- colnames(mtrx)
     }
-    else if ((length(col_names) == 1) && !col_names) {
+    else if ((length(col_names) == 1) && is.logical(col_names) && !col_names) {
         col_names <- NULL
     }
     if (!is.null(col_names) && (length(col_names) != ncol(mtrx))) {
@@ -40,7 +40,7 @@ tgplot_heatmap <- function(mtrx, col_names = NULL, row_names = NULL, xlab = NULL
     if (is.null(row_names)) {
         row_names <- rownames(mtrx)
     }
-    else if ((length(row_names) == 1) && !row_names) {
+    else if ((length(row_names) == 1) && is.logical(row_names) && !row_names) {
         row_names <- NULL
     }
     if (!is.null(row_names) && (length(row_names) != nrow(mtrx))) {
