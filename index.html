@@ -20,6 +20,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -32,26 +34,20 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">tgutil</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.11</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/tanaylab/tgutil/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/tanaylab/tgutil/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -69,49 +65,45 @@
   <div class="contents col-md-9">
 
 
-<div id="tgutil-package---tanays-group-collection-of-simple-utility-functions" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#tgutil-package---tanays-group-collection-of-simple-utility-functions" class="anchor"></a>tgutil package - Tanay’s group collection of simple utility functions</h1></div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level1">
+<div class="page-header"><h1 id="tgutil-package---tanays-group-collection-of-simple-utility-functions">tgutil package - Tanay’s group collection of simple utility functions<a class="anchor" aria-label="anchor" href="#tgutil-package---tanays-group-collection-of-simple-utility-functions"></a>
+</h1></div>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>You can install tgutil with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"tanaylab/tgutil"</span>)
-</pre></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"tanaylab/tgutil"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="read-legacy-csvs" class="section level2">
-<h2 class="hasAnchor">
-<a href="#read-legacy-csvs" class="anchor"></a>Read legacy csv’s</h2>
-<div id="fread_rownames" class="section level3">
-<h3 class="hasAnchor">
-<a href="#fread_rownames" class="anchor"></a>fread_rownames</h3>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="reference/fread_rownames.html">fread_rownames</a></span>(<span class="kw">...</span>, row.var=<span class="st">'rowname'</span>)
-</pre></div>
-<p>Use <code><a href="reference/fread.html">fread()</a></code> to read a csv/tsv with row names (e.g. one created with <code><a href="https://rdrr.io/r/utils/read.table.html">read.table()</a></code>). The name of the column that will hold the row names is given in <code>row.var</code>.</p>
+<div class="section level2">
+<h2 id="read-legacy-csvs">Read legacy csv’s<a class="anchor" aria-label="anchor" href="#read-legacy-csvs"></a>
+</h2>
+<div class="section level3">
+<h3 id="fread_rownames">fread_rownames<a class="anchor" aria-label="anchor" href="#fread_rownames"></a>
+</h3>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/fread_rownames.html">fread_rownames</a></span><span class="op">(</span><span class="va">...</span>, row.var<span class="op">=</span><span class="st">'rowname'</span><span class="op">)</span></code></pre></div>
+<p>Use <code><a href="reference/fread.html">fread()</a></code> to read a csv/tsv with row names (e.g. one created with <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table()</a></code>). The name of the column that will hold the row names is given in <code>row.var</code>.</p>
 <p>All arguments are passed to the underlying <code><a href="reference/fread.html">fread()</a></code> call. Note that the following arguments can’t be used (and will be silently ignored): <code>header</code>, <code>skip</code>, <code>col.names</code>.</p>
 </div>
 </div>
-<div id="sparse-matrix-io" class="section level2">
-<h2 class="hasAnchor">
-<a href="#sparse-matrix-io" class="anchor"></a>Sparse Matrix I/O</h2>
-<div id="fwrite_mm" class="section level3">
-<h3 class="hasAnchor">
-<a href="#fwrite_mm" class="anchor"></a>fwrite_mm</h3>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="reference/fwrite_mm.html">fwrite_mm</a></span>(<span class="kw">x</span>, <span class="kw">fname</span>, sep=<span class="st">' '</span>, row.names=<span class="fl">TRUE</span>, col.names=<span class="fl">TRUE</span>)
-</pre></div>
-<p>Write the contents of the sparse matrix <code>x</code> into the text file <code>fname</code> in the MatrixMarket format (see <a href="http://math.nist.gov/MatrixMarket/formats.html" class="uri">http://math.nist.gov/MatrixMarket/formats.html</a>).</p>
+<div class="section level2">
+<h2 id="sparse-matrix-io">Sparse Matrix I/O<a class="anchor" aria-label="anchor" href="#sparse-matrix-io"></a>
+</h2>
+<div class="section level3">
+<h3 id="fwrite_mm">fwrite_mm<a class="anchor" aria-label="anchor" href="#fwrite_mm"></a>
+</h3>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/fwrite_mm.html">fwrite_mm</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">fname</span>, sep<span class="op">=</span><span class="st">' '</span>, row.names<span class="op">=</span><span class="cn">TRUE</span>, col.names<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p>Write the contents of the sparse matrix <code>x</code> into the text file <code>fname</code> in the MatrixMarket format (see <a href="http://math.nist.gov/MatrixMarket/formats.html" class="external-link uri">http://math.nist.gov/MatrixMarket/formats.html</a>).</p>
 <p>The MatrixMarket format does not save row and column names. <code><a href="reference/fwrite_mm.html">fwrite_mm()</a></code> allows saving them into separate files using the <code>row.names</code> and <code>col.names</code> arguments. These arguments may contain file names into which the column and row names will be written. Alternately setting these arguments to <code>TRUE</code> will cause the row and column names to be written to <code>&lt;fname&gt;.rownames</code> and <code>&lt;fname&gt;.colnames</code> respectively.</p>
 <p>The argument <code>sep</code> indicates the field separator that will be used. Note that using any field separator other than space will result in an output that is not compliant with the MatrixMarket format.</p>
 </div>
-<div id="fread_mm" class="section level3">
-<h3 class="hasAnchor">
-<a href="#fread_mm" class="anchor"></a>fread_mm</h3>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="reference/fread_mm.html">fread_mm</a></span>(<span class="kw">fname</span>, sep=<span class="st">' '</span>, row.names=<span class="fl">TRUE</span>, col.names=<span class="fl">TRUE</span>)
-</pre></div>
+<div class="section level3">
+<h3 id="fread_mm">fread_mm<a class="anchor" aria-label="anchor" href="#fread_mm"></a>
+</h3>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/fread_mm.html">fread_mm</a></span><span class="op">(</span><span class="va">fname</span>, sep<span class="op">=</span><span class="st">' '</span>, row.names<span class="op">=</span><span class="cn">TRUE</span>, col.names<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Reads a sparse matrix in the MatrixMarket format from the file <code>fname</code>.</p>
 <p>The MatrixMarket format does not save row and column names. <code><a href="reference/fread_mm.html">fread_mm()</a></code> allows reading them from separate files using the <code>row.names</code> and <code>col.names</code> arguments. These arguments may contain file names from which the column and row names will be read. Alternately setting these arguments to <code>TRUE</code> will cause the row and column names to be read from <code>&lt;fname&gt;.rownames</code> and <code>&lt;fname&gt;.colnames</code> respectively.</p>
 </div>
@@ -122,45 +114,56 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/tanaylab/tgutil/">https://​github.com/​tanaylab/​tgutil/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/tanaylab/tgutil/issues">https://​github.com/​tanaylab/​tgutil/​issues</a>
-</li>
+<li><a href="https://github.com/tanaylab/tgutil/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/tanaylab/tgutil/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
+<li><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing tgutil</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Elad Chomsky <br><small class="roles"> Author, maintainer </small>  </li>
 <li>Aviezer Lifshitz <br><small class="roles"> Author </small>  </li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/tanaylab/tgutil"><img src="https://travis-ci.com/tanaylab/tgutil.svg?branch=master" alt="Travis build status"></a></li>
-<li><a href="https://codecov.io/gh/tanaylab/tgutil?branch=master"><img src="https://codecov.io/gh/tanaylab/tgutil/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://travis-ci.org/tanaylab/tgutil" class="external-link"><img src="https://travis-ci.com/tanaylab/tgutil.svg?branch=master" alt="Travis build status"></a></li>
+<li><a href="https://codecov.io/gh/tanaylab/tgutil?branch=master" class="external-link"><img src="https://codecov.io/gh/tanaylab/tgutil/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
-</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Elad Chomsky, Aviezer Lifshitz.</p>
+  <p></p>
+<p>Developed by Elad Chomsky, Aviezer Lifshitz.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -168,6 +171,8 @@
 
   
 
+
+  
 
   </body>
 </html>
