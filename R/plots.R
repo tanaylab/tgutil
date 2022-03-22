@@ -14,6 +14,7 @@
 #' @param plot_right Whether to put the Y-axis labels at the right side of the heatmap (as well as at the left hand side)
 #' @param interleave Plot the odd Y-Axis labels on the left side and the even on the right side
 #' @param col_names_orient Orientation of the X-axis label
+#' @param col_names_color color of the column names
 #'
 #' @return ggplot object with the matrix plot
 #'
@@ -23,14 +24,14 @@
 #' @export
 tgplot_heatmap <- function(mtrx, col_names = NULL, row_names = NULL, xlab = NULL, ylab = NULL,
                            plot_top = TRUE, plot_right = TRUE, interleave = FALSE,
-                           col_names_orient = c("horizontal", "vertical", "slanted")) {
+                           col_names_orient = c("horizontal", "vertical", "slanted"),
+                           col_names_color = "black") {
     stopifnot("matrix" %in% class(mtrx))
     col_names_orient <- match.arg(col_names_orient)
 
     if (is.null(col_names)) {
         col_names <- colnames(mtrx)
-    }
-    else if ((length(col_names) == 1) && is.logical(col_names) && !col_names) {
+    } else if ((length(col_names) == 1) && is.logical(col_names) && !col_names) {
         col_names <- NULL
     }
     if (!is.null(col_names) && (length(col_names) != ncol(mtrx))) {
@@ -39,8 +40,7 @@ tgplot_heatmap <- function(mtrx, col_names = NULL, row_names = NULL, xlab = NULL
 
     if (is.null(row_names)) {
         row_names <- rownames(mtrx)
-    }
-    else if ((length(row_names) == 1) && is.logical(row_names) && !row_names) {
+    } else if ((length(row_names) == 1) && is.logical(row_names) && !row_names) {
         row_names <- NULL
     }
     if (!is.null(row_names) && (length(row_names) != nrow(mtrx))) {
@@ -56,14 +56,12 @@ tgplot_heatmap <- function(mtrx, col_names = NULL, row_names = NULL, xlab = NULL
 
     if (!is.null(xlab)) {
         ggp <- ggp + ggplot2::xlab(xlab)
-    }
-    else {
+    } else {
         ggp <- ggp + ggplot2::theme(axis.title.x = ggplot2::element_blank())
     }
     if (!is.null(ylab)) {
         ggp <- ggp + ggplot2::ylab(ylab)
-    }
-    else {
+    } else {
         ggp <- ggp + ggplot2::theme(axis.title.y = ggplot2::element_blank())
     }
 
@@ -79,16 +77,15 @@ tgplot_heatmap <- function(mtrx, col_names = NULL, row_names = NULL, xlab = NULL
             switch(col_names_orient,
                 "horizontal" = ggplot2::theme(),
                 "vertical" = ggplot2::theme(
-                    axis.text.x.top = ggplot2::element_text(angle = -90, hjust = 1, vjust = 0.5),
-                    axis.text.x.bottom = ggplot2::element_text(angle = -90, hjust = 0, vjust = 0.5)
+                    axis.text.x.top = ggplot2::element_text(color = col_names_color, angle = -90, hjust = 1, vjust = 0.5),
+                    axis.text.x.bottom = ggplot2::element_text(color = col_names_color, angle = -90, hjust = 0, vjust = 0.5)
                 ),
                 "slanted" = ggplot2::theme(
-                    axis.text.x.top = ggplot2::element_text(angle = -45, hjust = 1, vjust = 0),
-                    axis.text.x.bottom = ggplot2::element_text(angle = -45, hjust = 0, vjust = 1)
+                    axis.text.x.top = ggplot2::element_text(color = col_names_color, angle = -45, hjust = 1, vjust = 0),
+                    axis.text.x.bottom = ggplot2::element_text(color = col_names_color, angle = -45, hjust = 0, vjust = 1)
                 )
             )
-    }
-    else {
+    } else {
         ggp <- ggp +
             ggplot2::scale_x_continuous(expand = c(0, 0)) +
             ggplot2::theme(axis.text.x = ggplot2::element_blank())
@@ -138,6 +135,7 @@ tgplot_heatmap <- function(mtrx, col_names = NULL, row_names = NULL, xlab = NULL
 #' @param label annotation label (optional)
 #' @param plot_left plot a label to the left of the annotation
 #' @param plot_right plot a label to the right of the annotation
+#' @param label_color color of the annotation label
 #'
 #' @return a gtable object. Can be plotted using \code{cowplot::ggdraw}.
 #'
@@ -146,13 +144,12 @@ tgplot_heatmap <- function(mtrx, col_names = NULL, row_names = NULL, xlab = NULL
 #'     tgplot_add_axis_annotation(as.matrix(mtcars)[5, ] + 1) %>%
 #'     cowplot::ggdraw()
 #' @export
-tgplot_add_axis_annotation <- function(heatmap, annotation, position = "bottom", size = 0.02, label = NULL, plot_left = TRUE, plot_right = TRUE) {
+tgplot_add_axis_annotation <- function(heatmap, annotation, position = "bottom", size = 0.02, label = NULL, plot_left = TRUE, plot_right = TRUE, label_color = "black") {
     position <- char.expand(position, c("top", "bottom", "left", "right"))
     if (!is(annotation, "gg")) {
         if (position %in% c("top", "bottom")) {
             ggdata <- tibble::tibble(x = 1:length(annotation), y = 1)
-        }
-        else {
+        } else {
             ggdata <- tibble::tibble(x = 1, y = 1:length(annotation))
         }
 
@@ -165,25 +162,25 @@ tgplot_add_axis_annotation <- function(heatmap, annotation, position = "bottom",
 
     if (position %in% c("top", "bottom")) {
         heatmap <- cowplot::insert_xaxis_grob(heatmap, annotation, grid::unit(size, "null"), position = position)
-    }
-    else {
+    } else {
         heatmap <- cowplot::insert_yaxis_grob(heatmap, annotation, grid::unit(size, "null"), position = position)
     }
 
     if (!is.null(label)) {
-        heatmap <- draw_annotation_label(heatmap, label, position, plot_left, plot_right)
+        heatmap <- draw_annotation_label(heatmap, label, position, plot_left, plot_right, label_color = label_color)
     }
 
     return(heatmap)
 }
 
-draw_annotation_label <- function(gt, label, position = "bottom", plot_left = TRUE, plot_right = TRUE) {
+draw_annotation_label <- function(gt, label, position = "bottom", plot_left = TRUE, plot_right = TRUE, label_color = "black") {
     if (position %in% c("top", "bottom")) {
         gg <- ggplot2::ggplot(data.frame(), ggplot2::aes(y = 1, x = 1)) +
             ggplot2::theme_bw() +
             ggplot2::theme(
                 axis.title = ggplot2::element_blank(),
-                axis.ticks = ggplot2::element_blank()
+                axis.ticks = ggplot2::element_blank(),
+                axis.text.y = ggplot2::element_text(color = label_color)
             )
 
         if (plot_right) {
@@ -223,7 +220,7 @@ draw_annotation_label <- function(gt, label, position = "bottom", plot_left = TR
             ggplot2::theme(
                 axis.title = ggplot2::element_blank(),
                 axis.ticks = ggplot2::element_blank(),
-                axis.text.x = ggplot2::element_text(angle = 90, hjust = 1, vjust = 0.5)
+                axis.text.x = ggplot2::element_text(color = label_color, angle = 90, hjust = 1, vjust = 0.5)
             )
         grob <- cowplot::get_plot_component(grob, "axis-b")
         pp <- gt$layout[gt$layout$name == "axis-b", ]

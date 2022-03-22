@@ -13,7 +13,8 @@ tgplot_heatmap(
   plot_top = TRUE,
   plot_right = TRUE,
   interleave = FALSE,
-  col_names_orient = c("horizontal", "vertical", "slanted")
+  col_names_orient = c("horizontal", "vertical", "slanted"),
+  col_names_color = "black"
 )
 }
 \arguments{
@@ -38,6 +39,8 @@ A FALSE indicates that no Y-axis labels should be displayed.}
 \item{interleave}{Plot the odd Y-Axis labels on the left side and the even on the right side}
 
 \item{col_names_orient}{Orientation of the X-axis label}
+
+\item{col_names_color}{color of the column names}
 }
 \value{
 ggplot object with the matrix plot

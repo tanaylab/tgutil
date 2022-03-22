@@ -50,8 +50,7 @@ fread_rownames <- function(..., row.var = "rowname") {
 
     if (is.null(row.var)) {
         data <- tibble::column_to_rownames(data, colnames(data)[1])
-    }
-    else {
+    } else {
         colnames(data)[1] <- row.var
     }
 
@@ -157,8 +156,7 @@ fread_mm <- function(fname, sep = " ", row.names = TRUE, col.names = TRUE) {
     header <- readLines(input, n = 1, warn = FALSE)
     if (sep == " ") {
         header <- strsplit(header, " +")[[1]]
-    }
-    else {
+    } else {
         header <- strsplit(header, sep, fixed = TRUE)[[1]]
     }
     if (header[1] != "%%MatrixMarket") {
@@ -229,11 +227,9 @@ load_vector <- function(fname) {
     x <- fread(fname, sep = "\t", header = FALSE)
     if (ncol(x) == 1) {
         x <- x[, 1]
-    }
-    else if (ncol(x) == 2) {
+    } else if (ncol(x) == 2) {
         x <- structure(x[, 2], names = x[, 1])
-    }
-    else {
+    } else {
         stop("File ", fname, " must have one or two columns")
     }
 
@@ -309,8 +305,7 @@ save_vector <- function(x, fname) {
 
     if (is.null(names(x))) {
         x <- tibble::tibble(x = x)
-    }
-    else {
+    } else {
         x <- tibble::tibble(names = names(x), x = x)
     }
 

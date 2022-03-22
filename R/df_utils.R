@@ -168,11 +168,9 @@ setMethod("rowMins", "dgCMatrix", rowMins.dgCMatrix)
 .prune_matrix <- function(x, rows, cols) {
     if (!is.null(rows) && !is.null(cols)) {
         x <- x[rows, cols]
-    }
-    else if (!is.null(rows)) {
+    } else if (!is.null(rows)) {
         x <- x[rows, ]
-    }
-    else if (!is.null(cols)) {
+    } else if (!is.null(cols)) {
         x <- x[, cols]
     }
 
@@ -251,15 +249,13 @@ gather_matrix <- function(mtrx, x = "x", y = "y", val = "val") {
 
     if (is.null(cnames)) {
         colnames(mtrx) <- 1:ncol(mtrx)
-    }
-    else {
+    } else {
         colnames(mtrx) <- paste0("_", cnames)
     }
 
     if (is.null(rnames)) {
         mtrx[[y]] <- 1:nrow(mtrx)
-    }
-    else {
+    } else {
         mtrx[[y]] <- rnames
     }
 
@@ -267,8 +263,7 @@ gather_matrix <- function(mtrx, x = "x", y = "y", val = "val") {
 
     if (is.null(cnames)) {
         mtrx[[x]] <- as.integer(mtrx[[x]])
-    }
-    else {
+    } else {
         mtrx[[x]] <- substring(mtrx[[x]], 2)
     }
 

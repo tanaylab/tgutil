@@ -11,7 +11,8 @@ tgplot_add_axis_annotation(
   size = 0.02,
   label = NULL,
   plot_left = TRUE,
-  plot_right = TRUE
+  plot_right = TRUE,
+  label_color = "black"
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ tgplot_add_axis_annotation(
 \item{plot_left}{plot a label to the left of the annotation}
 
 \item{plot_right}{plot a label to the right of the annotation}
+
+\item{label_color}{color of the annotation label}
 }
 \value{
 a gtable object. Can be plotted using \code{cowplot::ggdraw}.
