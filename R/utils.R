@@ -52,8 +52,7 @@ cutree_order <- function(tree, k = k, h = h) {
     for (i in 1:length(coupe)) {
         if (coupe.or[i] == k) {
             next
-        }
-        else {
+        } else {
             coupe.out[which(coupe == k)] <- j
             j <- j + 1
             k <- coupe.or[i]
@@ -113,15 +112,13 @@ exit <- function(...) {
     args <- list(...)
     if (all(sapply(args, is.null))) {
         rc <- 0
-    }
-    else if ((length(args) > 1) || !is.numeric(args[[1]])) {
+    } else if ((length(args) > 1) || !is.numeric(args[[1]])) {
         args <- c(args, list("\n"))
         args$file <- stderr()
         args$sep <- ""
         do.call(cat, args)
         rc <- 1
-    }
-    else {
+    } else {
         rc <- as.integer(args[[1]])
     }
 
@@ -149,8 +146,7 @@ call_main <- function() {
     arg0 <- grep("^--file=", args, perl = TRUE, value = TRUE)
     if (length(arg0) > 0) {
         arg0 <- substring(arg0[1], 8)
-    }
-    else {
+    } else {
         arg0 <- NA
     }
     exit(main(c(arg0, commandArgs(trailingOnly = TRUE))))
