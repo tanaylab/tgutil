@@ -86,7 +86,7 @@ fwrite_mm <- function(x, fname, sep = " ", row.names = TRUE, col.names = TRUE) {
 
     dims <- dim(x)
     if (length(dims) != 2) {
-        stop("fwrite_mm() can only write two-dimensional metrices")
+        stop("fwrite_mm() can only write two-dimensional matrices")
     }
 
     if (!is.null(rownames(x)) && ((row.names == TRUE) || is.character(row.names))) {
