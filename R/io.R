@@ -201,12 +201,22 @@ fread_mm <- function(fname, sep = " ", row.names = TRUE, col.names = TRUE) {
     }
     close(input)
 
-    x <- fread(fname, sep = sep, header = FALSE, skip = skip, colClasses = c("integer", "integer", value_type))
-    if (nrow(x) != dims[3]) {
-        stop("Number of data lines in file does not match dimensions line")
-    }
+    if (dims[3] == 0) { # all zeros matrix
+        x <- Matrix::Matrix(
+            nrow = dims[1], ncol = dims[2], data = 0,
+            sparse = TRUE
+        )
+        if (!is.null(count.fields(fname, skip = skip))) {
+            stop("Number of data lines in file does not match dimensions line")
+        }
+    } else {
+        x <- fread(fname, sep = sep, header = FALSE, skip = skip, colClasses = c("integer", "integer", value_type))
+        if (nrow(x) != dims[3]) {
+            stop("Number of data lines in file does not match dimensions line")
+        }
 
-    x <- Matrix::sparseMatrix(i = x[, 1], j = x[, 2], x = x[, 3], dims = dims[1:2])
+        x <- Matrix::sparseMatrix(i = x[, 1], j = x[, 2], x = x[, 3], dims = dims[1:2])
+    }
 
     if (file.exists(row.names)) {
         rows <- fread(row.names, sep = "\t", header = FALSE)
