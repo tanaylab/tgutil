@@ -2,6 +2,7 @@
 
 S3method(clip_vals,data.frame)
 S3method(clip_vals,numeric)
+export("%!in%")
 export("%cache_df%")
 export("%cache_matrix%")
 export("%cache_rds%")
