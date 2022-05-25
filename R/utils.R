@@ -151,3 +151,10 @@ call_main <- function() {
     }
     exit(main(c(arg0, commandArgs(trailingOnly = TRUE))))
 }
+
+
+#' Negation of the %in% operator
+#'
+#' @export
+#' @noRd
+`%!in%` <- Negate(`%in%`)
