@@ -20,14 +20,6 @@ annotate_members <- function(x, ...) {
 
 
 ########################################################################
-#' Install packages from the Tanay Group repository
-#'
-#' @export
-tg_install <- function(...) {
-    install.packages(..., repos = c(getOption("repos"), "https://tanaylab.bitbucket.io/repo"))
-}
-
-########################################################################
 #' Cut a tree into groups of data in the order of the tree
 #'
 #' Cut a tree (result from hclust) into groups of data. Groups are in the order of the tree leafs
