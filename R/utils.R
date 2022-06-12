@@ -150,3 +150,41 @@ call_main <- function() {
 #' @export
 #' @noRd
 `%!in%` <- Negate(`%in%`)
+
+#' Set plot size for jupyter IRKernel
+#'
+#' @param width width of the plot
+#' @param height height of the plot
+#'
+#' @return previous width and height (invisibly)
+#'
+#' @examples
+#' sps(10, 5)
+#' plot(1:10)
+#'
+#' # save previous size
+#' prev <- sps(5, 5)
+#' plot(1:10)
+#' sps(prev[1], prev[2])
+#'
+#' @export
+sps <- function(width, height) {
+    prev <- gps()
+    options(repr.plot.width = width, repr.plot.height = height)
+    invisible(prev)
+}
+
+#' Get current plot size for jupyter IRKernel
+#'
+#'
+#' @return a vector with the current width and height of the IRKernel plot
+#'
+#' @examples
+#' gps()
+#'
+#' @export
+gps <- function() {
+    width <- getOption("repr.plot.width")
+    height <- getOption("repr.plot.height")
+    return(c(width, height))
+}
