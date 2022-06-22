@@ -64,6 +64,11 @@ cutree_order <- function(tree, k = k, h = h) {
 #'
 #' @return a vector with mean of \code{...} arguments
 #'
+#' @examples
+#' psum(c(1, 2, 3), c(4, 5, 6))
+#' psum(c(1, 2, 3), pi)
+#' psum(c(1, NA, 3), c(4, 5, 6), na.rm = TRUE)
+#'
 #' @export
 pmean <- function(..., na.rm = FALSE) {
     d <- do.call(cbind, list(...))
@@ -81,6 +86,11 @@ pmean <- function(..., na.rm = FALSE) {
 #' @param na.rm a logical indicating whether missing values should be removed
 #'
 #' @return a vector with sum of \code{...} arguments
+#'
+#' @examples
+#' psum(c(1, 2, 3), c(4, 5, 6))
+#' psum(c(1, 2, 3), pi)
+#' psum(c(1, NA, 3), c(4, 5, 6), na.rm = TRUE)
 #'
 #' @export
 psum <- function(..., na.rm = FALSE) {
