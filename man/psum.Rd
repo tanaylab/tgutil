@@ -17,3 +17,9 @@ a vector with sum of \code{...} arguments
 \description{
 Vectorized sum, similiar to \code{pmin} and \code{pmax}
 }
+\examples{
+psum(c(1, 2, 3), c(4, 5, 6))
+psum(c(1, 2, 3), pi)
+psum(c(1, NA, 3), c(4, 5, 6), na.rm = TRUE)
+
+}
