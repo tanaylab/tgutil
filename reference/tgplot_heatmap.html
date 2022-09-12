@@ -17,13 +17,16 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tgutil</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.14</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/tanaylab/tgutil/" class="external-link">
@@ -50,56 +53,77 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">tgplot_heatmap</span><span class="op">(</span>
-  <span class="va">mtrx</span>,
-  col_names <span class="op">=</span> <span class="cn">NULL</span>,
-  row_names <span class="op">=</span> <span class="cn">NULL</span>,
-  xlab <span class="op">=</span> <span class="cn">NULL</span>,
-  ylab <span class="op">=</span> <span class="cn">NULL</span>,
-  plot_top <span class="op">=</span> <span class="cn">TRUE</span>,
-  plot_right <span class="op">=</span> <span class="cn">TRUE</span>,
-  interleave <span class="op">=</span> <span class="cn">FALSE</span>,
-  col_names_orient <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"horizontal"</span>, <span class="st">"vertical"</span>, <span class="st">"slanted"</span><span class="op">)</span>,
-  col_names_color <span class="op">=</span> <span class="st">"black"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tgplot_heatmap</span><span class="op">(</span></span>
+<span>  <span class="va">mtrx</span>,</span>
+<span>  col_names <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  row_names <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  plot_top <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  plot_right <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  interleave <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  col_names_orient <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"horizontal"</span>, <span class="st">"vertical"</span>, <span class="st">"slanted"</span><span class="op">)</span>,</span>
+<span>  col_names_color <span class="op">=</span> <span class="st">"black"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>mtrx</dt>
 <dd><p>The matrix to be plotted</p></dd>
+
+
 <dt>col_names</dt>
 <dd><p>The names that will be used as the X-axis labels.
 A NULL (the defualt) indicates that the original matrix colnames are used.
 A FALSE indicates that no X-axis labels should be displayed.</p></dd>
+
+
 <dt>row_names</dt>
 <dd><p>The names that will be used as the Y-axis labels.
 A NULL (the defualt) indicates that the original matrix rownames are used.
 A FALSE indicates that no Y-axis labels should be displayed.</p></dd>
+
+
 <dt>xlab</dt>
 <dd><p>The X-axis label</p></dd>
+
+
 <dt>ylab</dt>
 <dd><p>The Y-axis label</p></dd>
+
+
 <dt>plot_top</dt>
 <dd><p>Whether to put the X-axis labels at the top of the heatmap (as well as at the bottom)</p></dd>
+
+
 <dt>plot_right</dt>
 <dd><p>Whether to put the Y-axis labels at the right side of the heatmap (as well as at the left hand side)</p></dd>
+
+
 <dt>interleave</dt>
 <dd><p>Plot the odd Y-Axis labels on the left side and the even on the right side</p></dd>
+
+
 <dt>col_names_orient</dt>
 <dd><p>Orientation of the X-axis label</p></dd>
+
+
 <dt>col_names_color</dt>
 <dd><p>color of the column names</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>ggplot object with the matrix plot</p>
+    
+
+<p>ggplot object with the matrix plot</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="fu">tgplot_heatmap</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">tgplot_heatmap</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="tgplot_heatmap-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -115,7 +139,7 @@ A FALSE indicates that no Y-axis labels should be displayed.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

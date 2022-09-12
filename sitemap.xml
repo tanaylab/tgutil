@@ -10,6 +10,9 @@
     <loc>/index.html</loc>
   </url>
   <url>
+    <loc>/news/index.html</loc>
+  </url>
+  <url>
     <loc>/reference/call_main.html</loc>
   </url>
   <url>
@@ -50,6 +53,9 @@
   </url>
   <url>
     <loc>/reference/ggrasterize.html</loc>
+  </url>
+  <url>
+    <loc>/reference/gps.html</loc>
   </url>
   <url>
     <loc>/reference/grapes-cache_df-grapes.html</loc>
@@ -130,7 +136,7 @@
     <loc>/reference/segment_by.html</loc>
   </url>
   <url>
-    <loc>/reference/tg_install.html</loc>
+    <loc>/reference/sps.html</loc>
   </url>
   <url>
     <loc>/reference/tgplot_add_axis_annotation.html</loc>

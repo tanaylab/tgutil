@@ -17,13 +17,16 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tgutil</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.14</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/tanaylab/tgutil/" class="external-link">
@@ -50,47 +53,64 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">tgplot_add_axis_annotation</span><span class="op">(</span>
-  <span class="va">heatmap</span>,
-  <span class="va">annotation</span>,
-  position <span class="op">=</span> <span class="st">"bottom"</span>,
-  size <span class="op">=</span> <span class="fl">0.02</span>,
-  label <span class="op">=</span> <span class="cn">NULL</span>,
-  plot_left <span class="op">=</span> <span class="cn">TRUE</span>,
-  plot_right <span class="op">=</span> <span class="cn">TRUE</span>,
-  label_color <span class="op">=</span> <span class="st">"black"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tgplot_add_axis_annotation</span><span class="op">(</span></span>
+<span>  <span class="va">heatmap</span>,</span>
+<span>  <span class="va">annotation</span>,</span>
+<span>  position <span class="op">=</span> <span class="st">"bottom"</span>,</span>
+<span>  size <span class="op">=</span> <span class="fl">0.02</span>,</span>
+<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  plot_left <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  plot_right <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  label_color <span class="op">=</span> <span class="st">"black"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>heatmap</dt>
 <dd><p>a ggplot matrix object - output of <code>tgplot_heatmap</code></p></dd>
+
+
 <dt>annotation</dt>
 <dd><p>can be either a vector of colors or a ggplot object</p></dd>
+
+
 <dt>position</dt>
 <dd><p>position of the axis annotation ("top", "bottom", "left" or "right")</p></dd>
+
+
 <dt>size</dt>
 <dd><p>width of the annotation</p></dd>
+
+
 <dt>label</dt>
 <dd><p>annotation label (optional)</p></dd>
+
+
 <dt>plot_left</dt>
 <dd><p>plot a label to the left of the annotation</p></dd>
+
+
 <dt>plot_right</dt>
 <dd><p>plot a label to the right of the annotation</p></dd>
+
+
 <dt>label_color</dt>
 <dd><p>color of the annotation label</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a gtable object. Can be plotted using <code><a href="https://wilkelab.org/cowplot/reference/ggdraw.html" class="external-link">cowplot::ggdraw</a></code>.</p>
+    
+
+<p>a gtable object. Can be plotted using <code><a href="https://wilkelab.org/cowplot/reference/ggdraw.html" class="external-link">cowplot::ggdraw</a></code>.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="tgplot_heatmap.html">tgplot_heatmap</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span class="r-in">    <span class="fu">tgplot_add_axis_annotation</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span><span class="op">[</span><span class="fl">5</span>, <span class="op">]</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span class="r-in">    <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/ggdraw.html" class="external-link">ggdraw</a></span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="tgplot_heatmap.html">tgplot_heatmap</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span></span>
+<span class="r-in"><span>    <span class="fu">tgplot_add_axis_annotation</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span><span class="op">[</span><span class="fl">5</span>, <span class="op">]</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span></span></span>
+<span class="r-in"><span>    <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/ggdraw.html" class="external-link">ggdraw</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="tgplot_add_axis_annotation-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -106,7 +126,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>
