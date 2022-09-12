@@ -105,16 +105,24 @@ fwrite_mm <- function(x, fname, sep = " ", row.names = TRUE, col.names = TRUE) {
         colnames(x) <- NULL
     }
 
-    x <- broom::tidy(x)
+    if (methods::is(x, "sparseMatrix")) {
+        x <- Matrix::summary(x) %>% as.data.frame()
+        colnames(x) <- c("row", "column", "value")
+    } else {
+        x <- as.data.frame(x) %>%
+            tibble::rownames_to_column("row") %>%
+            tidyr::gather("column", "value", -row) %>%
+            mutate(row = as.numeric(row), column = as.numeric(column))
+    }
 
     if (any(colnames(x) != c("row", "column", "value"))) {
-        stop("Failed to convert argumant 'x' into a row-column-value format")
+        stop("Failed to convert argument 'x' into a row-column-value format")
     }
     if (mode(x$column) != "numeric") {
         stop("fwrite_mm() can only write numerical matrices")
     }
 
-    x <- arrange(x, row, column)
+    x <- dplyr::arrange(x, row, column)
 
     output <- file(fname, open = "w")
     writeLines("%%MatrixMarket matrix coordinate real general", output)
