@@ -22,7 +22,7 @@ remotes::install_github("tanaylab/tgutil")
 ### fread\_rownames
 
 ``` r
-fread_rownames(..., row.var='rowname')
+fread_rownames(..., row.var = "rowname")
 ```
 
 Use `fread()` to read a csv/tsv with row names (e.g. one created with
@@ -38,7 +38,7 @@ following arguments can’t be used (and will be silently ignored):
 ### fwrite\_mm
 
 ``` r
-fwrite_mm(x, fname, sep=' ', row.names=TRUE, col.names=TRUE)
+fwrite_mm(x, fname, sep = " ", row.names = TRUE, col.names = TRUE)
 ```
 
 Write the contents of the sparse matrix `x` into the text file `fname`
@@ -59,7 +59,7 @@ that is not compliant with the MatrixMarket format.
 ### fread\_mm
 
 ``` r
-fread_mm(fname, sep=' ', row.names=TRUE, col.names=TRUE)
+fread_mm(fname, sep = " ", row.names = TRUE, col.names = TRUE)
 ```
 
 Reads a sparse matrix in the MatrixMarket format from the file `fname`.

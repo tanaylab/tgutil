@@ -1,6 +1,6 @@
 Package: tgutil
 Title: Simple utility functions for Tanay lab code
-Version: 0.1.14
+Version: 0.1.15
 Authors@R: 
     c(person(given = "Elad",
              family = "Chomsky",
@@ -40,4 +40,4 @@ Suggests:
     testthat
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.3
