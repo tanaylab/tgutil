@@ -38,6 +38,8 @@ Imports:
 Suggests: 
     covr,
     testthat
+Remotes: 
+    cysouw/qlcMatrix
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
