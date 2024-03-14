@@ -22,6 +22,7 @@ set_plot_size <- function(width, height) {
 #' @param file path to the jupyter notebook
 #' @param outdir directory to store the converted R file. By default the file would be created in the same directory as the jupyter notebook
 #' @param jupytext_path path to jupytext executable
+#' @param source_file if FALSE, and .R file is created but not sourced
 #'
 #' @return None
 #'
@@ -35,7 +36,7 @@ set_plot_size <- function(width, height) {
 #' }
 #'
 #' @export
-source_jupyter <- function(file, outdir = NULL, jupytext_path = "jupytext") {
+source_jupyter <- function(file, outdir = NULL, jupytext_path = "jupytext", source_file = TRUE) {
     file <- normalizePath(file)
     file_name <- basename(file)
     if (!is.null(outdir)) {
@@ -56,5 +57,7 @@ source_jupyter <- function(file, outdir = NULL, jupytext_path = "jupytext") {
         stop("Could not find R file: ", r_file)
     }
 
-    source(r_file)
+    if (source_file) {
+        source(r_file)
+    }
 }

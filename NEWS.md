@@ -1,3 +1,7 @@
+# tgutil 0.1.16
+
+* Added `source_file` option in `source_jupyter` function. 
+
 # tgutil 0.1.15 
 
 * Added jupyter notebook utils: `set_plot_size` and `source_jupyter`.
