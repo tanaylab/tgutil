@@ -20,13 +20,16 @@ ggpreview(
   \describe{
     \item{\code{device}}{Device to use. Can either be a device function
 (e.g. \link{png}), or one of "eps", "ps", "tex" (pictex),
-"pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).}
+"pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only). If
+\code{NULL} (default), the device is guessed based on the \code{filename} extension.}
     \item{\code{path}}{Path of the directory to save plot to: \code{path} and \code{filename}
 are combined to create the fully qualified file name. Defaults to the
 working directory.}
     \item{\code{scale}}{Multiplicative scaling factor.}
-    \item{\code{width,height,units}}{Plot size in \code{units} ("in", "cm", "mm", or "px").
-If not supplied, uses the size of current graphics device.}
+    \item{\code{width,height}}{Plot size in units expressed by the \code{units} argument.
+If not supplied, uses the size of the current graphics device.}
+    \item{\code{units}}{One of the following units in which the \code{width} and \code{height}
+arguments are expressed: \code{"in"}, \code{"cm"}, \code{"mm"} or \code{"px"}.}
     \item{\code{dpi}}{Plot resolution. Also accepts a string input: "retina" (320),
 "print" (300), or "screen" (72). Applies only to raster output types.}
     \item{\code{limitsize}}{When \code{TRUE} (the default), \code{ggsave()} will not
@@ -34,6 +37,10 @@ save images larger than 50x50 inches, to prevent the common error of
 specifying dimensions in pixels.}
     \item{\code{bg}}{Background colour. If \code{NULL}, uses the \code{plot.background} fill value
 from the plot theme.}
+    \item{\code{create.dir}}{Whether to create new directories if a non-existing
+directory is specified in the \code{filename} or \code{path} (\code{TRUE}) or return an
+error (\code{FALSE}, default). If \code{FALSE} and run in an interactive session,
+a prompt will appear asking to create a new directory when necessary.}
   }}
 }
 \description{

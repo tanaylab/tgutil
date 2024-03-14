@@ -4,7 +4,12 @@
 \alias{source_jupyter}
 \title{Source a jupyter notebook}
 \usage{
-source_jupyter(file, outdir = NULL, jupytext_path = "jupytext")
+source_jupyter(
+  file,
+  outdir = NULL,
+  jupytext_path = "jupytext",
+  source_file = TRUE
+)
 }
 \arguments{
 \item{file}{path to the jupyter notebook}
@@ -12,6 +17,8 @@ source_jupyter(file, outdir = NULL, jupytext_path = "jupytext")
 \item{outdir}{directory to store the converted R file. By default the file would be created in the same directory as the jupyter notebook}
 
 \item{jupytext_path}{path to jupytext executable}
+
+\item{source_file}{if FALSE, and .R file is created but not sourced}
 }
 \value{
 None

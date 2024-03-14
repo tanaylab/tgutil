@@ -24,9 +24,8 @@ length two specifying the dimension of \code{x}, also when not a
 \code{\link[base]{matrix}}.  \emph{Comment:} The reason for this argument
 being named with a period at the end is purely technical (we get a run-time
 error if we try to name it \code{dim}).}
-    \item{\code{useNames}}{If \code{\link[base:logical]{FALSE}} (default), no naming
-support is done. Else if \code{\link[base:logical]{TRUE}}, names attributes
-of result are set.}
+    \item{\code{useNames}}{If \code{\link[base:logical]{TRUE}} (default), names
+attributes of the result are set, otherwise not.}
   }}
 }
 \description{

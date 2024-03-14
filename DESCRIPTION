@@ -1,6 +1,6 @@
 Package: tgutil
 Title: Simple utility functions for Tanay lab code
-Version: 0.1.15
+Version: 0.1.16
 Authors@R: 
     c(person(given = "Elad",
              family = "Chomsky",
