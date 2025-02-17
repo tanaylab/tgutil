@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">tgutil</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.17</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
 <h3 id="fread_rownames">fread_rownames<a class="anchor" aria-label="anchor" href="#fread_rownames"></a>
 </h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/fread_rownames.html">fread_rownames</a></span><span class="op">(</span><span class="va">...</span>, row.var<span class="op">=</span><span class="st">'rowname'</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/fread_rownames.html">fread_rownames</a></span><span class="op">(</span><span class="va">...</span>, row.var <span class="op">=</span> <span class="st">"rowname"</span><span class="op">)</span></span></code></pre></div>
 <p>Use <code><a href="reference/fread.html">fread()</a></code> to read a csv/tsv with row names (e.g. one created with <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table()</a></code>). The name of the column that will hold the row names is given in <code>row.var</code>.</p>
 <p>All arguments are passed to the underlying <code><a href="reference/fread.html">fread()</a></code> call. Note that the following arguments can’t be used (and will be silently ignored): <code>header</code>, <code>skip</code>, <code>col.names</code>.</p>
 </div>
@@ -97,7 +97,7 @@
 <h3 id="fwrite_mm">fwrite_mm<a class="anchor" aria-label="anchor" href="#fwrite_mm"></a>
 </h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/fwrite_mm.html">fwrite_mm</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">fname</span>, sep<span class="op">=</span><span class="st">' '</span>, row.names<span class="op">=</span><span class="cn">TRUE</span>, col.names<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/fwrite_mm.html">fwrite_mm</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">fname</span>, sep <span class="op">=</span> <span class="st">" "</span>, row.names <span class="op">=</span> <span class="cn">TRUE</span>, col.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Write the contents of the sparse matrix <code>x</code> into the text file <code>fname</code> in the MatrixMarket format (see <a href="http://math.nist.gov/MatrixMarket/formats.html" class="external-link uri">http://math.nist.gov/MatrixMarket/formats.html</a>).</p>
 <p>The MatrixMarket format does not save row and column names. <code><a href="reference/fwrite_mm.html">fwrite_mm()</a></code> allows saving them into separate files using the <code>row.names</code> and <code>col.names</code> arguments. These arguments may contain file names into which the column and row names will be written. Alternately setting these arguments to <code>TRUE</code> will cause the row and column names to be written to <code>&lt;fname&gt;.rownames</code> and <code>&lt;fname&gt;.colnames</code> respectively.</p>
 <p>The argument <code>sep</code> indicates the field separator that will be used. Note that using any field separator other than space will result in an output that is not compliant with the MatrixMarket format.</p>
@@ -106,9 +106,38 @@
 <h3 id="fread_mm">fread_mm<a class="anchor" aria-label="anchor" href="#fread_mm"></a>
 </h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/fread_mm.html">fread_mm</a></span><span class="op">(</span><span class="va">fname</span>, sep<span class="op">=</span><span class="st">' '</span>, row.names<span class="op">=</span><span class="cn">TRUE</span>, col.names<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/fread_mm.html">fread_mm</a></span><span class="op">(</span><span class="va">fname</span>, sep <span class="op">=</span> <span class="st">" "</span>, row.names <span class="op">=</span> <span class="cn">TRUE</span>, col.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Reads a sparse matrix in the MatrixMarket format from the file <code>fname</code>.</p>
 <p>The MatrixMarket format does not save row and column names. <code><a href="reference/fread_mm.html">fread_mm()</a></code> allows reading them from separate files using the <code>row.names</code> and <code>col.names</code> arguments. These arguments may contain file names from which the column and row names will be read. Alternately setting these arguments to <code>TRUE</code> will cause the row and column names to be read from <code>&lt;fname&gt;.rownames</code> and <code>&lt;fname&gt;.colnames</code> respectively.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="dense-scatter-plots">Dense scatter plots<a class="anchor" aria-label="anchor" href="#dense-scatter-plots"></a>
+</h2>
+<div class="section level3">
+<h3 id="geom_dense_scatter">geom_dense_scatter<a class="anchor" aria-label="anchor" href="#geom_dense_scatter"></a>
+</h3>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">tgutil</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1e4</span></span>
+<span></span>
+<span><span class="co"># Create large dataset with non-linear relationship</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="op">-</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">x</span>,</span>
+<span>    y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Visualize non-linear relationship with density</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">df2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="reference/geom_dense_scatter.html">geom_dense_scatter</a></span><span class="op">(</span></span>
+<span>        pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gray90"</span>, <span class="st">"gray50"</span>, <span class="st">"orange"</span>, <span class="st">"red"</span><span class="op">)</span>,</span>
+<span>        size <span class="op">=</span> <span class="fl">0.4</span>,</span>
+<span>        alpha <span class="op">=</span> <span class="fl">0.8</span></span>
+<span>    <span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Non-linear Pattern with Density Coloring"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="README-unnamed-chunk-5-1.png"><!-- --></p>
 </div>
 </div>
 </div>
@@ -166,7 +195,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

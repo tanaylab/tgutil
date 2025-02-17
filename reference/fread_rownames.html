@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tgutil</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.17</span>
       </span>
     </div>
 
@@ -59,7 +59,7 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>...</dt>
-<dd><p>Arguments passed on to <code><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">data.table::fread</a></code></p><dl><dt><code>input</code></dt>
+<dd><p>Arguments passed on to <code><a href="https://rdrr.io/pkg/data.table/man/fread.html" class="external-link">data.table::fread</a></code></p><dl><dt><code>input</code></dt>
 <dd><p>A single character string. The value is inspected and deferred to either <code>file=</code> (if no \n present), <code>text=</code> (if at least one \n is present) or <code>cmd=</code> (if no \n is present, at least one space is present, and it isn't a file name). Exactly one of <code>input=</code>, <code>file=</code>, <code>text=</code>, or <code>cmd=</code> should be used in the same call.</p></dd>
 
     <dt><code>file</code></dt>
@@ -84,7 +84,7 @@
 <dd><p>A character vector of strings which are to be interpreted as <code>NA</code> values. By default, <code>",,"</code> for columns of all types, including type <code>character</code> is read as <code>NA</code> for consistency. <code>,"",</code> is unambiguous and read as an empty string. To read <code>,NA,</code> as <code>NA</code>, set <code>na.strings="NA"</code>. To read <code>,,</code> as blank string <code>""</code>, set <code>na.strings=NULL</code>. When they occur in the file, the strings in <code>na.strings</code> should not appear quoted since that is how the string literal <code>,"NA",</code> is distinguished from <code>,NA,</code>, for example, when <code>na.strings="NA"</code>.</p></dd>
 
     <dt><code>stringsAsFactors</code></dt>
-<dd><p>Convert all character columns to factors?</p></dd>
+<dd><p>Convert all or some character columns to factors? Acceptable inputs are <code>TRUE</code>, <code>FALSE</code>, or a decimal value between 0.0 and 1.0. For <code>stringsAsFactors = FALSE</code>, all string columns are stored as <code>character</code> vs. all stored as <code>factor</code> when <code>TRUE</code>. When <code>stringsAsFactors = p</code> for <code>0 &lt;= p &lt;= 1</code>, string columns <code>col</code> are stored as <code>factor</code> if <code>uniqueN(col)/nrow &lt; p</code>.</p></dd>
 
     <dt><code>verbose</code></dt>
 <dd><p>Be chatty and report timings?</p></dd>
@@ -103,7 +103,7 @@
 <dd><p>"integer64" (default) reads columns detected as containing integers larger than 2^31 as type <code><a href="https://rdrr.io/pkg/bit64/man/bit64-package.html" class="external-link">bit64::integer64</a></code>. Alternatively, <code>"double"|"numeric"</code> reads as <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">utils::read.csv</a></code> does; i.e., possibly with loss of precision and if so silently. Or, "character".</p></dd>
 
     <dt><code>dec</code></dt>
-<dd><p>The decimal separator as in <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">utils::read.csv</a></code>. If not "." (default) then usually ",". See details.</p></dd>
+<dd><p>The decimal separator as in <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">utils::read.csv</a></code>. When <code>"auto"</code> (the default), an attempt is made to decide whether <code>"."</code> or <code>","</code> is more suitable for this input. See details.</p></dd>
 
     <dt><code>check.names</code></dt>
 <dd><p>default is <code>FALSE</code>. If <code>TRUE</code> then the names of the variables in the <code>data.table</code> are checked to ensure that they are syntactically valid variable names. If necessary they are adjusted (by <code><a href="https://rdrr.io/r/base/make.names.html" class="external-link">make.names</a></code>) so that they are, and also to ensure that there are no duplicates.</p></dd>
@@ -115,16 +115,16 @@
 <dd><p>By default (<code>"\""</code>), if a field starts with a double quote, <code>fread</code> handles embedded quotes robustly as explained under <code>Details</code>. If it fails, then another attempt is made to read the field <em>as is</em>, i.e., as if quotes are disabled. By setting <code>quote=""</code>, the field is always read as if quotes are disabled. It is not expected to ever need to pass anything other than \"\" to quote; i.e., to turn it off.</p></dd>
 
     <dt><code>strip.white</code></dt>
-<dd><p>default is <code>TRUE</code>. Strips leading and trailing whitespaces of unquoted fields. If <code>FALSE</code>, only header trailing spaces are removed.</p></dd>
+<dd><p>Logical, default <code>TRUE</code>, in which case leading and trailing whitespace is stripped from unquoted <code>"character"</code> fields. <code>"numeric"</code> fields are always stripped of leading and trailing whitespace.</p></dd>
 
     <dt><code>fill</code></dt>
-<dd><p>logical (default is <code>FALSE</code>). If <code>TRUE</code> then in case the rows have unequal length, blank fields are implicitly filled.</p></dd>
+<dd><p>logical or integer (default is <code>FALSE</code>). If <code>TRUE</code> then in case the rows have unequal length, number of columns is estimated and blank fields are implicitly filled. If an integer is provided it is used as an upper bound for the number of columns. If <code>fill=Inf</code> then the whole file is read for detecting the number of columns.</p></dd>
 
     <dt><code>blank.lines.skip</code></dt>
 <dd><p><code>logical</code>, default is <code>FALSE</code>. If <code>TRUE</code> blank lines in the input are ignored.</p></dd>
 
     <dt><code>index</code></dt>
-<dd><p>Character vector or list of character vectors of one or more column names which is passed to <code><a href="https://Rdatatable.gitlab.io/data.table/reference/setkey.html" class="external-link">setindexv</a></code>. As with <code>key</code>, comma-separated notation like <code>index="x,y,z"</code> is accepted for convenience. Only valid when argument <code>data.table=TRUE</code>. Where applicable, this should refer to column names given in <code>col.names</code>.</p></dd>
+<dd><p>Character vector or list of character vectors of one or more column names which is passed to <code><a href="https://rdrr.io/pkg/data.table/man/setkey.html" class="external-link">setindexv</a></code>. As with <code>key</code>, comma-separated notation like <code>index="x,y,z"</code> is accepted for convenience. Only valid when argument <code>data.table=TRUE</code>. Where applicable, this should refer to column names given in <code>col.names</code>.</p></dd>
 
     <dt><code>showProgress</code></dt>
 <dd><p><code>TRUE</code> displays progress on the console if the ETA is greater than 3 seconds. It is produced in fread's C code where the very nice (but R level) txtProgressBar and tkProgressBar are not easily available.</p></dd>
@@ -172,7 +172,7 @@ Setting this parameter to NULL will maintain row names as row names.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

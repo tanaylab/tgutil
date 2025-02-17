@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tgutil</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.17</span>
       </span>
     </div>
 
@@ -81,7 +81,8 @@
 <dt>device</dt>
 <dd><p>Device to use. Can either be a device function
 (e.g. <a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png</a>), or one of "eps", "ps", "tex" (pictex),
-"pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).</p></dd>
+"pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only). If
+<code>NULL</code> (default), the device is guessed based on the <code>filename</code> extension.</p></dd>
 
 
 <dt>path</dt>
@@ -94,14 +95,19 @@ working directory.</p></dd>
 <dd><p>Multiplicative scaling factor.</p></dd>
 
 
-<dt>width, height, units</dt>
-<dd><p>Plot size in <code>units</code> ("in", "cm", "mm", or "px").
-If not supplied, uses the size of current graphics device.</p></dd>
+<dt>width, height</dt>
+<dd><p>Plot size in units expressed by the <code>units</code> argument.
+If not supplied, uses the size of the current graphics device.</p></dd>
 
 
 <dt>dpi</dt>
 <dd><p>Plot resolution. Also accepts a string input: "retina" (320),
 "print" (300), or "screen" (72). Applies only to raster output types.</p></dd>
+
+
+<dt>units</dt>
+<dd><p>One of the following units in which the <code>width</code> and <code>height</code>
+arguments are expressed: <code>"in"</code>, <code>"cm"</code>, <code>"mm"</code> or <code>"px"</code>.</p></dd>
 
 
 <dt>limitsize</dt>
@@ -146,7 +152,7 @@ as specified by <code>device</code>.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

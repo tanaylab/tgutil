@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tgutil</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.17</span>
       </span>
     </div>
 
@@ -74,7 +74,8 @@
 <dd><p>Arguments passed on to <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggplot2::ggsave</a></code></p><dl><dt><code>device</code></dt>
 <dd><p>Device to use. Can either be a device function
 (e.g. <a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png</a>), or one of "eps", "ps", "tex" (pictex),
-"pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).</p></dd>
+"pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only). If
+<code>NULL</code> (default), the device is guessed based on the <code>filename</code> extension.</p></dd>
 
     <dt><code>path</code></dt>
 <dd><p>Path of the directory to save plot to: <code>path</code> and <code>filename</code>
@@ -84,9 +85,13 @@ working directory.</p></dd>
     <dt><code>scale</code></dt>
 <dd><p>Multiplicative scaling factor.</p></dd>
 
-    <dt><code>width,height,units</code></dt>
-<dd><p>Plot size in <code>units</code> ("in", "cm", "mm", or "px").
-If not supplied, uses the size of current graphics device.</p></dd>
+    <dt><code>width,height</code></dt>
+<dd><p>Plot size in units expressed by the <code>units</code> argument.
+If not supplied, uses the size of the current graphics device.</p></dd>
+
+    <dt><code>units</code></dt>
+<dd><p>One of the following units in which the <code>width</code> and <code>height</code>
+arguments are expressed: <code>"in"</code>, <code>"cm"</code>, <code>"mm"</code> or <code>"px"</code>.</p></dd>
 
     <dt><code>dpi</code></dt>
 <dd><p>Plot resolution. Also accepts a string input: "retina" (320),
@@ -100,6 +105,12 @@ specifying dimensions in pixels.</p></dd>
     <dt><code>bg</code></dt>
 <dd><p>Background colour. If <code>NULL</code>, uses the <code>plot.background</code> fill value
 from the plot theme.</p></dd>
+
+    <dt><code>create.dir</code></dt>
+<dd><p>Whether to create new directories if a non-existing
+directory is specified in the <code>filename</code> or <code>path</code> (<code>TRUE</code>) or return an
+error (<code>FALSE</code>, default). If <code>FALSE</code> and run in an interactive session,
+a prompt will appear asking to create a new directory when necessary.</p></dd>
 
   
 </dl></dd>
@@ -133,7 +144,7 @@ from the plot theme.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

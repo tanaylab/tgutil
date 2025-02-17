@@ -49,6 +49,9 @@
     <loc>/reference/gen_seeds.html</loc>
   </url>
   <url>
+    <loc>/reference/geom_dense_scatter.html</loc>
+  </url>
+  <url>
     <loc>/reference/ggpreview.html</loc>
   </url>
   <url>
@@ -97,6 +100,9 @@
     <loc>/reference/num_physical_cores.html</loc>
   </url>
   <url>
+    <loc>/reference/plot_dense_scatter.html</loc>
+  </url>
+  <url>
     <loc>/reference/pmean.html</loc>
   </url>
   <url>
@@ -136,6 +142,12 @@
     <loc>/reference/segment_by.html</loc>
   </url>
   <url>
+    <loc>/reference/set_plot_size.html</loc>
+  </url>
+  <url>
+    <loc>/reference/source_jupyter.html</loc>
+  </url>
+  <url>
     <loc>/reference/sps.html</loc>
   </url>
   <url>
@@ -145,7 +157,7 @@
     <loc>/reference/tgplot_heatmap.html</loc>
   </url>
   <url>
-    <loc>/reference/tgutil.html</loc>
+    <loc>/reference/tgutil-package.html</loc>
   </url>
   <url>
     <loc>/reference/write_fastq.html</loc>
