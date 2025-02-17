@@ -19,7 +19,7 @@ remotes::install_github("tanaylab/tgutil")
 
 ## Read legacy csv’s
 
-### fread\_rownames
+### fread_rownames
 
 ``` r
 fread_rownames(..., row.var = "rowname")
@@ -35,7 +35,7 @@ following arguments can’t be used (and will be silently ignored):
 
 ## Sparse Matrix I/O
 
-### fwrite\_mm
+### fwrite_mm
 
 ``` r
 fwrite_mm(x, fname, sep = " ", row.names = TRUE, col.names = TRUE)
@@ -56,7 +56,7 @@ The argument `sep` indicates the field separator that will be used. Note
 that using any field separator other than space will result in an output
 that is not compliant with the MatrixMarket format.
 
-### fread\_mm
+### fread_mm
 
 ``` r
 fread_mm(fname, sep = " ", row.names = TRUE, col.names = TRUE)
@@ -70,3 +70,31 @@ allows reading them from separate files using the `row.names` and
 the column and row names will be read. Alternately setting these
 arguments to `TRUE` will cause the row and column names to be read from
 `<fname>.rownames` and `<fname>.colnames` respectively.
+
+## Dense scatter plots
+
+### geom_dense_scatter
+
+``` r
+library(tgutil)
+library(ggplot2)
+n <- 1e4
+
+# Create large dataset with non-linear relationship
+x <- runif(n, -3, 3)
+df2 <- data.frame(
+    x = x,
+    y = sin(x) * 2 + rnorm(n, 0, 0.5)
+)
+
+# Visualize non-linear relationship with density
+ggplot(df2, aes(x, y)) +
+    geom_dense_scatter(
+        pal = c("gray90", "gray50", "orange", "red"),
+        size = 0.4,
+        alpha = 0.8
+    ) +
+    labs(title = "Non-linear Pattern with Density Coloring")
+```
+
+![](README-unnamed-chunk-5-1.png)<!-- -->

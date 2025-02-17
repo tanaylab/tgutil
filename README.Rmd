@@ -61,3 +61,28 @@ Reads a sparse matrix in the MatrixMarket format from the file `fname`.
 
 The MatrixMarket format does not save row and column names. `fread_mm()` allows reading them from separate files using the `row.names` and `col.names` arguments. These arguments may contain file names from which the column and row names will be read. Alternately setting these arguments to `TRUE` will cause the row and column names to be read from `<fname>.rownames` and `<fname>.colnames` respectively.
 
+## Dense scatter plots 
+
+### geom_dense_scatter
+
+```{r}
+library(tgutil)
+library(ggplot2)
+n <- 1e4
+
+# Create large dataset with non-linear relationship
+x <- runif(n, -3, 3)
+df2 <- data.frame(
+    x = x,
+    y = sin(x) * 2 + rnorm(n, 0, 0.5)
+)
+
+# Visualize non-linear relationship with density
+ggplot(df2, aes(x, y)) +
+    geom_dense_scatter(
+        pal = c("gray90", "gray50", "orange", "red"),
+        size = 0.4,
+        alpha = 0.8
+    ) +
+    labs(title = "Non-linear Pattern with Density Coloring")
+```
