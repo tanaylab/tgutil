@@ -46,7 +46,7 @@ fwrite(x, ...)
     \item{\code{yaml}}{If \code{TRUE}, \code{fwrite} will output a CSVY file, that is, a CSV file with metadata stored as a YAML header, using \code{\link[yaml]{as.yaml}}. See \code{Details}. }
     \item{\code{bom}}{If \code{TRUE} a BOM (Byte Order Mark) sequence (EF BB BF) is added at the beginning of the file; format 'UTF-8 with BOM'.}
     \item{\code{verbose}}{Be chatty and report timings?}
-    \item{\code{encoding}}{ The encoding of the strings written to the CSV file. Default is \code{""}, which means writting raw bytes without considering the encoding. Other possible options are \code{"UTF-8"} and \code{"native"}. }
+    \item{\code{encoding}}{ The encoding of the strings written to the CSV file. Default is \code{""}, which means writing raw bytes without considering the encoding. Other possible options are \code{"UTF-8"} and \code{"native"}. }
   }}
 }
 \description{

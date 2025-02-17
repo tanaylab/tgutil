@@ -1,3 +1,7 @@
+# tgutil 0.1.17
+
+* Added `geom_dense_scatter` and `plot_dense_scatter` functions.
+
 # tgutil 0.1.16
 
 * Added `source_file` option in `source_jupyter` function. 
