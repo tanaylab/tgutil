@@ -13,6 +13,9 @@ plot_dense_scatter(
   pal = c("darkgray", "blue3", "red", "yellow"),
   size = 0.8,
   alpha = 1,
+  abline = FALSE,
+  intercept = 0,
+  slope = 1,
   ...
 )
 }
