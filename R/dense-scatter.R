@@ -232,7 +232,7 @@ plot_dense_scatter <- function(x, y,
     p <- ggplot2::ggplot(df, ggplot2::aes(x = x, y = y)) +
         geom_dense_scatter(pal = pal, size = size, alpha = alpha, ...) +
         ggplot2::labs(x = xlab, y = ylab, title = main) +
-        ggplot2::theme_minimal()
+        ggplot2::theme_classic()
 
     print(p)
 }
