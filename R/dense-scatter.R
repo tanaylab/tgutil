@@ -208,6 +208,9 @@ plot_dense_scatter <- function(x, y,
                                pal = c("darkgray", "blue3", "red", "yellow"),
                                size = 0.8,
                                alpha = 1,
+                               abline = FALSE,
+                               intercept = 0,
+                               slope = 1,
                                ...) {
     # Handle different input types
     if (is.matrix(x) || is.data.frame(x)) {
@@ -233,6 +236,10 @@ plot_dense_scatter <- function(x, y,
         geom_dense_scatter(pal = pal, size = size, alpha = alpha, ...) +
         ggplot2::labs(x = xlab, y = ylab, title = main) +
         ggplot2::theme_classic()
+
+    if (abline) {
+        p <- p + ggplot2::geom_abline(intercept = intercept, slope = slope)
+    }
 
     print(p)
 }
