@@ -212,6 +212,8 @@ plot_dense_scatter <- function(x, y,
                                intercept = 0,
                                slope = 1,
                                show_r2 = FALSE,
+                               xlim = NULL, 
+                               ylim = NULL,
                                ...) {
     # Handle different input types
     if (is.matrix(x) || is.data.frame(x)) {
@@ -236,13 +238,23 @@ plot_dense_scatter <- function(x, y,
         fit <- lm(y ~ x)
         r2 <- summary(fit)$r.squared
         subtitle <- bquote(R^2 == .(round(r2, 3)))
-    } 
+    } else {
+        subtitle <- NULL
+    }
 
     # Create the plot
     p <- ggplot2::ggplot(df, ggplot2::aes(x = x, y = y)) +
         geom_dense_scatter(pal = pal, size = size, alpha = alpha, ...) +
         ggplot2::labs(x = xlab, y = ylab, title = main, subtitle = subtitle) +
         ggplot2::theme_classic()
+    
+    if (!is.null(xlim)) {
+        p <- p + ggplot2::xlim(xlim)
+    }
+    
+    if (!is.null(ylim)) {
+        p <- p + ggplot2::ylim(ylim)
+    }
 
     if (abline) {
         p <- p + ggplot2::geom_abline(intercept = intercept, slope = slope)
