@@ -1,3 +1,7 @@
+# tgutil 0.1.18
+
+* Added `spz` alias for `set_plot_size` function.
+
 # tgutil 0.1.17
 
 * Added `geom_dense_scatter` and `plot_dense_scatter` functions.

@@ -14,6 +14,19 @@ set_plot_size <- function(width, height) {
     options(repr.plot.width = width, repr.plot.height = height)
 }
 
+#' Alias for set_plot_size
+#'
+#' @inheritParams set_plot_size
+#'
+#' @examples
+#'
+#' # run inside a jupyter notebook
+#' spz(10, 5)
+#' plot(1:10)
+#'
+#' @export
+spz <- set_plot_size
+
 
 #' Source a jupyter notebook
 #'

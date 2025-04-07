@@ -16,6 +16,9 @@ plot_dense_scatter(
   abline = FALSE,
   intercept = 0,
   slope = 1,
+  show_r2 = FALSE,
+  xlim = NULL,
+  ylim = NULL,
   ...
 )
 }
