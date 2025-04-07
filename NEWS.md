@@ -1,3 +1,7 @@
+# tgutil 0.1.19
+
+* Renamed `spz` alias to `sps` for better clarity.
+
 # tgutil 0.1.18
 
 * Added `spz` alias for `set_plot_size` function.
