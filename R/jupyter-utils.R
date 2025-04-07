@@ -21,11 +21,11 @@ set_plot_size <- function(width, height) {
 #' @examples
 #'
 #' # run inside a jupyter notebook
-#' spz(10, 5)
+#' sps(10, 5)
 #' plot(1:10)
 #'
 #' @export
-spz <- set_plot_size
+sps <- set_plot_size
 
 
 #' Source a jupyter notebook
