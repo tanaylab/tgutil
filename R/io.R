@@ -620,3 +620,59 @@ write_fastq <- function(df, fn) {
 
     fwrite(fq_list, file = fn, compress = "auto", col.names = FALSE, quote = FALSE)
 }
+
+#' Write a named vector of sequences to FASTA file
+#'
+#' @param sequences named character vector with sequences (names become FASTA headers)
+#' @param fn name of the file - can be zipped (with "gz" file extension)
+#'
+#' @return None
+#'
+#' @details
+#' The function creates a properly formatted FASTA file with:
+#' \itemize{
+#'   \item Headers starting with ">" followed by sequence identifiers
+#'   \item Sequence data on single lines (no wrapping)
+#'   \item One sequence per entry
+#'   \item Automatic compression detection for .gz files
+#' }
+#'
+#' @examples
+#' # Create example sequences
+#' sequences <- c("ATCGATCGATCGATCG", "GCTAGCTAGCTAGCTA", "TTAACCGGTTAACCGG")
+#' names(sequences) <- c("gene1", "gene2", "gene3")
+#'
+#' # Write to FASTA file
+#' temp_file <- tempfile(fileext = ".fasta")
+#' write_fasta(sequences, temp_file)
+#'
+#' # Write to compressed file
+#' temp_file_gz <- tempfile(fileext = ".fasta.gz")
+#' write_fasta(sequences, temp_file_gz)
+#'
+#' # Write unnamed sequences (will get generic names)
+#' unnamed_seqs <- c("ATCG", "GCTA", "TTAA")
+#' temp_file_unnamed <- tempfile(fileext = ".fasta")
+#' write_fasta(unnamed_seqs, temp_file_unnamed)
+#'
+#' @export
+write_fasta <- function(sequences, fn) {
+    # Create headers - use names if available, otherwise create generic ones
+    if (is.null(names(sequences))) {
+        headers <- paste0(">seq_", seq_along(sequences))
+    } else {
+        headers <- paste0(">", names(sequences))
+    }
+
+    # Pre-allocate vector and fill with indexing (fast!)
+    n <- length(sequences)
+    fasta_lines <- character(2 * n)
+    fasta_lines[seq(1, 2 * n, 2)] <- headers
+    fasta_lines[seq(2, 2 * n, 2)] <- as.character(sequences)
+
+    # Write to file using fwrite
+    data.table::fwrite(list(fasta_lines),
+        file = fn, compress = "auto",
+        col.names = FALSE, quote = FALSE
+    )
+}

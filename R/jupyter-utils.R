@@ -14,9 +14,10 @@ set_plot_size <- function(width, height) {
     options(repr.plot.width = width, repr.plot.height = height)
 }
 
-#' Alias for set_plot_size
+#' Set plot size for jupyter IRKernel
 #'
-#' @inheritParams set_plot_size
+#' @param width width of the plot
+#' @param height height of the plot
 #'
 #' @examples
 #'
@@ -25,7 +26,9 @@ set_plot_size <- function(width, height) {
 #' plot(1:10)
 #'
 #' @export
-sps <- set_plot_size
+sps <- function(width, height) {
+    set_plot_size(width, height)
+}
 
 
 #' Source a jupyter notebook

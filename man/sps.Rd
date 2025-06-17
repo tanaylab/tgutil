@@ -2,7 +2,7 @@
 % Please edit documentation in R/jupyter-utils.R, R/utils.R
 \name{sps}
 \alias{sps}
-\title{Alias for set_plot_size}
+\title{Set plot size for jupyter IRKernel}
 \usage{
 sps(width, height)
 
@@ -17,7 +17,7 @@ sps(width, height)
 previous width and height (invisibly)
 }
 \description{
-Alias for set_plot_size
+Set plot size for jupyter IRKernel
 
 Set plot size for jupyter IRKernel
 }

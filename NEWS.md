@@ -1,3 +1,7 @@
+# tgutil 0.1.20
+
+* Added `write_fasta` function.
+
 # tgutil 0.1.19
 
 * Renamed `spz` alias to `sps` for better clarity.
