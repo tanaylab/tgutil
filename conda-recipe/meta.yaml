@@ -1,0 +1,70 @@
+{% set name = "tgutil" %}
+{% set version = environ.get("PACKAGE_VERSION", "0.1.20") %}
+
+package:
+  name: r-{{ name|lower }}
+  version: {{ version }}
+
+source:
+  path: ..
+
+build:
+  number: 0
+  skip: true  # [win or osx]
+  rpaths:
+    - lib/R/lib/
+    - lib/
+
+requirements:
+  host:
+    - r-base {{ r_base }}.*
+    - r-matrix
+    - r-broom
+    - r-cowplot
+    - r-data.table
+    - r-dplyr
+    - r-ggplot2
+    - r-glue
+    - r-magrittr
+    - r-matrixstats
+    - r-qlcmatrix
+    - r-readr
+    - r-rlang
+    - r-scales
+    - r-tibble
+    - r-tidyr
+  run:
+    - r-base {{ r_base }}.*
+    - r-matrix
+    - r-broom
+    - r-cowplot
+    - r-data.table
+    - r-dplyr
+    - r-ggplot2
+    - r-glue
+    - r-magrittr
+    - r-matrixstats
+    - r-qlcmatrix
+    - r-readr
+    - r-rlang
+    - r-scales
+    - r-tibble
+    - r-tidyr
+
+test:
+  commands:
+    - $R -e "library('tgutil')"
+
+about:
+  home: https://github.com/tanaylab/tgutil
+  license: GPL-3
+  license_family: GPL
+  summary: Simple utility functions for Tanay lab code
+  description: |
+    Simple utility functions that are shared across several packages
+    maintained by the Tanay lab.
+  dev_url: https://github.com/tanaylab/tgutil
+
+extra:
+  recipe-maintainers:
+    - aviezerl

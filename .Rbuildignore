@@ -3,3 +3,5 @@
 ^README\.md^
 ^README\.Rmd^
 ^\.tg_repo/*$
+^conda-recipe$
+^\.github$
