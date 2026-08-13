@@ -26,7 +26,6 @@ fwrite(x, ...)
 	\item "double" (default, same as \code{write.csv}), in which case the double quote is doubled with another one.
       }}
     \item{\code{logical01}}{Should \code{logical} values be written as \code{1} and \code{0} rather than \code{"TRUE"} and \code{"FALSE"}?}
-    \item{\code{logicalAsInt}}{Deprecated. Old name for `logical01`. Name change for consistency with `fread` for which `logicalAsInt` would not make sense.}
     \item{\code{scipen}}{ \code{integer} In terms of printing width, how much of a bias should there be towards printing whole numbers rather than scientific notation? See Details. }
     \item{\code{dateTimeAs}}{ How \code{Date}/\code{IDate}, \code{ITime} and \code{POSIXct} items are written.
       \itemize{
@@ -39,15 +38,16 @@ fwrite(x, ...)
   This option applies to vectors of date/time in list column cells, too. \cr \cr
   A fully flexible format string (such as \code{"\%m/\%d/\%Y"}) is not supported. This is to encourage use of ISO standards and because that flexibility is not known how to make fast at C level. We may be able to support one or two more specific options if required.
   }
-    \item{\code{buffMB}}{The buffer size (MB) per thread in the range 1 to 1024, default 8MB. Experiment to see what works best for your data on your hardware.}
+    \item{\code{buffMB}}{The buffer size (MiB) per thread in the range 1 to 1024, default 8MiB. Experiment to see what works best for your data on your hardware.}
     \item{\code{nThread}}{The number of threads to use. Experiment to see what works best for your data on your hardware.}
     \item{\code{showProgress}}{ Display a progress meter on the console? Ignored when \code{file==""}. }
     \item{\code{compress}}{If \code{compress = "auto"} and if \code{file} ends in \code{.gz} then output format is gzipped csv else csv. If \code{compress = "none"}, output format is always csv. If \code{compress = "gzip"} then format is gzipped csv. Output to the console is never gzipped even if \code{compress = "gzip"}. By default, \code{compress = "auto"}.}
-    \item{\code{compressLevel}}{Level of compression between 1 and 9, 6 by default. See \url{https://linux.die.net/man/1/gzip} for details.}
+    \item{\code{compressLevel}}{Level of compression between 1 and 9, 6 by default. See \url{https://www.gnu.org/software/gzip/manual/html_node/Invoking-gzip.html} for details.}
     \item{\code{yaml}}{If \code{TRUE}, \code{fwrite} will output a CSVY file, that is, a CSV file with metadata stored as a YAML header, using \code{\link[yaml]{as.yaml}}. See \code{Details}. }
     \item{\code{bom}}{If \code{TRUE} a BOM (Byte Order Mark) sequence (EF BB BF) is added at the beginning of the file; format 'UTF-8 with BOM'.}
     \item{\code{verbose}}{Be chatty and report timings?}
     \item{\code{encoding}}{ The encoding of the strings written to the CSV file. Default is \code{""}, which means writing raw bytes without considering the encoding. Other possible options are \code{"UTF-8"} and \code{"native"}. }
+    \item{\code{forceDecimal}}{ Should decimal points be forced for whole numbers in numeric columns? When \code{FALSE}, the default, whole numbers like \code{c(1.0, 2.0, 3.0)} will be written as \samp{1, 2, 3} i.e., dropping \code{dec}. }
   }}
 }
 \description{

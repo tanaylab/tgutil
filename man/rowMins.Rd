@@ -9,7 +9,7 @@ rowMins(x, ...)
 }
 \arguments{
 \item{...}{
-  Arguments passed on to \code{\link[matrixStats:rowRanges]{matrixStats::rowMaxs}}
+  Arguments passed on to \code{\link[matrixStats:rowMaxs]{matrixStats::rowMaxs}}
   \describe{
     \item{\code{x}}{An NxK \code{\link[base]{matrix}} or, if \code{dim.} is specified,
 an N * K \code{\link[base]{vector}}.}

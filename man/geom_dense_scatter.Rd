@@ -46,6 +46,20 @@ A ggplot2 layer that can be added to a plot
 This geom creates a scatter plot where points are colored by their local density,
 using a custom color gradient.
 }
+\section{Computed variables}{
+
+\describe{
+  \item{\code{density}}{2D kernel density estimate at each point.}
+}
+The layer colors points directly and therefore draws no legend. To get one,
+map the density and add a matching color scale:
+\preformatted{
+ggplot(df, aes(x, y)) +
+    geom_dense_scatter(aes(colour = after_stat(density))) +
+    scale_colour_gradientn(colours = c("darkgray", "blue3", "red", "yellow"))
+}
+}
+
 \examples{
 # Create large dataset with multiple clusters
 library(ggplot2)

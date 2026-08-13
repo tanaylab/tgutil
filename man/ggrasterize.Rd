@@ -38,7 +38,8 @@ working directory.}
 If not supplied, uses the size of the current graphics device.}
 
 \item{dpi}{Plot resolution. Also accepts a string input: "retina" (320),
-"print" (300), or "screen" (72). Applies only to raster output types.}
+"print" (300), or "screen" (72). Only applies when converting pixel units,
+as is typical for raster output types.}
 
 \item{units}{One of the following units in which the \code{width} and \code{height}
 arguments are expressed: \code{"in"}, \code{"cm"}, \code{"mm"} or \code{"px"}.}
