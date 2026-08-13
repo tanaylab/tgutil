@@ -19,6 +19,8 @@ plot_dense_scatter(
   show_r2 = FALSE,
   xlim = NULL,
   ylim = NULL,
+  legend = FALSE,
+  legend_title = "Density",
   ...
 )
 }
@@ -40,6 +42,11 @@ to highest density. Default is c("darkgray", "blue3", "red", "yellow").}
 \item{size}{Numeric value for point size. Default is 0.8.}
 
 \item{alpha}{Numeric value between 0 and 1 for point transparency. Default is 1.}
+
+\item{legend}{If \code{TRUE}, draw a density color bar. Labelled "low"/"high",
+since absolute kernel-density values are not interpretable. Default is \code{FALSE}.}
+
+\item{legend_title}{Title of the color bar. Default is "Density".}
 
 \item{...}{Additional arguments passed to geom_dense_scatter.}
 }

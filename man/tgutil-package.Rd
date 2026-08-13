@@ -20,6 +20,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Elad Chomsky \email{elad@chomsky.me}
   \item Aviezer Lifshitz \email{aviezer.lifshitz@weizmann.ac.il}
 }
 

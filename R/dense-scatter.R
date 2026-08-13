@@ -1,3 +1,27 @@
+# 2D kernel density at each point - the guts of grDevices::densCols(), which
+# returns colors only. We need the density itself so it can be mapped to a
+# scale, and hence get a legend.
+#' @noRd
+dense_scatter_density <- function(x, y, nbin = 128) {
+    dens <- rep(NA_real_, length(x))
+    ok <- is.finite(x) & is.finite(y)
+    xy <- cbind(x[ok], y[ok])
+
+    bandwidth <- diff(apply(xy, 2, stats::quantile, probs = c(0.05, 0.95), na.rm = TRUE, names = FALSE)) / 25
+    bandwidth[bandwidth == 0] <- 1
+    map <- KernSmooth::bkde2D(xy, bandwidth = bandwidth, gridsize = c(nbin, nbin))
+
+    mkBreaks <- function(u) u - diff(range(u)) / (length(u) - 1) / 2
+    d <- map$fhat[cbind(
+        cut(xy[, 1], mkBreaks(map$x1), labels = FALSE),
+        cut(xy[, 2], mkBreaks(map$x2), labels = FALSE)
+    )]
+    d[is.na(d)] <- 0
+
+    dens[ok] <- d
+    dens
+}
+
 #' @noRd
 StatDenseScatter <- ggplot2::ggproto("StatDenseScatter", ggplot2::Stat,
     required_aes = c("x", "y"),
@@ -8,15 +32,12 @@ StatDenseScatter <- ggplot2::ggproto("StatDenseScatter", ggplot2::Stat,
         params
     },
     compute_group = function(data, scales, pal) {
-        # Calculate density pal
-        p_coldens <- grDevices::densCols(
-            x = data$x,
-            y = data$y,
-            colramp = grDevices::colorRampPalette(pal)
-        )
+        data$density <- dense_scatter_density(data$x, data$y)
 
-        # Add color to the data
-        data$colour <- p_coldens
+        # Same equal-width binning densCols() uses, so the points look identical
+        # whether or not a legend is drawn
+        n <- nrow(data)
+        data$colour <- grDevices::colorRampPalette(pal)(n)[cut(data$density, n, labels = FALSE)]
         data
     }
 )
@@ -39,6 +60,18 @@ StatDenseScatter <- ggplot2::ggproto("StatDenseScatter", ggplot2::Stat,
 #' @param ... Other arguments passed on to \code{\link[ggplot2]{layer}}
 #'
 #' @return A ggplot2 layer that can be added to a plot
+#'
+#' @section Computed variables:
+#' \describe{
+#'   \item{\code{density}}{2D kernel density estimate at each point.}
+#' }
+#' The layer colors points directly and therefore draws no legend. To get one,
+#' map the density and add a matching color scale:
+#' \preformatted{
+#' ggplot(df, aes(x, y)) +
+#'     geom_dense_scatter(aes(colour = after_stat(density))) +
+#'     scale_colour_gradientn(colours = c("darkgray", "blue3", "red", "yellow"))
+#' }
 #'
 #' @examples
 #' # Create large dataset with multiple clusters
@@ -141,6 +174,9 @@ geom_dense_scatter <- function(
 #'            to highest density. Default is c("darkgray", "blue3", "red", "yellow").
 #' @param size Numeric value for point size. Default is 0.8.
 #' @param alpha Numeric value between 0 and 1 for point transparency. Default is 1.
+#' @param legend If \code{TRUE}, draw a density color bar. Labelled "low"/"high",
+#'        since absolute kernel-density values are not interpretable. Default is \code{FALSE}.
+#' @param legend_title Title of the color bar. Default is "Density".
 #' @param ... Additional arguments passed to geom_dense_scatter.
 #'
 #'
@@ -214,6 +250,8 @@ plot_dense_scatter <- function(x, y,
                                show_r2 = FALSE,
                                xlim = NULL,
                                ylim = NULL,
+                               legend = FALSE,
+                               legend_title = "Density",
                                ...) {
     # Handle different input types
     if (is.matrix(x) || is.data.frame(x)) {
@@ -244,9 +282,23 @@ plot_dense_scatter <- function(x, y,
 
     # Create the plot
     p <- ggplot2::ggplot(df, ggplot2::aes(x = x, y = y)) +
-        geom_dense_scatter(pal = pal, size = size, alpha = alpha, ...) +
+        geom_dense_scatter(
+            mapping = if (legend) ggplot2::aes(colour = ggplot2::after_stat(density)),
+            pal = pal, size = size, alpha = alpha, ...
+        ) +
         ggplot2::labs(x = xlab, y = ylab, title = main, subtitle = subtitle) +
         ggplot2::theme_classic()
+
+    if (legend) {
+        # Absolute kernel-density values mean nothing to a reader, so the bar is
+        # labelled low -> high
+        p <- p + ggplot2::scale_colour_gradientn(
+            colours = pal,
+            name = legend_title,
+            breaks = function(lims) lims,
+            labels = c("low", "high")
+        )
+    }
 
     if (!is.null(xlim)) {
         p <- p + ggplot2::xlim(xlim)
